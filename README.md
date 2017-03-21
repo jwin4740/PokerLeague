@@ -3,34 +3,45 @@
 ## Requirements:- ##
 
 ### 1. Homepage ->
-* leaderboard displaying player name, points, date played, tournament name, ranking.
-* Menu bar with logo on left linking to homepage, right-hand-side links to Login page, Signup page, tournament lists (scrolling down Homepage will show tournament lists), gallery of winners.
-* Scroll down to show tournament lists, time and location - clicking this, will let user login/signup before entering tournament. If already logged in, enter user as player in tournament.
+* Menu bar -> Logo on top-left linking to homepage. Top-right - Login and SignUp, (or Logout button if already signed in).
+* Leaderboard with -> Ranking, Player_Name, Points, Date_Last_Played.
+* Upcoming/ Open tournaments - Click to get info (info can be displayed in modal or a collapse panel), with Register button. Prompt user to login/signup before entering tournament. If already logged in, enter user as player in tournament.
+
+#### 1.a. Login modal ->  
+* Text box inputs for emailId and password.
+* Forgot password button shows ‘Enter email’ input field - sends email with random temp password. (Tentative - figure out how).
+* On click of Login button - redirect to 'User.html' page.
+
+ ^^Validation important^^
 
 ### 2. User portal -> 
-* Display user’s details (available to edit), current tournaments user has signed up for, Ranking/ points obtained per tournament.
-* Current tournaments signed up for by user. With the ranking/ points obtained per tournament.
-* Option to forfeit from a tournament.
+* Logout button on top-right.
+* User’s details (some available for edit).
+* Current tournaments user has registered for. With option to forfeit a tournament.
 
 ### 3. Admin portal ->
+* Logout button on top-right.
 * Admin details (Tentative requirement).
-* Delete (Cascade delete in relational database - check on way to implement it) or Create a tournament - specify name, date, rules. (Similar to Bamazon HW Assignment 12).
-* View a list of players per tournament. Add or remove players from tournaments.(Similar to Bamazon HW Assignment 12).
-* Validation required.
+* Create A Tournament -> show hidden createTournament form -> Name, Date, Time.
+* List all scheduled tournaments -> click on View to view list of players (CheckIn page). Edit button to edit name, date or time.
 
-### 4. Login modal ->  
-* Text box inputs for username and password.
-* Forgot password button shows ‘Enter email’ modal and sends email with interim password. (Tentative - figure out how).
-* On click of login - reload home page with user’s name + username displayed and user-specific data (to be figured out).
-* Validation important.
+#### 3.a. CheckIn page -> 
+* On click of View button -> show all players (who have registered for the tournament) with a Check-In button to Check them in once they are ready to play. 
+* Start Tournament button at end of page -> Takes Admin to 'Tournament.html' page.
 
-### 5. Sign up page ->  
-* Usual form with text boxes and code to push to database on submit. 
-* Extensive validation required.
+#### 3.b. Tournament page ->
+* Display list of players in a box.
+* As game progresses, Admin can drag-and-drop, or type (whichever we get around to completing) next to Ranking - this will also calculate points with each drag-and-drop or enter.
+* End game button -> Calculated points are pushed to database. Redirect to main page (or Admin portal - TBD).
 
-### 6. Gallery ->  
-* Images displayed using Ajax call (get request) to wherever winner images are stored. (Similar to Giphy app HW Assignment 6).
+ ^^ Validation important ^^
 
+### 4. Register page ->  
+* Input fields for Name, UserName, emailId, password. 
+* On Submit, populate database with details, added as role User (not Admin).
+* Redirect to User portal.
+
+ ^^Extensive validation required^^
 
 -----------------------------
 
@@ -40,27 +51,30 @@
 ### 1. MODEL - Database -> MySQL -> 
 
 
-* Authentication Table with ‘hashed’ passwords (until a better method is proposed)
+* USER Table with ‘hashed’ passwords
 
-	Id - Primary key	| 	Username | 	Password | 	Role
+	Id - PRIMARY KEY	| 	Email	|	Username | 	Password | 	Role
 				
-* User Table 
 
-	Id - Primary key 	| 	Name 	| 	Username - Foreign key 	| 	Tournaments - Foreign key 	| 	Date played	|  Total Points 	| 	Scores	 | 	 ——?
+* TOURNAMENTS table 
+
+	Id - PRIMARY KEY 	|	Name	|	Date	| 	Time	
+
+
+* PLAYERS Table 
+
+	Id - PRIMARY KEY 	| 	Player_Id - FOREIGN KEY To Id in USER table 	| 	Tournament_Id - FOREIGN KEY To Id in TOURNAMENTS table  	|  Points 	
 	
-* Tournaments table 
-
-	Id - Primary key 	|	Name	|	Location	|	Dates	| 	Prize	| 	——?
 
 
 
-### 2. VIEW - UI - HTML, CSS -> 5 pages - 5 routes.
+### 2. VIEW - UI - HTML, CSS -> 6 pages - 6 routes.
 
 
 
 ### 3. CONTROLLER - Middleware -> 
 
-* Api routes -> Get, Post, Delete, Put (to be configured in detailed design)
+* Api routes -> Get, Post, Delete, Put (to be configured in detailed design).
 * HTML routes -> Routing for HTML pages, CSS pages, Images, etc.
 * Sequelize -> Mapping to MySQL 
 
