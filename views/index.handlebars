@@ -1,0 +1,40 @@
+<div class="container text-center">
+        <!--Header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="">
+                    <h1>Barr Poker League</h1>
+                </div>
+            </div>
+        </div>
+        <!-- Leaderboard -->
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- ///// Table goes here ////// -->
+            </div>
+        </div>
+
+        <!-- List of Tournaments -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="" id="tournamentsList">
+                    {{#each tournament}}
+                    <div data-toggle="collapse" data-parent="#tournamentsList" href="#collapse{{this.id}}" aria-expanded="true" aria-controls="collapseOne">{{this.name}}</div>
+                    <div id="collapse{{this.id}}" class="collapse">
+                        <div class="tournamentData">
+                            <p class="tournamentDate">Date: {{this.date}}</p>
+                            <p class="tournamentTime">Time: {{this.time}}</p>
+                            <button class="btn btn-lg btn-danger register">Register</button>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid text-center">
+        <div>
+            <small>&copy; 2017</small>
+        </div>
+    </footer>
