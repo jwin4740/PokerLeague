@@ -1,24 +1,28 @@
 module.exports = function(sequelize, DataTypes) {
   var Tournaments = sequelize.define("tournaments", {
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
+    // Can be removed if timestamps 'CreatedAt' and 'UpdatedAt' are required in database
+    timestamps: false,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
     },
-    body: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      len: [1]
-    },
-    category: {
+    name: {
       type: DataTypes.STRING,
-      defaultValue: "Personal"
+      allowNull: false
+    },
+    date: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
+    },
+    time: {
+      type: DataTypes.TIME,
+      allowNull: false
     }
   });
-  return Post;
+  return Tournaments;
 };
 
 
-//to do!!! 
+// Check if right !!
