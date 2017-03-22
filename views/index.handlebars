@@ -10,7 +10,26 @@
         <!-- Leaderboard -->
         <div class="row">
             <div class="col-xs-12">
-                <!-- ///// Table goes here ////// -->
+                      <table class="table">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player</th>
+                            <th>Last Played Date</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each playerData}}
+                        <tr>
+                            <th scope="row">{{this.id}}</th>
+                            <td>{{this.name}}</td>
+                            <td>{{this.dateLastPlayed}}</td>
+                            <td>{{this.totalPoints}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
             </div>
         </div>
 
