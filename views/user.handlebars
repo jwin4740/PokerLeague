@@ -1,0 +1,67 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Logo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+             <ul class="nav navbar-nav navbar-right">
+                <li class="signedIn"><p>Welcome <span id="userName">{{userName}}</span></p> 
+                <li class="signedIn"><a href="/logout">Logout</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<h2>Hello {{userName}}!</h2>
+
+<h3>List of Tournaments you have registered for</h3>
+ <!-- List of Tournaments -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="" id="tournamentsList">
+            {{#each tournament}}
+            	{{#if this.ofUser }}
+                <div class="tournamentData" id="{{this.id}}">
+                    <p class="tournamentDate">Date: {{this.date}}</p>
+                    <p class="tournamentTime">Time: {{this.time}}</p>
+                    <button class="btn btn-lg btn-danger unregister" id="unregister{{this.id}}">Unregister</button>
+                </div>
+                {{/if}}
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+<h3>Other tournaments</h3>
+ <!-- List of Tournaments -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="" id="tournamentsList">
+            {{#each tournament}}
+            	{{#unless this.ofUser }}
+                <div class="tournamentData" id="{{this.id}}">
+                    <p class="tournamentDate">Date: {{this.date}}</p>
+                    <p class="tournamentTime">Time: {{this.time}}</p>
+                    <button class="btn btn-lg btn-danger unregister" id="unregister{{this.id}}">Unregister</button>
+                </div>
+                {{/unless}}
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+
+ <footer class="container-fluid text-center">
+    <div>
+        <small>&copy; 2017</small>
+    </div>
+</footer>

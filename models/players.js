@@ -1,7 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
   var Players = sequelize.define("players", {
-    // Can be removed if timestamps 'CreatedAt' and 'UpdatedAt' are required in database
-    // timestamps: false,
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
