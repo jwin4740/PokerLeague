@@ -16,23 +16,23 @@ module.exports = function(app) {
   /////////// To do ///////////
 
   app.get("/admin", function(req, res) {
-    res.render("admin",{});
+    res.render('admin');
   });
 
   app.get("/user", function(req, res) {
-    res.render("user",{});
+    res.render('user');
   });
 
   app.get("/register", function(req, res) {
-    res.render("register",{});
+    res.render('register');
   });
 
   app.get("/checkin", function(req, res) {
-    res.render("checkin",{});
+    res.render('checkin');
   });
 
   app.get("/tournament", function(req, res) {
-    res.render("tournament",{});
+    res.render('tournament');
   });
 
 };
