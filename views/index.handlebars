@@ -1,0 +1,112 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Logo</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#loginModal">Login</a></li> 
+                <li><a href="/register">Sign Up</a></li> 
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container text-center">
+        <!--Header -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="">
+                    <h1>Barr Poker League</h1>
+                </div>
+            </div>
+        </div>
+        <!-- Leaderboard -->
+        <div class="row">
+            <div class="col-xs-12">
+                      <table class="table">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Rank</th>
+                            <th>Player</th>
+                            <th>Last Played Date</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each playerData}}
+                        <tr>
+                            <th scope="row">{{this.id}}</th>
+                            <td>{{this.name}}</td>
+                            <td>{{this.dateLastPlayed}}</td>
+                            <td>{{this.totalPoints}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- List of Tournaments -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="" id="tournamentsList">
+                    {{#each tournament}}
+                    <div data-toggle="collapse" data-parent="#tournamentsList" href="#collapse{{this.id}}" aria-expanded="true" aria-controls="collapseOne">{{this.name}}</div>
+                    <div id="collapse{{this.id}}" class="collapse">
+                        <div class="tournamentData">
+                            <p class="tournamentDate">Date: {{this.date}}</p>
+                            <p class="tournamentTime">Time: {{this.time}}</p>
+                            <button class="btn btn-lg btn-success register">Register</button>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal fade text-center" role="dialog">
+        <div class="modal-dialog">
+            <!-- Login Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-lg fa-times-circle-o" aria-hidden="true"></i></button>
+                    <h4 class="modal-title">Login</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="input-group">
+                            <span class="input-group-addon">Email</span>
+                            <input id="email" type="text" class="form-control" name="email">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">Password</span>
+                            <input id="password" type="password" class="form-control" name="password">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-lg btn-danger center-block" data-dismiss="modal">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid text-center">
+        <div>
+            <small>&copy; 2017</small>
+        </div>
+    </footer>

@@ -20,6 +20,11 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
+### OSX ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
 # node-waf configuration
 .lock-wscript
 

@@ -1,24 +1,36 @@
 module.exports = function(sequelize, DataTypes) {
-  var Post = sequelize.define("Post", {
-    title: {
+  var Users = sequelize.define("users", {
+    // Can be removed if timestamps 'CreatedAt' and 'UpdatedAt' are required in database
+    timestamps: false,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1]
+        isEmail: true
       }
     },
-    body: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      len: [1]
-    },
-    category: {
+    username: {
       type: DataTypes.STRING,
-      defaultValue: "Personal"
+      allowNull: false
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+// Figure out more about hashed passwords to store here
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      isIn: [['admin', 'user']]
     }
   });
-  return Post;
+  return Tournaments;
 };
 
-
-///to do!!!!
+/// Check if correct !!!!
