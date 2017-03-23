@@ -1,7 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
   var Tournaments = sequelize.define("tournaments", {
-    // Can be removed if timestamps 'CreatedAt' and 'UpdatedAt' are required in database
-    // timestamps: false,
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -23,6 +21,3 @@ module.exports = function(sequelize, DataTypes) {
   });
   return Tournaments;
 };
-
-
-// Check if right !!

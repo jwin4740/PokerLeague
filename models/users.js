@@ -1,7 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
   var Users = sequelize.define("users", {
-    // Can be removed if timestamps 'CreatedAt' and 'UpdatedAt' are required in database
-    // timestamps: false,
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -10,7 +8,14 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      // removing allowNull here 
+
+      // reason: A user will have a username, email and password
+      // The username will be used to populate leaderboard.
+      // As per today's info, when a user deletes their account, the id and username needn't be deleted from this database
+      // Only the email and password can be deleted. 
+      // This ensures that the id (needed for foreign key relation in players table), and username (needed to display on leaderboard) are still available,
+      // while email and password are not, thereby not letting the deleted user to sign in.
       validate: {
         isEmail: true
       }
@@ -20,8 +25,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     password: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
+      // See reason above for why allowNull has been removed
 // Figure out more about hashed passwords to store here
     },
     role: {
@@ -29,11 +34,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       isIn: [['admin', 'user']]
     }
-  },
-  {
-    timestamps: false
   });
   return Users;
 };
 
-/// Check if correct !!!!
