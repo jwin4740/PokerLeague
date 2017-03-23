@@ -1,25 +1,24 @@
 {
     "development": {
         "username": "root",
-        "password": "password",
-        "database": "blogger",
-        "host": "127.0.0.1",
+        "password": "",
+        "database": "poker",
+        "host": "localhost",
         "dialect": "mysql"
     },
     "test": {
         "username": "root",
-        "password": "password",
+        "password": "",
         "database": "database_test",
         "host": "127.0.0.1",
         "dialect": "mysql"
     },
     "production": {
         "username": "root",
-        "password": "password",
+        "password": "",
         "database": "database_production",
         "host": "127.0.0.1",
         "dialect": "mysql"
     }
 }
 
-//update with proper login!
