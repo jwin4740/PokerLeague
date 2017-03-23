@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Users = sequelize.define("users", {
     // Can be removed if timestamps 'CreatedAt' and 'UpdatedAt' are required in database
-    timestamps: false,
+    // timestamps: false,
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -29,8 +29,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       isIn: [['admin', 'user']]
     }
+  },
+  {
+    timestamps: false
   });
-  return Tournaments;
+  return Users;
 };
 
 /// Check if correct !!!!

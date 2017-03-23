@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Players = sequelize.define("players", {
     // Can be removed if timestamps 'CreatedAt' and 'UpdatedAt' are required in database
-    timestamps: false,
+    // timestamps: false,
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -10,12 +10,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     player_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
       ///// Figure out how to make this a FOREIGN_KEY to Users.id
     },
     tournament_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
       ///// Figure out how to make this a FOREIGN_KEY to Tournaments.id
     },
     points: {
