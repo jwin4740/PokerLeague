@@ -1,67 +1,85 @@
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Logo</a>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-             <ul class="nav navbar-nav navbar-right">
-                <li class="notSignedIn"><a href="#loginModal">Login</a></li> 
-                <li class="notSignedIn"><a href="/register">Sign Up</a></li>
-                <li class="signedIn"><p>Welcome <span id="userName">{{userName}}</span></p> 
-                <li class="signedIn"><a href="/logout">Logout</a></li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src='http://code.interactjs.io/v1.2.6/interact.js'></script>
+    <link href="assets/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="public/css/checkin.css">
+    <link href="assets/shocktherapybb_reg.otf" rel="stylesheet" type="text/css" />
+    <title>Weather Wizard</title>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<!--Beginning of navbar-->
 
-<div class="container text-center">
-        <!--Header -->
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="">
-                    <h1>Barr Poker League</h1>
-                </div>
+<body>
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="" href="/index.html"><span class="red">Poker League</span></a>
             </div>
-        </div>
-        <!-- Leaderboard -->
-        <div class="row">
-            <div class="col-xs-12">
-                  <table class="table">
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th>#</th>
-                            <th>Player</th>
-                            <th>Check 'em In</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each player}}
-                        <tr>
-                            <th scope="row">{{this.id}}</th>
-                            <td>{{this.name}}</td>
-                            <td><button type="button" class="btn btn-lg btn-info" id="checkIn{{this.id}}">Check In</button></td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+                <form class="navbar-form navbar-right">
+                    <button type="button" id="btnLogin" class="btn btn-default">Login</button>
+                    <button type="button" id="btnLogout" class="btn btn-default hide">Log out</button>
+                    <button type="button" id="btnSignUp" class="btn btn-default">Sign up</button>
+                </form>
+
             </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4">
+            <button type="button" id="btnCheckin" class="btn btn-default">Check in</button>
+            <button type="button" id="btnCheckin" class="btn btn-default">Check in</button>
+            <button type="button" id="btnCheckin" class="btn btn-default">Check in</button>
+            <button type="button" id="btnCheckin" class="btn btn-default">Check in</button>
         </div>
 
-    <!-- Button to be kept disabled until tournament begin time. Enable button 1 minute before tournament start time, so it's not accidentally clicked before everyone gets a chance to checkin. -->
+        <div class="row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+                <button type="button" id="btnCheckin" class="btn btn-default">Check in</button>
+                <button type="button" id="btnCheckin" class="btn btn-default">Check in</button>
+                <button type="button" id="btnCheckin" class="btn btn-default">Check in</button>
+                <button type="button" id="btnCheckin" class="btn btn-default">Check in</button>
+            </div>
 
-    <button type="submit" class="btn btn-lg btn-success" id="startTournament">Start Tournament</button>
 
-    <footer class="container-fluid text-center">
-        <div>
-            <small>&copy; 2017</small>
-        </div>
-    </footer>
+
+
+</body>
+
+</html>
