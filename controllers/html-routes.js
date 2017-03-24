@@ -9,15 +9,19 @@ module.exports = function(app) {
     // To do //
     //// sequelize query and logic here to populate leaderboard and tournaments list
 
-    db.User.findAll({}).then(function(results) {
-    console.log(results);
-
+    db.User.findAll({}).then(function(userResults) {
+      
+    db.Tournament.findAll({}).then(function(tournamentResults){
         res.render("index", {
-        playerData: results,
-        tournament: tournaments
+        playerData: userResults,
+        tournament: tournamentResults
+
+      });
     });
 
+
   });
+
 
 });
 
