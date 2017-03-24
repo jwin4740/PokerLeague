@@ -5,37 +5,28 @@ var db = require("../models");
 // =============================================================
 module.exports = function(app) {
 
-  app.get("/", function(req, res) {
-    // To do //
-    //// sequelize query and logic here to populate leaderboard and tournaments list
-
-    db.User.findAll({}).then(function(userResults) {
-      
+app.get("/", function(req, res) {
+  db.User.findAll({}).then(function(userResults) {
+    
     db.Tournament.findAll({}).then(function(tournamentResults){
         res.render("index", {
-        playerData: userResults,
-        tournament: tournamentResults
+          playerData: userResults,
+          tournament: tournamentResults
 
-      });
+        });
     });
-
-
   });
-
-
 });
 
+app.get("/admin", function(req, res) {
 
-
-
-  app.get("/admin", function(req, res) {
-    //Todo sequelize//
-    // Get all tournaments and their details.
-    res.render('admin', {
-      userName: userName,
-      tournament: tournamentsData
+  db.Tournament.findAll({}).then(function(tournamentResults){
+    res.render("admin", {
+      tournament: tournamentResults
     });
+ 
   });
+});
 
   app.get("/user", function(req, res) {
     //Todo code//

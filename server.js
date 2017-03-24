@@ -34,7 +34,7 @@ app.use(express.static("./public"));
 
 // Requiring html-routes.js to route html files
 require("./controllers/html-routes.js")(app);
-// require("./controllers/api-routes.js")(app);
+require("./controllers/api-routes.js")(app);
 
 // Syncing sequelize models, then starting express app
 db.sequelize.sync({force: false}).then(function() {

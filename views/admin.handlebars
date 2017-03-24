@@ -24,7 +24,7 @@
 <div class="row">
     <div class="col-xs-12">
         <h3>Add a new tournament -> </h3>
-        <form id="addTournamentForm" method="post" action="/tournament/add">
+        <form id="addTournamentForm" method="post" action="/add/tournament">
             <div class="form-group">
                 <label>Tournament name</label>
                 <input type="text" class="form-control" placeholder="Name"
@@ -53,13 +53,14 @@
             <div class="" id="tournamentsList">
                 {{#each tournament}}
                     <div class="tournamentData" id="{{this.id}}">
+                        <p class="tournamentName">Name: {{this.name}}</p>
                         <p class="tournamentDate">Date: {{this.date}}</p>
                         <p class="tournamentTime">Time: {{this.time}}</p>
-                        <button class="btn btn-lg btn-warning edit" id="edit{{this.id}}">Edit</button>
+                        <button class="btn btn-warning edit" id="edit{{this.id}}">Edit</button>
                         <button type='submit' class='update btn btn-success'>Update</button>
                         <button type='submit' class='delete btn btn-danger'>Delete</button>
                         <button class='undoEditClick btn btn-warning'><i class='fa fa-undo' aria-hidden='true'></i></button>
-                        <button class="btn btn-lg btn-info checkIn" id="checkInPlayers{{this.id}}">Check in players</button>
+                        <button class="btn btn-info checkIn" id="checkInPlayers{{this.id}}">Check in players</button>
                     </div>
                 {{/each}}
             </div>
