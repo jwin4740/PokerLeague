@@ -63,7 +63,8 @@
             <div class="col-xs-12">
                 <div class="" id="tournamentsList">
                     {{#each tournament}}
-                    <div data-toggle="collapse" data-parent="#tournamentsList" href="#collapse{{this.id}}" aria-expanded="true" aria-controls="collapseOne">{{this.name}}</div>
+                    <div data-toggle="collapse" data-parent="#tournamentsList" href="#collapse{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
+                    <button class = "btn btn-lg btn-success">{{this.name}}</button></div>
                     <div id="collapse{{this.id}}" class="collapse">
                         <div class="tournamentData">
                             <p class="tournamentDate">Date: {{this.date}}</p>
