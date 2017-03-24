@@ -40,12 +40,11 @@ app.get("/admin", function(req, res) {
 
   app.get("/register", function(req, res) {
     //Todo//
-    res.render('register');
-    // , {
-    //   errors: errors,
-    //   msg: message
-    //   //// ^ Check this -> register.handlebars seems to have {{errors}} and {{msg}}
-    // });
+    res.render('register', {title: 'Form Validation', success: req.session.success, errors: req.session.errors});
+    //this resets the errors and success properties to null after they have been shown to user
+    req.session.errors = null;
+    req.session.success = null
+    
   });
 
   app.get("/checkin", function(req, res) {
