@@ -14,7 +14,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li class="notSignedIn"><a href="#loginModal">Login</a></li> 
+                <li class="notSignedIn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li> 
                 <li class="notSignedIn"><a href="/register">Sign Up</a></li>
                 <li class="signedIn"><p>Welcome <span id="userName">{{userName}}</span></p> 
                 <li class="signedIn"><a href="/logout">Logout</a></li>
@@ -111,3 +111,5 @@
             <small>&copy; 2017</small>
         </div>
     </footer>
+
+    <script type="text/javascript" src="/js/index.js"></script>
