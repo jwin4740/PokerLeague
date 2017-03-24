@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Players = sequelize.define("players", {
+  var Player = sequelize.define("Player", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     }
   });
-  return Players;
+  return Player;
 };
 
 //////// Players.hasMany(Users, { through: 'Players', foreignKey: 'id' }) //////////

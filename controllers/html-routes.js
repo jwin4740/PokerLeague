@@ -1,4 +1,5 @@
 var path = require("path");
+var db = require("../models");
 
 // Routes
 // =============================================================
@@ -7,11 +8,21 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     // To do //
     //// sequelize query and logic here to populate leaderboard and tournaments list
-    res.render("index", {
-      playerData: playerData,
-      tournament: tournaments
+
+    db.User.findAll({}).then(function(results) {
+    console.log(results);
+
+        res.render("index", {
+        playerData: results,
+        tournament: tournaments
     });
+
   });
+
+});
+
+
+
 
   app.get("/admin", function(req, res) {
     //Todo sequelize//
