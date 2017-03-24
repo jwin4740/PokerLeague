@@ -40,11 +40,12 @@ app.get("/admin", function(req, res) {
 
   app.get("/register", function(req, res) {
     //Todo//
-    res.render('register', {
-      errors: errors,
-      msg: message
-      //// ^ Check this -> register.handlebars seems to have {{errors}} and {{msg}}
-    });
+    res.render('register');
+    // , {
+    //   errors: errors,
+    //   msg: message
+    //   //// ^ Check this -> register.handlebars seems to have {{errors}} and {{msg}}
+    // });
   });
 
   app.get("/checkin", function(req, res) {
