@@ -1,8 +1,8 @@
 {
     "development": {
         "username": "root",
-        "password": "root",
-        "database": "poker_DB",
+        "password": "",
+        "database": "pokerdb",
         "host": "localhost",
         "dialect": "mysql"
     },
