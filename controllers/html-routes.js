@@ -54,13 +54,45 @@ app.get("/admin", function(req, res) {
     
   });
 
-  app.get("/checkin", function(req, res) {
-    //Todo//
-    // Get all players registered for current tournament
-    res.render('checkin', {
-      userName: userName,
-      player: tournamentPlayers
+  app.get("/checkin/:id", function(req, res) {
+   
+    db.Player.findAll({
+      attributes: ['UserId'],
+      where: {
+        // tournament id = what is passed 
+        // registered flag is set to true (1)
+        TournamentId: req.params.id,
+        player_registered_flag: 1
+      }
+    }).then(function(playerData) {
+      // arrays to store userIds, and data to render
+      var userIdArrays = [];
+      var tournamentPlayers = [];
+      // Loop through result of query to push ids to array
+      playerData.forEach(function(item) {
+        userIdArrays.push(item.dataValues.UserId);
+      });
+      console.log(userIdArrays);
+      // For each of the ids, get usernames from User table
+      for(var i=0; i<userIdArrays.length; i++) {
+        db.User.findAll({
+          where: {
+            id: userIdArrays[i]
+          },
+          attributes: ['username']
+        }).then(function(userData) {
+          // Loop through data to push just username into array
+          for(var i=0; i<userData; i++) {
+            tournamentPlayers.push(item.dataValues.username);
+          }
+          console.log(tournamentPlayers);
+        });
+      }
+      res.render('checkin', {
+            player: tournamentPlayers
+          });
     });
+    
   });
 
   app.get('/logout', function(req,res){
