@@ -6,16 +6,6 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       allowNull: false
     },
-    player_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-      ///// Figure out how to make this a FOREIGN_KEY to Users.id
-    },
-    tournament_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-      ///// Figure out how to make this a FOREIGN_KEY to Tournaments.id
-    },
     points: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -30,7 +20,27 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       defaultValue: 0 
     }
-  });
+  },
+    {
+      // Foreign keys to UserId and TournamentId
+      classMethods: {
+        associate: function(models) {
+          // Foreign key to user_id
+          Player.belongsTo(models.User, {
+            foreignKey: {
+              allowNull: false
+            }
+          });
+          // Foreign key to tournament_id
+          Player.belongsTo(models.Tournament, {
+            foreignKey: {
+              allowNull: false
+            }
+          });
+        }
+      }
+    }
+  );
   return Player;
 };
 

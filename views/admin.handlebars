@@ -60,7 +60,7 @@
                         <button type='submit' class='update btn btn-success'>Update</button>
                         <button type='submit' class='delete btn btn-danger'>Delete</button>
                         <button class='undoEditClick btn btn-warning'><i class='fa fa-undo' aria-hidden='true'></i></button>
-                        <button class="btn btn-info checkIn" id="checkInPlayers{{this.id}}">Check in players</button>
+                        <a href="/checkin/{{this.id}}"><button class="btn btn-info checkIn" class="checkInPlayers">Check in players</button></a>
                     </div>
                 {{/each}}
             </div>
