@@ -1,6 +1,8 @@
 var path = require("path");
 var db = require("../models");
 
+var session;
+
 // Routes
 // =============================================================
 module.exports = function(app) {
@@ -19,23 +21,29 @@ app.get("/", function(req, res) {
 });
 
 app.get("/admin", function(req, res) {
-
+  session = req.session;
+  if (session.uniqueID == 'admin'){
   db.Tournament.findAll({}).then(function(tournamentResults){
     res.render("admin", {
       tournament: tournamentResults
     });
  
   });
+  }else{
+    console.log('unauthorized access');
+    res.redirect('/');
+  }
 });
 
   app.get("/user", function(req, res) {
     //Todo code//
     // Code here to add a flag ofUser to tournamentsData so handlebars 
     // can check if it belongs to user's list of tournaments or not, and display accordingly.
-    res.render('user', {
-      userName: userName,
-      tournament: tournamentsData
-    });
+      res.render('user');
+    // res.render('user', {
+    //   userName: userName,
+    //   tournament: tournamentsData
+    // });
   });
 
   app.get("/register", function(req, res) {
@@ -55,6 +63,14 @@ app.get("/admin", function(req, res) {
       player: tournamentPlayers
     });
   });
+
+  app.get('/logout', function(req,res){
+    console.log('get logout');
+    req.session.destroy(function(error){
+      console.log(error);
+      res.redirect('/');
+    })
+  })
 
   ////////// To do ////////////
 
