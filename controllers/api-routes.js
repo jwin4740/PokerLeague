@@ -86,7 +86,7 @@ app.post("/login", function(req, res){
 	  var salt = data.salt;
 	  var hashedPassword = sha512(req.body.password, salt).passwordHash;
 	  if(hashedPassword === data.hash){
-	  	session.uniqueID = [data.email, data.role];
+	  	session.uniqueID = [data.email, data.role, data.id];
 		  	if(data.role === "admin"){
 		  		res.redirect('/admin');
 		  	}else if(data.role === "user"){
@@ -107,6 +107,18 @@ app.post("/login", function(req, res){
 
 	});
 	
+});
+
+app.get('/register/tournament/:id', function(req, res){
+	var tournamentID = req.params.id;
+	var userID = req.session.uniqueID[2];
+
+	db.Player.create({
+		UserId: userID,
+		TournamentId: tournamentID,
+		player_registered_flag: 1
+	});
+
 });
 	
 

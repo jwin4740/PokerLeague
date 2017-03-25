@@ -8,7 +8,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     points: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 0
     },
     player_registered_flag: {
       type: DataTypes.BOOLEAN,
