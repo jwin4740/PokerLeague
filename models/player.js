@@ -19,6 +19,16 @@ module.exports = function(sequelize, DataTypes) {
     points: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    player_registered_flag: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 0
+    },
+    player_checkedIn_flag: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 0 
     }
   });
   return Player;
