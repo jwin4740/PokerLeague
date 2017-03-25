@@ -88,7 +88,7 @@
                     <h4 class="modal-title">Login</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="loginForm">
+                    <form id="loginForm" method="post" action="/login">
                         <div class="input-group">
                             <span class="input-group-addon">Email</span>
                             <input id="email" type="text" class="form-control" name="email">
@@ -98,11 +98,15 @@
                             <span class="input-group-addon">Password</span>
                             <input id="password" type="password" class="form-control" name="password">
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-lg btn-danger center-block" data-dismiss="modal">Login
+                            <button>
+                            <input type="submit" id="submit" name="submit">
+                            
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-lg btn-danger center-block" data-dismiss="modal">Login</button>
-                </div>
+                
             </div>
         </div>
     </div>
