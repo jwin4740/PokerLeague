@@ -3,9 +3,6 @@
 // a. Get user_id from players where tournament_id = req.params.tournament_id.
 // b. store that, and for each of the user_ids, get usernames
 
-////////////////////// Newly added /////////////////////////
-/////// Remove and replace this to new snippets of code for readability ///////////////
-
 // On load of page, 
 $(document).ready(function() {
 	// Update content to allow users registered after checkin page load to be displayed
@@ -25,6 +22,9 @@ $(document).ready(function() {
     	var checkinButton = $(this);
     	checkinButton.attr('disabled', true);
 
+////////////////////// Newly added /////////////////////////
+/////// Remove and replace this to new snippets of code for readability ///////////////
+
     	$.ajax({
 	      method: "PUT",
 	      url: "/player/checkin",
@@ -38,12 +38,14 @@ $(document).ready(function() {
 	      	checkinArea.append("<p>Player Checked In successfully.</p>");
 	      	removeMessage();
 	    }).fail(function(data) {
-	    	console.log("checkin Failed");
+	    	console.log(data);
 	    	checkinButton.attr('disabled', false);
 	    	// Add css for error messages similar to form validation during register for uniformity.
 	    	checkinArea.append("<p>Unable to Check In player. Try again.</p>");
 	    	removeMessage();
 	    });
+
+	    // Function to remove success/ fail message after 3 secs
 	    function removeMessage() {
 	    	setTimeout(function(){ checkinArea.children("p").remove(); }, 3000);
 	    }
