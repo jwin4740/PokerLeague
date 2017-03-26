@@ -82,7 +82,7 @@ app.get("/admin", function(req, res) {
    var tournament_Id = req.params.id;
    // SELECT users.username FROM Users INNER JOIN Players ON users.id = players.UserId WHERE players.TournamentId = 1 AND players.player_registered_flag = 1;
    db.User.findAll({
-    attributes: ['username', 'id','player_checkedIn_flag'],
+    attributes: ['username', 'id', 'player_checkedIn_flag'],
     include: [{
       model: db.Player,
       where: {
@@ -109,6 +109,12 @@ app.get("/admin", function(req, res) {
             inc: function (index) { return parseInt(index) + 1; }
         }
       });
+   }).catch(function (err) {
+      // handle error;
+      console.log("Error: " + err);
+      ///////////////// To do //////////////////
+      // res.redirect("/500");
+      res.render("500", {error: err});
    });
 });
 
@@ -127,4 +133,18 @@ app.get("/admin", function(req, res) {
     res.render('tournament');
   });
 
+  // app.use(function(req, res) {
+  //   res.type('text/html');
+  //   res.status(404);
+  //   res.render('404');
+  // });
+
+  // app.use(function(err, req, res, next) {
+  //   console.log(err.stack);
+  //   res.status(500);
+  //   res.render('500');
+  // });
+
 };
+
+
