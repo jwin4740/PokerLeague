@@ -7,19 +7,22 @@ var session;
 // =============================================================
 module.exports = function(app) {
 
+//////// CREATE NEW object models TO PROVIDE SPECIFIC DATA FROM DB , AVOIDING ASYNC ISSUES ////////
+
 app.get("/", function(req, res) {
+
   db.User.findAll({}).then(function(userResults) {
     
     db.Tournament.findAll({}).then(function(tournamentResults){
         res.render("index", {
           playerData: userResults,
           tournament: tournamentResults
-
         });
     });
   });
 });
 
+// Render tournament data on admin page
 app.get("/admin", function(req, res) {
   session = req.session;
   if (session.uniqueID[1] === 'admin'){
@@ -35,6 +38,7 @@ app.get("/admin", function(req, res) {
   }
 });
 
+// Render tournament specific to user and other tournaments
   app.get("/user", function(req, res) {
     //Todo code//
     // Query database for all tournaments - then
@@ -82,7 +86,7 @@ app.get("/admin", function(req, res) {
    var tournament_Id = req.params.id;
    // SELECT users.username FROM Users INNER JOIN Players ON users.id = players.UserId WHERE players.TournamentId = 1 AND players.player_registered_flag = 1;
    db.User.findAll({
-    attributes: ['username', 'id', 'player_checkedIn_flag'],
+    attributes: ['username', 'id'],
     include: [{
       model: db.Player,
       where: {
@@ -139,11 +143,11 @@ app.get("/admin", function(req, res) {
   //   res.render('404');
   // });
 
-  // app.use(function(err, req, res, next) {
-  //   console.log(err.stack);
-  //   res.status(500);
-  //   res.render('500');
-  // });
+  app.use(function(err, req, res, next) {
+    console.log(err.stack);
+    res.status(500);
+    res.render('500');
+  });
 
 };
 

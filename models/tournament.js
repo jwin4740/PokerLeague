@@ -18,6 +18,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TIME,
       allowNull: false
     }
-  });
+  },
+    // To create an association between Tournaments and Players
+    {
+      classMethods: {
+        associate: function(models) {
+          // Tournament is connected to many player rows
+          Tournament.hasMany(models.Player);
+        }
+      }
+    }
+  );
   return Tournament;
 };
