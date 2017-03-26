@@ -82,12 +82,12 @@ app.get("/admin", function(req, res) {
    var tournament_Id = req.params.id;
    // SELECT users.username FROM Users INNER JOIN Players ON users.id = players.UserId WHERE players.TournamentId = 1 AND players.player_registered_flag = 1;
    db.User.findAll({
-    attributes: ['username', 'id'],
+    attributes: ['username', 'id','player_checkedIn_flag'],
     include: [{
       model: db.Player,
       where: {
         TournamentId: tournament_Id,
-        player_registered_flag: 1
+        player_registered_flag: 1,
       }
     }]
    }).then(function(playerNames) {
@@ -96,7 +96,8 @@ app.get("/admin", function(req, res) {
         return {
           "username" : item.dataValues.username,
           "userId" : item.dataValues.id,
-          "tournamentId": tournament_Id
+          "tournamentId": tournament_Id,
+          "player_checkedIn_flag": item.dataValues.player_checkedIn_flag
         };
       });
       console.log(tournamentPlayers);

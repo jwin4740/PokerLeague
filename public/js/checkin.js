@@ -20,7 +20,10 @@ $(document).ready(function() {
     		UserId: userId,
     		TournamentId: tournament_id
     	}
+    	var checkinArea = $(this).parent();
+    	console.log(checkinArea);
     	var checkinButton = $(this);
+    	checkinButton.attr('disabled', true);
 
     	$.ajax({
 	      method: "PUT",
@@ -29,10 +32,21 @@ $(document).ready(function() {
 	    })
 	    .done(function(data) {
 	    	console.log(data);
-	    	// console.log(checkinButton);
 	    	// Hide checkIn button for checkedIn playerName
 	      	checkinButton.hide();
+	      	// Add css for error messages in green rather than red similar to form validation.
+	      	checkinArea.append("<p>Player Checked In successfully.</p>");
+	      	removeMessage();
+	    }).fail(function(data) {
+	    	console.log("checkin Failed");
+	    	checkinButton.attr('disabled', false);
+	    	// Add css for error messages similar to form validation during register for uniformity.
+	    	checkinArea.append("<p>Unable to Check In player. Try again.</p>");
+	    	removeMessage();
 	    });
+	    function removeMessage() {
+	    	setTimeout(function(){ checkinArea.children("p").remove(); }, 3000);
+	    }
     });
 
  //    $("#startTournament").click(function checkMeIn() {
@@ -40,7 +54,7 @@ $(document).ready(function() {
 	// });
 });
 
-// Successful page reload every 20 secs
+// Until a better method is found ----> page reload every 20 secs
 function update_content() {
 	var tournamentId = $( "#playersForCheckin>tr button:first-child" ).attr("data-tournamentId");
    	console.log("Tournament id from url: " + tournamentId);
