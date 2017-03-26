@@ -55,22 +55,33 @@ app.get("/admin", function(req, res) {
     
   });
 
-  // Checkin 
+ ////////////////////// Newly added /////////////////////////
+/////// Remove and replace this to new snippets of code for readability ///////////////
+
+  // Checkin page players display
   app.get("/checkin/:id", function(req, res) {
    var tournamentPlayers = [];
+   var tournament_Id = req.params.id;
    // SELECT users.username FROM Users INNER JOIN Players ON users.id = players.UserId WHERE players.TournamentId = 1 AND players.player_registered_flag = 1;
    db.User.findAll({
-    attributes: ['username'],
+    attributes: ['username', 'id'],
     include: [{
       model: db.Player,
       where: {
-        TournamentId: req.params.id,
+        TournamentId: tournament_Id,
         player_registered_flag: 1
       }
     }]
    }).then(function(playerNames) {
-      // playerNames does not consist of just User.username hence array mapping
-      tournamentPlayers = playerNames.map(item => item.dataValues.username);
+      // playerNames does not consist of just User.username and User.id hence array mapping
+      tournamentPlayers = playerNames.map(function(item) {
+        return {
+          "username" : item.dataValues.username,
+          "userId" : item.dataValues.id,
+          "tournamentId": tournament_Id
+        };
+      });
+      console.log(tournamentPlayers);
       // Render checkin page with names of registered users
       res.render('checkin', {
         player: tournamentPlayers,

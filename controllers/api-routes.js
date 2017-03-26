@@ -121,5 +121,27 @@ module.exports = function(app) {
 
     });
 
+////////////////////// Newly added /////////////////////////
+/////// Remove and replace this to new snippets of code for readability ///////////////
+    
+    // PUT route to update checkedIn players in table
+  app.put("/player/checkin", function(req, res) {
+    db.Player.update(
+      {
+      	player_checkedIn_flag: 1
+      },
+      {
+        where: {
+          UserId: req.body.UserId,
+          TournamentId: req.body.TournamentId
+        }
+      }).then(function(data) {
+      	////// To do - reload the page ////////////
+        res.redirect("/checkin/"+req.body.TournamentId);
+        /////////// This doesn't do anything. Find out why //////////////////
+      });
+  });
+
+
 
 };

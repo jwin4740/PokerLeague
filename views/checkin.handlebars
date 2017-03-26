@@ -42,12 +42,12 @@
                             <th>Check 'em In</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="playersForCheckin">
                         {{#each player}}
                         <tr>
                             <th scope="row">{{inc @index}}</th>
-                            <td>{{this}}</td>
-                            <td><button type="button" class="btn btn-lg btn-info" id="checkIn{{this.id}}">Check In</button></td>
+                            <td>{{this.username}}</td>
+                            <td><button type="button" class="btn btn-lg btn-info checkIn" data-userId="{{this.userId}}" data-tournamentId="{{this.tournamentId}}">Check In</button></td>
                         </tr>
                         {{/each}}
                     </tbody>
@@ -64,3 +64,4 @@
             <small>&copy; 2017</small>
         </div>
     </footer>
+    <script type="text/javascript" src="/js/checkin.js"></script>
