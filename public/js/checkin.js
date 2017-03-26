@@ -14,6 +14,7 @@ $("#startTournament").click(function checkMeIn() {
 
 // SELECT username from USERS inner join PLAYERS ON player_id = user_id WHERE tournament_id = req.params.id AND 
 
+// Checkin button.on click -> Update Player Set player_checkedin_flag = 1 where ;
 
 
 // SELECT Userid from Players where tournament_id = req.params.id
