@@ -39,10 +39,11 @@ app.get("/admin", function(req, res) {
     //Todo code//
     // Code here to add a flag ofUser to tournamentsData so handlebars 
     // can check if it belongs to user's list of tournaments or not, and display accordingly.
-     session = req.session;
-   if (session.uniqueID[1] === 'user'){
-      res.render("user");
-    }
+      res.render('user');
+    // res.render('user', {
+    //   userName: userName,
+    //   tournament: tournamentsData
+    // });
   });
 
   app.get("/register", function(req, res) {
@@ -50,58 +51,45 @@ app.get("/admin", function(req, res) {
     res.render('register', {title: 'Form Validation', success: req.session.success, errors: req.session.errors});
     //this resets the errors and success properties to null after they have been shown to user
     req.session.errors = null;
-    req.session.success = null;
+    req.session.success = null
     
   });
 
+  // Checkin 
   app.get("/checkin/:id", function(req, res) {
-   
-    db.Player.findAll({
-      attributes: ['UserId'],
+   var tournamentPlayers = [];
+   // SELECT users.username FROM Users INNER JOIN Players ON users.id = players.UserId WHERE players.TournamentId = 1 AND players.player_registered_flag = 1;
+   db.User.findAll({
+    attributes: ['username'],
+    include: [{
+      model: db.Player,
       where: {
-        // tournament id = what is passed 
-        // registered flag is set to true (1)
         TournamentId: req.params.id,
         player_registered_flag: 1
       }
-    }).then(function(playerData) {
-      // arrays to store userIds, and data to render
-      var userIdArrays = [];
-      var tournamentPlayers = [];
-      // Loop through result of query to push ids to array
-      playerData.forEach(function(item) {
-        userIdArrays.push(item.dataValues.UserId);
-      });
-      console.log(userIdArrays);
-      // For each of the ids, get usernames from User table
-      for(var i=0; i<userIdArrays.length; i++) {
-        db.User.findAll({
-          where: {
-            id: userIdArrays[i]
-          },
-          attributes: ['username']
-        }).then(function(userData) {
-          // Loop through data to push just username into array
-          for(var i=0; i<userData; i++) {
-            tournamentPlayers.push(item.dataValues.username);
-          }
-          console.log(tournamentPlayers);
-        });
-      }
+    }]
+   }).then(function(playerNames) {
+      // playerNames does not consist of just User.username hence array mapping
+      tournamentPlayers = playerNames.map(item => item.dataValues.username);
+      // Render checkin page with names of registered users
       res.render('checkin', {
-            player: tournamentPlayers
-          });
-    });
-    
-  });
+        player: tournamentPlayers,
+        // express handlebars helper function inc to increment index by 1 for serial number display
+        helpers: {
+            inc: function (index) { return parseInt(index) + 1; }
+        }
+      });
+   });
+});
+
 
   app.get('/logout', function(req,res){
     console.log('get logout');
     req.session.destroy(function(error){
       console.log(error);
       res.redirect('/');
-    });
-  });
+    })
+  })
 
   ////////// To do ////////////
 

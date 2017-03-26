@@ -45,8 +45,8 @@
                     <tbody>
                         {{#each player}}
                         <tr>
-                            <th scope="row">{{this.id}}</th>
-                            <td>{{this.username}}</td>
+                            <th scope="row">{{inc @index}}</th>
+                            <td>{{this}}</td>
                             <td><button type="button" class="btn btn-lg btn-info" id="checkIn{{this.id}}">Check In</button></td>
                         </tr>
                         {{/each}}
