@@ -37,9 +37,27 @@ app.get("/admin", function(req, res) {
 
   app.get("/user", function(req, res) {
     //Todo code//
+    // Query database for all tournaments - then
+
+    // for only those user has registered for
+    //SELECT tournaments.name, tournaments.date, tournaments.time, players.player_registered_flag 
+    //FROM tournaments INNER JOIN Players ON tournaments.id = Players.TournamensId
+    // WHERE Players.UserId = req.session.id;
+
+    ////////// And query tournaments unregistered by user ------ TODO ///////////
+
+    // Currently showing all tournaments
+    db.Tournament.findAll({}).then(function(tournamentResults){
+
+      res.render("user", {
+        tournament: tournamentResults,
+        helpers: {
+            inc: function (index) { return parseInt(index) + 1; }
+        }
+      });
+    });
     // Code here to add a flag ofUser to tournamentsData so handlebars 
     // can check if it belongs to user's list of tournaments or not, and display accordingly.
-      res.render('user');
     // res.render('user', {
     //   userName: userName,
     //   tournament: tournamentsData
