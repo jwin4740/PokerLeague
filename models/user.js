@@ -32,14 +32,11 @@ module.exports = function(sequelize, DataTypes) {
       isIn: [['admin', 'user']]
     }
   },
-    // Here we'll pass a second "classMethods" object into the define method
-    // This is for any additional configuration we want to give our models
+    // To create an association between Users and Players
     {
-      // We're saying that we want our Author to have Posts
       classMethods: {
         associate: function(models) {
-          // Associating Author with Posts
-          // When an Author is deleted, also delete any associated Posts
+          // User has many Player data
           User.hasMany(models.Player);
         }
       }
