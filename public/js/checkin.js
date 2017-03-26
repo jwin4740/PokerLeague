@@ -20,17 +20,18 @@ $(document).ready(function() {
     		UserId: userId,
     		TournamentId: tournament_id
     	}
+    	var checkinButton = $(this);
 
     	$.ajax({
 	      method: "PUT",
 	      url: "/player/checkin",
 	      data: checkinPlayerObject
 	    })
-	    .done(function() {
-	    ///////// This does not work either /////////
-	    	alert("hellooooo");
+	    .done(function(data) {
+	    	console.log(data);
+	    	// console.log(checkinButton);
 	    	// Hide checkIn button for checkedIn playerName
-	      $(this).hide();
+	      	checkinButton.hide();
 	    });
     });
 
