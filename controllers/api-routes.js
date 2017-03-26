@@ -137,7 +137,7 @@ module.exports = function(app) {
         }
       }).then(function(data) {
       	////// To do - reload the page ////////////
-        res.redirect("/checkin/"+req.body.TournamentId);
+        res.json("flag updated on checkin");
         /////////// This doesn't do anything. Find out why //////////////////
       });
   });
