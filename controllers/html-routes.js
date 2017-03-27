@@ -1,7 +1,27 @@
 var path = require("path");
 var db = require("../models");
+var moment = require("moment");
 
 var session;
+
+var handlebarHelpers = 
+          {
+            inc: function (index) { 
+              return parseInt(index) + 1; 
+            },
+
+            dateFormat: function(date) {
+              return moment(date).format("ll");
+            },
+            
+            timeFormat: function(time) {
+              return moment(time, "HH:mm:ss").format("LT");
+            },
+
+            dateTimeFormat: function(dateTime) {
+              return moment(dateTime).format("ll, LT");
+            }
+          }
 
 // Routes
 // =============================================================
@@ -11,12 +31,20 @@ module.exports = function(app) {
 
 app.get("/", function(req, res) {
 
-  db.User.findAll({}).then(function(userResults) {
+   db.User.findAll({
+    include: [{
+      model: db.Player
+    }]
+   }).then(function(userResults) {
+      console.log(userResults);
     
     db.Tournament.findAll({}).then(function(tournamentResults){
+      // console.log(tournamentResults);
         res.render("index", {
           playerData: userResults,
-          tournament: tournamentResults
+          // lastPlayedDate: 
+          tournament: tournamentResults,
+          helpers: handlebarHelpers
         });
     });
   });
@@ -28,7 +56,8 @@ app.get("/admin", function(req, res) {
   if (session.uniqueID[1] === 'admin'){
   db.Tournament.findAll({}).then(function(tournamentResults){
     res.render("admin", {
-      tournament: tournamentResults
+      tournament: tournamentResults,
+      helpers: handlebarHelpers
     });
  
   });
@@ -55,9 +84,7 @@ app.get("/admin", function(req, res) {
 
       res.render("user", {
         tournament: tournamentResults,
-        helpers: {
-            inc: function (index) { return parseInt(index) + 1; }
-        }
+        helpers: handlebarHelpers
       });
     });
     // Code here to add a flag ofUser to tournamentsData so handlebars 

@@ -31,8 +31,8 @@
             {{#each tournament}}
             	{{#if this.ofUser }}
                 <div class="tournamentData" id="{{this.id}}">
-                    <p class="tournamentDate">Date: {{this.date}}</p>
-                    <p class="tournamentTime">Time: {{this.time}}</p>
+                    <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
+                    <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
                     <button class="btn btn-lg btn-danger unregister" id="unregister{{this.id}}">Unregister</button>
                 </div>
                 {{/if}}
@@ -50,8 +50,8 @@
             	{{#unless this.ofUser }}
                 <div class="tournamentData" id="{{this.id}}">
                 <h4 class="tournamentName">{{inc @index}}. {{this.name}}</h4>
-                    <p class="tournamentDate">Date: {{this.date}}</p>
-                    <p class="tournamentTime">Time: {{this.time}}</p>
+                    <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
+                    <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
                     <a href='/unregister/tournament/{{this.id}}'>
                     <button class="btn btn-lg btn-danger unregister" id="unregister{{this.id}}">Unregister</button>
                     </a>
