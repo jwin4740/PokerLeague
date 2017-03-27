@@ -5,9 +5,9 @@
 
 // On load of page, 
 $(document).ready(function() {
+
 	// Update content to allow users registered after checkin page load to be displayed
     var refresher = setInterval(update_content, 20000); // 20 seconds
-
     $(".checkIn").on("click", function(event) {
     	event.preventDefault();
     	var userId = $(this).attr("data-userId");
@@ -22,9 +22,6 @@ $(document).ready(function() {
     	var checkinButton = $(this);
     	checkinButton.attr('disabled', true);
 
-////////////////////// Newly added /////////////////////////
-/////// Remove and replace this to new snippets of code for readability ///////////////
-
     	$.ajax({
 	      method: "PUT",
 	      url: "/player/checkin",
@@ -34,8 +31,8 @@ $(document).ready(function() {
 	    	console.log(data);
 	    	// Hide checkIn button for checkedIn playerName
 	      	checkinButton.hide();
-	      	// Add css for error messages in green rather than red similar to form validation.
-	      	checkinArea.append("<p>Player Checked In successfully.</p>");
+	      	// Check mark for checked in players
+	      	checkinArea.html("<i style='color: #19b739;' class='fa fa-3x fa-check' aria-hidden='true'></i>");
 	      	removeMessage();
 	    }).fail(function(data) {
 	    	console.log(data);

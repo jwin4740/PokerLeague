@@ -77,16 +77,12 @@ app.get("/admin", function(req, res) {
     
   });
 
- ////////////////////// Newly added /////////////////////////
-/////// Remove and replace this to new snippets of code for readability ///////////////
-
   // Checkin page players display
   app.get("/checkin/:id", function(req, res) {
    var tournamentPlayers = [];
    var tournament_Id = req.params.id;
    // SELECT users.username FROM Users INNER JOIN Players ON users.id = players.UserId WHERE players.TournamentId = 1 AND players.player_registered_flag = 1;
    db.User.findAll({
-    attributes: ['username', 'id'],
     include: [{
       model: db.Player,
       where: {
@@ -101,7 +97,9 @@ app.get("/admin", function(req, res) {
           "username" : item.dataValues.username,
           "userId" : item.dataValues.id,
           "tournamentId": tournament_Id,
-          "player_checkedIn_flag": item.dataValues.player_checkedIn_flag
+          ////////////////////// Newly added /////////////////////////
+/////// Remove and replace this to new snippets of code for readability ///////////////
+          "player_checkedIn_flag": item.dataValues.Players[0].dataValues.player_checkedIn_flag
         };
       });
       console.log(tournamentPlayers);
