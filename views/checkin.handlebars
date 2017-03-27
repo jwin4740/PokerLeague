@@ -47,7 +47,11 @@
                         <tr>
                             <th scope="row">{{inc @index}}</th>
                             <td>{{this.username}}</td>
-                            <td class="checkinArea"><button type="button" class="btn btn-lg btn-info checkIn" data-userId="{{this.userId}}" data-tournamentId="{{this.tournamentId}}">Check In</button></td>
+                            <td class="checkinArea" data-checkedIn="{{this.player_checkedIn_flag}}">
+                            <!-- ////////////////////// Newly added /////////////////////////
+                /////// Remove and replace this to new snippets of code for readability /////////////// -->
+                            {{#if this.player_checkedIn_flag}}<i style="color: #19b739;" class="fa fa-3x fa-check" aria-hidden="true"></i>{{/if}}
+                            {{#unless this.player_checkedIn_flag}}<button type="button" class="btn btn-lg btn-info checkIn" data-userId="{{this.userId}}" data-tournamentId="{{this.tournamentId}}">Check In</button></td>{{/unless}}
                         </tr>
                         {{/each}}
                     </tbody>
