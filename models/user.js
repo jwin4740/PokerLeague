@@ -18,12 +18,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     hash: {
       type: DataTypes.STRING
-      // See reason above for why allowNull has been removed
-// Figure out more about hashed passwords to store here
     },
     salt: {
       type: DataTypes.STRING
-// Figure out more about hashed passwords to store here
     },
     role: {
       type: DataTypes.STRING,

@@ -137,38 +137,71 @@ module.exports = function(app) {
     });
 
 //REGISTER FOR TOURNAMENT
-    app.get('/register/tournament/:id', function(req, res) {
-        var tournamentID = req.params.id;
+    app.put('/register/tournament', function(req, res) {
+        var tournamentID = req.body.tournamentId;
         var userID = req.session.uniqueID[2];
-
-        db.Player.create({
-            UserId: userID,
-            TournamentId: tournamentID,
-            player_registered_flag: 1
-        }).then(function(data) {
-            console.log(data);
-            res.redirect("/user/"+userID);
-        });
+        console.log("Inside api-routing /register/tournament function");
+        if(userID == req.body.userId) {
+            console.log("User Id = reqbodyuserId; Data querying now.");
+            db.Player.findAll({
+                attributes: ['player_registered_flag','updatedAt','createdAt'],
+                where: {
+                    UserId: userID,
+                    TournamentId: tournamentID
+                },
+                limit: 1,
+                order: [ [ 'updatedAt', 'DESC' ]]
+            }).then(function(registeredData) {
+                console.log(registeredData);
+                if(registeredData.length === 0) {
+                    db.Player.create({
+                        UserId: userID,
+                        TournamentId: tournamentID,
+                        player_registered_flag: 1
+                    }).then(function(data) {
+                        console.log(data);
+                    });
+                }else {
+                    var updatedAt = registeredData[0].dataValues.updatedAt;
+                    db.Player.update({
+                        player_registered_flag: 1
+                    },{
+                        where:{
+                        UserId: userID,
+                        TournamentId: tournamentID,
+                        updatedAt: updatedAt
+                        }
+                    }).then(function(data) {
+                        console.log(data)
+                    });
+                }
+                // res.redirect("/user/"+userID);
+                res.json("Player registration updated.");
+            });
+        }
 
     });
 
 //UNREGISTER FOR TOURNAMENT
-    app.get('/unregister/tournament/:id', function(req, res) {
+    app.put('/unregister/tournament', function(req, res) {
         console.log("unregister");
-        var tournamentID = req.params.id;
+        var tournamentID = req.body.tournamentId;
         var userID = req.session.uniqueID[2];
-
-        db.Player.update({
-            player_registered_flag: 0
-        },{
-            where:{
-            UserId: userID,
-            TournamentId: tournamentID
-            }
-        });
+        if(userID == req.body.userId) {
+            db.Player.update({
+                player_registered_flag: 0
+            },{
+                where:{
+                UserId: userID,
+                TournamentId: tournamentID
+                }
+            }).then(function(data) {
+                res.json("Unregistered for tournament.")
+            });
+        }
     });
     
-    // PUT route to update checkedIn players in table
+// PUT route to update checkedIn players in table
   app.put("/player/checkin", function(req, res) {
     db.Player.update(
       {
