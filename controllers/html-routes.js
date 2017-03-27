@@ -31,18 +31,36 @@ module.exports = function(app) {
 
 app.get("/", function(req, res) {
 
+   ////////////////////// Newly added /////////////////////////
+/////// Remove and replace this to new snippets of code for readability ///////////////
+
    db.User.findAll({
     include: [{
       model: db.Player
     }]
    }).then(function(userResults) {
-      console.log(userResults);
-    
+    // console.log(userResults);
+      // var userData = userResults[0];
+      var pointsData = userResults.map(function(userItem) {
+        var points = 0;
+        var playerData = userItem.dataValues.Players;
+        playerData.forEach(function(playerItem) {
+          if(userItem.id === playerItem.UserId) {
+              points = playerItem.dataValues.points + points;
+           }
+         });
+        return {
+          "id": userItem.id,
+          "username": userItem.username,
+          "lastPlayed": userItem.updatedAt,
+          "points": points
+        }
+      });
+      console.log(pointsData);
     db.Tournament.findAll({}).then(function(tournamentResults){
       // console.log(tournamentResults);
         res.render("index", {
-          playerData: userResults,
-          // lastPlayedDate: 
+          playerData: pointsData,
           tournament: tournamentResults,
           helpers: handlebarHelpers
         });
@@ -124,8 +142,6 @@ app.get("/admin", function(req, res) {
           "username" : item.dataValues.username,
           "userId" : item.dataValues.id,
           "tournamentId": tournament_Id,
-          ////////////////////// Newly added /////////////////////////
-/////// Remove and replace this to new snippets of code for readability ///////////////
           "player_checkedIn_flag": item.dataValues.Players[0].dataValues.player_checkedIn_flag
         };
       });
