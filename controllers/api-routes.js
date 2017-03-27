@@ -122,13 +122,13 @@ module.exports = function(app) {
                     console.log('No role found');
                 }
             } else {
-                console.log("Illegal entry detected, fuck off");
-                console.log("Illegal entry detected, fuck off");
-                console.log("Illegal entry detected, fuck off");
-                console.log("Illegal entry detected, fuck off");
-                console.log("Illegal entry detected, fuck off");
-                console.log("Illegal entry detected, fuck off");
-                console.log("Illegal entry detected, fuck off");
+                console.log("Illegal entry detected.");
+                console.log("Illegal entry detected.");
+                console.log("Illegal entry detected.");
+                console.log("Illegal entry detected.");
+                console.log("Illegal entry detected.");
+                console.log("Illegal entry detected.");
+                console.log("Illegal entry detected.");
                 res.redirect('/');
             }
 
@@ -145,6 +145,9 @@ module.exports = function(app) {
             UserId: userID,
             TournamentId: tournamentID,
             player_registered_flag: 1
+        }).then(function(data) {
+            console.log(data);
+            res.redirect("/user/"+userID);
         });
 
     });
@@ -165,24 +168,6 @@ module.exports = function(app) {
         });
     });
     
-
-
-    // PUT route for updating posts
-  app.put("/api/posts", function(req, res) {
-    db.Post.update(
-      req.body,
-      {
-        where: {
-          id: req.body.id
-        }
-      }).then(function(dbPost) {
-        res.json(dbPost);
-      });
-  });
-
-////////////////////// Newly added /////////////////////////
-/////// Remove and replace this to new snippets of code for readability ///////////////
-    
     // PUT route to update checkedIn players in table
   app.put("/player/checkin", function(req, res) {
     db.Player.update(
@@ -195,12 +180,7 @@ module.exports = function(app) {
           TournamentId: req.body.TournamentId
         }
       }).then(function(data) {
-      	////// To do - reload the page ////////////
         res.json("flag updated on checkin");
-        /////////// This doesn't do anything. Find out why //////////////////
       });
   });
-
-
-
 };
