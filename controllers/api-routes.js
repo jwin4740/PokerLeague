@@ -65,8 +65,7 @@ module.exports = function(app) {
 	   		]
 	   	}
 	   	}).then(function(userResults) {
-	   		if(userResults){ //if there is a match of same name, restart register page
-
+	   		if(userResults.length){ //if there is a match of same name, restart register page
 	   			res.render('register', {
                 errors: [{msg: "Username or e-mail already in use"}]
             });
