@@ -48,9 +48,11 @@ $(document).ready(function() {
 	    }
     });
 
- //    $("#startTournament").click(function checkMeIn() {
-	//     playerName = $("#playerName").val().trim();
-	// });
+    // On starting Tournament, take players that have been checked in (sequel query or using )
+    $("#startTournament").on("click", function(event) {
+		event.preventDefault();
+
+	});
 });
 
 // Until a better method is found ----> page reload every 20 secs
