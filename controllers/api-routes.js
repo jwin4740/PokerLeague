@@ -109,6 +109,7 @@ module.exports = function(app) {
 
     });
 
+//REGISTER FOR TOURNAMENT
     app.get('/register/tournament/:id', function(req, res) {
         var tournamentID = req.params.id;
         var userID = req.session.uniqueID[2];
@@ -120,6 +121,37 @@ module.exports = function(app) {
         });
 
     });
+
+//UNREGISTER FOR TOURNAMENT
+    app.get('/unregister/tournament/:id', function(req, res) {
+        console.log("unregister");
+        var tournamentID = req.params.id;
+        var userID = req.session.uniqueID[2];
+
+        db.Player.update({
+            player_registered_flag: 0
+        },{
+            where:{
+            UserId: userID,
+            TournamentId: tournamentID
+            }
+        });
+    });
+    
+
+
+    // PUT route for updating posts
+  app.put("/api/posts", function(req, res) {
+    db.Post.update(
+      req.body,
+      {
+        where: {
+          id: req.body.id
+        }
+      }).then(function(dbPost) {
+        res.json(dbPost);
+      });
+  });
 
 ////////////////////// Newly added /////////////////////////
 /////// Remove and replace this to new snippets of code for readability ///////////////

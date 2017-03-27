@@ -52,7 +52,9 @@
                 <h4 class="tournamentName">{{inc @index}}. {{this.name}}</h4>
                     <p class="tournamentDate">Date: {{this.date}}</p>
                     <p class="tournamentTime">Time: {{this.time}}</p>
+                    <a href='/unregister/tournament/{{this.id}}'>
                     <button class="btn btn-lg btn-danger unregister" id="unregister{{this.id}}">Unregister</button>
+                    </a>
                 </div>
                 {{/unless}}
             {{/each}}
