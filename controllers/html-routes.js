@@ -21,7 +21,7 @@ var handlebarHelpers =
             dateTimeFormat: function(dateTime) {
               return moment(dateTime).format("ll, LT");
             }
-          }
+          };
 
 // Routes
 // =============================================================
@@ -51,7 +51,7 @@ app.get("/", function(req, res) {
           "username": userItem.username,
           "lastPlayed": userItem.updatedAt,
           "points": points
-        }
+        };
       });
       console.log(pointsData);
     db.Tournament.findAll({}).then(function(tournamentResults){
@@ -117,7 +117,7 @@ app.get("/admin", function(req, res) {
             "date" : tournamentItem.date,
             "time" : tournamentItem.time,
             "ofUser" : ofUser
-        }
+        };
 
       });
       console.log(userTournamentData);
@@ -137,7 +137,7 @@ app.get("/admin", function(req, res) {
     res.render('register', {title: 'Form Validation', success: req.session.success, errors: req.session.errors});
     //this resets the errors and success properties to null after they have been shown to user
     req.session.errors = null;
-    req.session.success = null
+    req.session.success = null;
     
   });
 
@@ -188,8 +188,8 @@ app.get("/admin", function(req, res) {
     req.session.destroy(function(error){
       console.log(error);
       res.redirect('/');
-    })
-  })
+    });
+  });
 
   ////////// To do ////////////
 

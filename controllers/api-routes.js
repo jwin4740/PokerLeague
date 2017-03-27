@@ -13,7 +13,7 @@ const sha512 = (password, salt) => {
     return {
         salt: salt,
         passwordHash: value
-    }
+    };
 };
 
 const genRandomString = (length) => {
@@ -36,7 +36,7 @@ module.exports = function(app) {
 
     //REGISTER NEW USER
     app.post("/users/register", function(req, res, next) {
-        //Validation - we can pick other things like minimum length of password, etc.
+        //Validation - checks if form is filled out properly
         req.checkBody('email', 'Email is required').notEmpty();
         req.checkBody('email', 'Email is not valid').isEmail();
         req.checkBody('username', 'Username is required').notEmpty();
@@ -45,14 +45,34 @@ module.exports = function(app) {
 
         var errors = req.validationErrors();
 
-        if (errors) {
+        if (errors) { //if errors restart register page
             req.session.errors = errors;
             req.session.success = false;
             res.render('register', {
                 errors: errors
             });
-        } else {
-            req.session.success = true;
+        } else { //else look if there is a current user with same username or same email address
+
+    	db.User.findAll({
+	   	where: {
+	   		$or: [
+		   		{
+		   			username: req.body.username
+		   		},
+		   		{
+		   			email: req.body.email
+	   			}
+	   		]
+	   	}
+	   	}).then(function(userResults) {
+	   		if(userResults){ //if there is a match of same name, restart register page
+
+	   			res.render('register', {
+                errors: [{msg: "Username or e-mail already in use"}]
+            });
+	   		}else { //else hash password and create the user
+
+	   			 req.session.success = true;
 
             var salt = genRandomString(32);
             var hashedPassword = sha512(req.body.password, salt).passwordHash;
@@ -67,7 +87,14 @@ module.exports = function(app) {
                 res.render('user', {
                     userName: req.body.username
                 });
-            });
+            });   		
+
+
+
+	   		}
+
+	   	});
+           
         }
     });
 
