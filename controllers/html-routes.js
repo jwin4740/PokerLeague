@@ -84,9 +84,7 @@ app.get("/admin", function(req, res) {
 
 // Render tournament specific to user and other tournaments
   app.get("/user/:id", function(req, res) {
- ////////////////////// Newly added /////////////////////////
-/////// Remove and replace this to new snippets of code for readability ///////////////
-
+ 
     var userId = req.params.id;
     // Get tournaments and players table data
     db.Tournament.findAll({
@@ -128,8 +126,6 @@ app.get("/admin", function(req, res) {
         helpers: handlebarHelpers
       });
   });
-    // Code here to add a flag ofUser to tournamentsData so handlebars 
-    // can check if it belongs to user's list of tournaments or not, and display accordingly.
 });
 
   app.get("/register", function(req, res) {
