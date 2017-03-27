@@ -112,7 +112,8 @@ module.exports = function(app) {
             var salt = data.salt;
             var hashedPassword = sha512(req.body.password, salt).passwordHash;
             if (hashedPassword === data.hash) {
-                session.uniqueID = [data.email, data.role, data.id];
+            	session.loggedIn = true;
+                session.uniqueID = [data.email, data.role, data.id, data.username];
                 if (data.role === "admin") {
                     res.redirect('/admin');
                 } else if (data.role === "user") {
@@ -182,4 +183,12 @@ module.exports = function(app) {
         res.json("flag updated on checkin");
       });
   });
+
+app.get("/loggedIn", function(req, res) {
+	res.json(req.session);
+});
+
+
+
 };
+

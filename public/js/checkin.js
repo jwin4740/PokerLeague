@@ -16,7 +16,7 @@ $(document).ready(function() {
     	var checkinPlayerObject = {
     		UserId: userId,
     		TournamentId: tournament_id
-    	}
+    	};
     	var checkinArea = $(this).parent();
     	console.log(checkinArea);
     	var checkinButton = $(this);

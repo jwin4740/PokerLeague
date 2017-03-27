@@ -39,7 +39,7 @@ app.use(express.static("./public"));
 //At the end here we add express session
 //Express Session
 app.use(expressSession({
-	secret: 'secret',
+	secret: 'secret code',
 	//If saveUnitialized is set to true it will save a session to our session storage even if it is not initialized 
 	saveUninitialized: false,
 	//If resave is set to true it will save our session after each request
