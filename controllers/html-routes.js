@@ -31,9 +31,6 @@ module.exports = function(app) {
 
 app.get("/", function(req, res) {
 
-   ////////////////////// Newly added /////////////////////////
-/////// Remove and replace this to new snippets of code for readability ///////////////
-
    db.User.findAll({
     include: [{
       model: db.Player
@@ -86,32 +83,54 @@ app.get("/admin", function(req, res) {
 });
 
 // Render tournament specific to user and other tournaments
-  app.get("/user", function(req, res) {
-    //Todo code//
-    // Query database for all tournaments - then
+  app.get("/user/:id", function(req, res) {
+ ////////////////////// Newly added /////////////////////////
+/////// Remove and replace this to new snippets of code for readability ///////////////
 
-    // for only those user has registered for
-    //SELECT tournaments.name, tournaments.date, tournaments.time, players.player_registered_flag 
-    //FROM tournaments INNER JOIN Players ON tournaments.id = Players.TournamensId
-    // WHERE Players.UserId = req.session.id;
+    var userId = req.params.id;
+    // Get tournaments and players table data
+    db.Tournament.findAll({
+      include: [{
+      model: db.Player
+    }]
+   }).then(function(tournamentResults){
+    // With tournamentsResults, map it to required json data format 
+    var userTournamentData = tournamentResults.map(function(tournamentItem) {
+        var ofUser = false;
+        var playerData = tournamentItem.dataValues.Players;
+        playerData.forEach(function(playerItem) {
+          // For current user
+            if(playerItem.dataValues.UserId == userId) {
+              // Check if this tournament was registered for
+              if(playerItem.dataValues.player_registered_flag == 1) {
+                // If yes, set flag to true
+                ofUser = true;
+                // else flag will be false
+              }
+              
+            }
+        });
+        // Return required data
+        return {
+           "id" : tournamentItem.id,
+           "name" : tournamentItem.name,
+            "date" : tournamentItem.date,
+            "time" : tournamentItem.time,
+            "ofUser" : ofUser
+        }
 
-    ////////// And query tournaments unregistered by user ------ TODO ///////////
-
-    // Currently showing all tournaments
-    db.Tournament.findAll({}).then(function(tournamentResults){
-
-      res.render("user", {
-        tournament: tournamentResults,
+      });
+      console.log(userTournamentData);
+     
+      res.render('user', {
+        // userName: userName,
+        tournament: userTournamentData,
         helpers: handlebarHelpers
       });
-    });
+  });
     // Code here to add a flag ofUser to tournamentsData so handlebars 
     // can check if it belongs to user's list of tournaments or not, and display accordingly.
-    // res.render('user', {
-    //   userName: userName,
-    //   tournament: tournamentsData
-    // });
-  });
+});
 
   app.get("/register", function(req, res) {
     //Todo//

@@ -90,7 +90,7 @@ module.exports = function(app) {
                 if (data.role === "admin") {
                     res.redirect('/admin');
                 } else if (data.role === "user") {
-                    res.redirect('/user');
+                    res.redirect('/user/'+ data.id);
                 } else {
                     console.log('No role found');
                 }
