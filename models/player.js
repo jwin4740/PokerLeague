@@ -44,8 +44,3 @@ module.exports = function(sequelize, DataTypes) {
   );
   return Player;
 };
-
-//////// Players.hasMany(Users, { through: 'Players', foreignKey: 'id' }) //////////
-//////// Players.hasMany(Tournaments, { through: 'Players', foreignKey: 'id' }) //////////
-
-/// Check if correct !!!!

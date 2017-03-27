@@ -29,16 +29,16 @@
      <!-- List of Tournaments -->
     <div class="row">
         <div class="col-xs-12">
-            <div class="" id="tournamentsList">
+            <div class="" id="registeredTournamentsList">
                 {{#each tournament}}
                 	{{#if this.ofUser }}
-                    <div class="tournamentData" id="{{this.id}}">
+                    <div class="tournamentData" id="registered_{{this.id}}">
                         <h3 class="tournamentName">{{this.name}}</h3>
                         <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
                         <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
-                        <a href='/unregister/tournament/{{this.id}}'>
-                        <button class="btn btn-lg btn-danger unregister">Unregister</button>
-                        </a>
+                        <!-- <a href='/unregister/tournament/{{this.id}}'> -->
+                        <button class="registerUnregister btn btn-lg btn-danger unregister" data-userId="{{this.userId}}" data-tournamentId = "{{this.id}}">Unregister</button>
+                        <!-- </a> -->
                     </div>
                     {{/if}}
                 {{/each}}
@@ -50,16 +50,16 @@
      <!-- List of Tournaments -->
     <div class="row">
         <div class="col-xs-12">
-            <div class="" id="tournamentsList">
+            <div class="" id="unregisteredTournamentsList">
                 {{#each tournament}}
                 	{{#unless this.ofUser }}
-                    <div class="tournamentData" id="{{this.id}}">
+                    <div class="tournamentData" id="unregistered_{{this.id}}">
                     <h3 class="tournamentName">{{this.name}}</h3>
                         <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
                         <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
-                        <a href='/register/tournament/{{this.id}}'>
-                        <button class="btn btn-lg btn-success register" id="register{{this.id}}">Register</button>
-                        </a>
+                        <!-- <a href='/register/tournament/{{this.id}}'> -->
+                        <button class="registerUnregister btn btn-lg btn-success register" data-userId="{{this.userId}}" data-tournamentId = "{{this.id}}">Register</button>
+                        <!-- </a> -->
                     </div>
                     {{/unless}}
                 {{/each}}
@@ -73,3 +73,4 @@
         <small>&copy; 2017</small>
     </div>
 </footer>
+ <script type="text/javascript" src="/js/user.js"></script>

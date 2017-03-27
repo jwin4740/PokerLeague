@@ -110,6 +110,7 @@ app.get("/admin", function(req, res) {
         });
         // Return required data
         return {
+          "userId": userId,
            "id" : tournamentItem.id,
            "name" : tournamentItem.name,
             "date" : tournamentItem.date,
