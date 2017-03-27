@@ -1,5 +1,5 @@
 <nav class="navbar navbar-inverse">
-    <div class="container">
+    <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -21,47 +21,50 @@
     </div><!-- /.container-fluid -->
 </nav>
 
-<h2>Hello {{userName}}!</h2>
+<div class="container">
 
-<h3>List of Tournaments you have registered for</h3>
- <!-- List of Tournaments -->
-<div class="row">
-    <div class="col-xs-12">
-        <div class="" id="tournamentsList">
-            {{#each tournament}}
-            	{{#if this.ofUser }}
-                <div class="tournamentData" id="{{this.id}}">
-                    <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
-                    <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
-                    <button class="btn btn-lg btn-danger unregister" id="unregister{{this.id}}">Unregister</button>
-                </div>
-                {{/if}}
-            {{/each}}
+    <h2>Hello {{userName}}!</h2>
+
+    <h1>Registered Tournaments</h1>
+     <!-- List of Tournaments -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="" id="tournamentsList">
+                {{#each tournament}}
+                	{{#if this.ofUser }}
+                    <div class="tournamentData" id="{{this.id}}">
+                        <h3 class="tournamentName">{{this.name}}</h3>
+                        <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
+                        <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
+                        <button class="btn btn-lg btn-danger unregister" id="unregister{{this.id}}">Unregister</button>
+                    </div>
+                    {{/if}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    <h1>Other tournaments</h1>
+     <!-- List of Tournaments -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="" id="tournamentsList">
+                {{#each tournament}}
+                	{{#unless this.ofUser }}
+                    <div class="tournamentData" id="{{this.id}}">
+                    <h3 class="tournamentName">{{this.name}}</h3>
+                        <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
+                        <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
+                        <a href='/unregister/tournament/{{this.id}}'>
+                        <button class="btn btn-lg btn-success register" id="register{{this.id}}">Register</button>
+                        </a>
+                    </div>
+                    {{/unless}}
+                {{/each}}
+            </div>
         </div>
     </div>
 </div>
-
-<h3>Other tournaments</h3>
- <!-- List of Tournaments -->
-<div class="row">
-    <div class="col-xs-12">
-        <div class="" id="tournamentsList">
-            {{#each tournament}}
-            	{{#unless this.ofUser }}
-                <div class="tournamentData" id="{{this.id}}">
-                <h4 class="tournamentName">{{inc @index}}. {{this.name}}</h4>
-                    <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
-                    <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
-                    <a href='/unregister/tournament/{{this.id}}'>
-                    <button class="btn btn-lg btn-danger unregister" id="unregister{{this.id}}">Unregister</button>
-                    </a>
-                </div>
-                {{/unless}}
-            {{/each}}
-        </div>
-    </div>
-</div>
-
 
  <footer class="container-fluid text-center">
     <div>
