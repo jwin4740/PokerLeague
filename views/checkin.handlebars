@@ -32,7 +32,7 @@
             </div>
         </div>
         <!-- Leaderboard -->
-        <div class="row">
+        <div id="checkinDiv" class="row">
             <div class="col-xs-12">
                   <table class="table">
                     <thead class="thead-inverse">
@@ -46,11 +46,9 @@
                         {{#each player}}
                         <tr>
                             <th scope="row">{{inc @index}}</th>
-                            <td>{{this.username}}</td>
+                            <td data-userId="{{this.userId}}">{{this.username}}</td>
                             <td class="checkinArea" data-checkedIn="{{this.player_checkedIn_flag}}">
-                            <!-- ////////////////////// Newly added /////////////////////////
-                /////// Remove and replace this to new snippets of code for readability /////////////// -->
-                            {{#if this.player_checkedIn_flag}}<i style="color: #19b739;" class="fa fa-3x fa-check" aria-hidden="true"></i>{{/if}}
+                            {{#if this.player_checkedIn_flag}}<i data-userId="{{this.userId}}" style="color: #19b739;" class="fa fa-3x fa-check" aria-hidden="true"></i>{{/if}}
                             {{#unless this.player_checkedIn_flag}}<button type="button" class="btn btn-lg btn-info checkIn" data-userId="{{this.userId}}" data-tournamentId="{{this.tournamentId}}">Check In</button></td>{{/unless}}
                         </tr>
                         {{/each}}
@@ -62,6 +60,25 @@
     <!-- Button to be kept disabled until tournament begin time. Enable button 1 minute before tournament start time, so it's not accidentally clicked before everyone gets a chance to checkin. -->
 
     <button type="submit" class="btn btn-lg btn-success" id="startTournament">Start Tournament</button>
+
+    <div id="tournamentArea">
+         <div class="row">
+            <div class="col-xs-12">
+                  <table class="table">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Player</th>
+                            <th>Rank</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tournamentBody">
+                        
+                    </tbody>
+                </table>
+                <button type="button" id="submitResults" class="btn btn-lg btn-success">Submit Results</button>
+            </div>
+        </div>
+    </div>
 
     <footer class="container-fluid text-center">
         <div>
