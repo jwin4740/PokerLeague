@@ -67,19 +67,19 @@ app.get("/", function(req, res) {
         };
       });
 
-      if(req.session.loggedIn === true) {
-        loggedIn = true;
-        console.log("Logged in: " + req.session.uniqueID[0]);
-      }else {
-        console.log("Not logged in");
-      }
+      // if(req.session.loggedIn === true) {
+      //   loggedIn = true;
+      //   console.log("Logged in: " + req.session.uniqueID[0]);
+      // }else {
+      //   console.log("Not logged in");
+      // }
       // console.log(pointsData);
     db.Tournament.findAll({}).then(function(tournamentResults){
       // console.log(tournamentResults);
         res.render("index", {
           playerData: pointsData,
           tournament: tournamentResults,
-          loggedIn: loggedIn,
+          // loggedIn: loggedIn,
           helpers: handlebarHelpers
         });
     });

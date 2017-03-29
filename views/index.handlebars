@@ -69,7 +69,7 @@
                         <div class="tournamentData">
                             <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
                             <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
-                            <button class="registerUnregister btn btn-lg btn-success register" data-tournamentId = "{{this.id}}">Register</button>
+                            <button class="btn btn-lg btn-success register" data-tournamentId="{{this.id}}">Register</button>
                         </div>
                     </div>
                     {{/each}}
@@ -101,6 +101,7 @@
                         <div class="modal-footer">
                             <button type="submit" id="btnSubmit" class="btn btn-lg btn-danger center-block">Login</button>
                           
+                          <small>Don't have an account? <a href="/register"><strong>Sign up</strong></a> for one.</small>
                             
                         </div>
                     </form>
