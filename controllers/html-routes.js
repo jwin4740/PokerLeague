@@ -27,39 +27,51 @@ var handlebarHelpers =
 // =============================================================
 module.exports = function(app) {
 
-//////// CREATE NEW object models TO PROVIDE SPECIFIC DATA FROM DB , AVOIDING ASYNC ISSUES ////////
+//////// CREATE NEW object models TO PROVIDE SPECIFIC DATA FROM DB , AVOIDING ASYNC ISSUES ????? ///////
 
 app.get("/", function(req, res) {
-
+  // Query to populate leaderboard
    db.User.findAll({
     include: [{
       model: db.Player
-    }]
+    }],
+     order: [ [ 'updatedAt', 'DESC' ]]
    }).then(function(userResults) {
     // console.log(userResults);
-      // var userData = userResults[0];
+      var updatedAtParent;
       var pointsData = userResults.map(function(userItem) {
         var points = 0;
         var playerData = userItem.dataValues.Players;
         playerData.forEach(function(playerItem) {
+          var updatedAt = playerItem.dataValues.createdAt;
           if(userItem.id === playerItem.UserId) {
               points = playerItem.dataValues.points + points;
+              // console.log("First datetime: " + moment(playerItem.dataValues.updatedAt).fromNow() + " playerItemUpdatedAt " + playerItem.dataValues.updatedAt);
+              // console.log("greater than second datetime: " + moment(updatedAt).fromNow() + " updatedAt " + updatedAt);
+              if(moment(playerItem.dataValues.updatedAt).fromNow() > moment(updatedAt).fromNow()){
+                updatedAt = playerItem.dataValues.updatedAt;
+              }
            }
+           updatedAtParent = updatedAt;
+           // console.log("---");
+           // console.log(moment(updatedAtParent).format());
+           // console.log("---");
          });
         return {
           "id": userItem.id,
           "username": userItem.username,
-          "lastPlayed": userItem.updatedAt,
+          "lastPlayed": updatedAtParent,
           "points": points
         };
       });
-      console.log(pointsData);
+      // console.log(pointsData);
     db.Tournament.findAll({}).then(function(tournamentResults){
       // console.log(tournamentResults);
         res.render("index", {
           playerData: pointsData,
           tournament: tournamentResults,
-          helpers: handlebarHelpers
+          helpers: handlebarHelpers,
+          newUser: req.session.newRegister
         });
     });
   });
@@ -84,49 +96,58 @@ app.get("/admin", function(req, res) {
 
 // Render tournament specific to user and other tournaments
   app.get("/user/:id", function(req, res) {
- 
-    var userId = req.params.id;
-    // Get tournaments and players table data
-    db.Tournament.findAll({
-      include: [{
-      model: db.Player
-    }]
-   }).then(function(tournamentResults){
-    // With tournamentsResults, map it to required json data format 
-    var userTournamentData = tournamentResults.map(function(tournamentItem) {
-        var ofUser = false;
-        var playerData = tournamentItem.dataValues.Players;
-        playerData.forEach(function(playerItem) {
-          // For current user
-            if(playerItem.dataValues.UserId == userId) {
-              // Check if this tournament was registered for
-              if(playerItem.dataValues.player_registered_flag == 1) {
-                // If yes, set flag to true
-                ofUser = true;
-                // else flag will be false
-              }
-              
-            }
-        });
-        // Return required data
-        return {
-          "userId": userId,
-           "id" : tournamentItem.id,
-           "name" : tournamentItem.name,
-            "date" : tournamentItem.date,
-            "time" : tournamentItem.time,
-            "ofUser" : ofUser
-        };
+    console.log("------");
+    console.log(req.session.uniqueID);
+    console.log("------");
 
-      });
-      console.log(userTournamentData);
-     
-      res.render('user', {
-        // userName: userName,
-        tournament: userTournamentData,
-        helpers: handlebarHelpers
-      });
-  });
+    if(req.session.uniqueID === undefined || req.session.uniqueID[2] !== req.params.id) {
+      res.render("401");
+    }else {
+
+      var userId = req.params.id;
+      // Get tournaments and players table data
+      db.Tournament.findAll({
+        include: [{
+        model: db.Player
+      }]
+     }).then(function(tournamentResults){
+      // With tournamentsResults, map it to required json data format 
+      var userTournamentData = tournamentResults.map(function(tournamentItem) {
+          var ofUser = false;
+          var playerData = tournamentItem.dataValues.Players;
+          playerData.forEach(function(playerItem) {
+            // For current user
+              if(playerItem.dataValues.UserId == userId) {
+                // Check if this tournament was registered for
+                if(playerItem.dataValues.player_registered_flag == 1) {
+                  // If yes, set flag to true
+                  ofUser = true;
+                  // else flag will be false
+                }
+                
+              }
+          });
+          // Return required data
+          return {
+            "userId": userId,
+             "id" : tournamentItem.id,
+             "name" : tournamentItem.name,
+              "date" : tournamentItem.date,
+              "time" : tournamentItem.time,
+              "ofUser" : ofUser
+          };
+
+        });
+        // console.log(userTournamentData);
+       
+        res.render('user', {
+          // userName: userName,
+          tournament: userTournamentData,
+          helpers: handlebarHelpers
+        });
+    });
+  }
+ 
 });
 
   app.get("/register", function(req, res) {
@@ -157,14 +178,14 @@ app.get("/admin", function(req, res) {
         return {
           "username" : item.dataValues.username,
           "userId" : item.dataValues.id,
-          "tournamentId": tournament_Id,
           "player_checkedIn_flag": item.dataValues.Players[0].dataValues.player_checkedIn_flag
         };
       });
-      console.log(tournamentPlayers);
+      // console.log(tournamentPlayers);
       // Render checkin page with names of registered users
       res.render('checkin', {
         player: tournamentPlayers,
+        tournamentId: tournament_Id,
         // express handlebars helper function inc to increment index by 1 for serial number display
         helpers: {
             inc: function (index) { return parseInt(index) + 1; }
@@ -188,17 +209,11 @@ app.get("/admin", function(req, res) {
     });
   });
 
-  ////////// To do ////////////
-
-  app.get("/tournament", function(req, res) {
-    res.render('tournament');
+  app.use(function(err, req, res, next) {
+    console.log(err.stack);
+    res.status(401);
+    res.render('401');
   });
-
-  // app.use(function(req, res) {
-  //   res.type('text/html');
-  //   res.status(404);
-  //   res.render('404');
-  // });
 
   app.use(function(err, req, res, next) {
     console.log(err.stack);

@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="/">Barr Poker League</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,19 +17,26 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="notSignedIn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li> 
                 <li class="notSignedIn"><a href="/register">Sign Up</a></li>
-                <li class="signedIn hidden"><a href="#"> Logged In: <span id="userName"></span></a>
-                <li class="signedIn hidden"><a href="/logout">Logout</a></li>
+                <li class="signedIn hidden"><a id="loginLink" href="#"> Logged In: <span id="userName"></span></a>
+                <li class="signedIn hidden" id="logoutButton"><a href="/logout">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
+
+
 <div class="container text-center">
         <!--Header -->
         <div class="row">
             <div class="col-xs-12">
+            {{#if newUser}}
+                <div class="alert alert-success">
+                    <strong>Success!</strong> Your Account registration is complete. You can now <a href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+                 </div>
+             {{/if}}
                 <div class="">
-                    <h1>Barr Poker League</h1>
+                    <h1>Leaderboard</h1>
                 </div>
             </div>
         </div>
@@ -39,10 +46,10 @@
                       <table class="table">
                     <thead class="thead-inverse">
                         <tr>
-                            <th>Rank</th>
-                            <th>Player</th>
-                            <th>Last Played Date</th>
-                            <th>Points</th>
+                            <th class='text-center'>Rank</th>
+                            <th class='text-center'>Player</th>
+                            <th class='text-center'>Last Played Date</th>
+                            <th class='text-center'>Points</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,9 +77,7 @@
                         <div class="tournamentData">
                             <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
                             <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
-                            <a href = '/register/tournament/{{this.id}}'>
-                            <button class="btn btn-lg btn-success register">Register</button>
-                            </a>
+                            <button class="btn btn-lg btn-success register" data-tournamentId="{{this.id}}">Register</button>
                         </div>
                     </div>
                     {{/each}}
@@ -102,8 +107,9 @@
                             <input id="password" type="password" class="form-control" name="password">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="btnSubmit" class="btn btn-lg btn-danger center-block" data-dismiss="modal" onclick="onClick();">Login</button>
-                            <!--<input type="submit" id="submit" name="submit">-->
+                            <button type="submit" id="btnSubmit" class="btn btn-lg btn-danger center-block">Login</button>
+                          
+                          <small>Don't have an account? <a href="/register"><strong>Sign up</strong></a> for one.</small>
                             
                         </div>
                     </form>

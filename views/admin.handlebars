@@ -8,14 +8,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Logo</a>
+            <a class="navbar-brand" href="/">Barr Poker League</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
              <ul class="nav navbar-nav navbar-right">
-                <li class="signedIn"><p>Welcome <span id="userName">{{username}}</span></p> 
-                <li class="signedIn"><a href="/logout">Logout</a></li>
+                <li class="signedIn" id="logoutButton"><a href="/logout">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -53,16 +52,23 @@
         <div class="col-xs-12">
             <div class="" id="tournamentsList">
                 {{#each tournament}}
-                    <div class="tournamentData" id="{{this.id}}">
-                        <p class="tournamentName">Name: {{this.name}}</p>
-                        <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
-                        <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
-                        <button class="btn btn-warning edit" id="edit{{this.id}}">Edit</button>
-                        <button type='submit' class='update btn btn-success'>Update</button>
-                        <button type='submit' class='delete btn btn-danger'>Delete</button>
-                        <button class='undoEditClick btn btn-warning'><i class='fa fa-undo' aria-hidden='true'></i></button>
-                        <a href="/checkin/{{this.id}}"><button class="btn btn-info checkIn" class="checkInPlayers">Check in players</button></a>
-                    </div>
+                    <form>
+                        <div class="tournamentData" id="{{this.id}}">
+                            <p class="non-editable tournamentName">Name: {{this.name}}</p>
+                            <p class="editable tournamentName hidden">Name: <input type="textbox" value="{{this.name}}"></p>
+                            <p class="non-editable tournamentDate">Date: {{dateFormat this.date}}</p>
+                            <p class="editable tournamentDate hidden">Date: <input type="textbox" value="{{dateFormat this.date}}"></p>
+                            <p class="non-editable tournamentTime">Time: {{timeFormat this.time}}</p>
+                            <p class="editable tournamentTime hidden">Time: <input type="textbox" value="{{timeFormat this.time}}"></p>
+                            <button class="btn btn-warning edit" id="edit{{this.id}}">Edit</button>
+                            <button type='submit' class='editButtons hidden update btn btn-success'>Update</button>
+                            <button type='submit' class='editButtons hidden delete btn btn-danger'>Delete</button>
+                            <button class='editButtons undoEditClick hidden btn btn-warning'><i class='fa fa-undo' aria-hidden='true'></i></button>
+                        </div>
+                    </form>
+                        <a href="/checkin/{{this.id}}">
+                        <button class="btn btn-info checkInPlayers">Check in players</button></a>
+                    
                 {{/each}}
             </div>
         </div>
@@ -74,3 +80,5 @@
         <small>&copy; 2017</small>
     </div>
 </footer>
+
+<script type="text/javascript" src="/js/admin.js"></script>
