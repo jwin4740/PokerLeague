@@ -75,7 +75,7 @@ $(document).ready(function() {
 			var usernameData = $(value).html();
 			
 			// var userIdData = 
-			$("#tournamentBody").append("<tr><td class='usernameColumn' data-userId='" + userIdData + "'>" + usernameData + "</td><td class='rankColumn'><button type='button' class='btn btn-lg btn-danger eliminate'>Eliminate</button></td></tr>").append()
+			$("#tournamentBody").append("<tr><td class='usernameColumn' data-userId='" + userIdData + "'>" + usernameData + "</td><td class='rankColumn'><button type='button' class='btn btn-lg btn-danger eliminate'>Eliminate</button></td></tr>").append();
 
 		});
 		$("#submitResults").attr('disabled', true).show();
@@ -103,6 +103,17 @@ $(document).ready(function() {
 		console.log(tournamentId);
 		// Loop through each row in table to get data
 		$("#tournamentBody>tr").each(function(index, value) {
+
+			var resultData = {};
+			console.log(value);
+			resultData = {
+				UserId: $(value).find(".usernameColumn").attr("data-userid"),
+				Rank: $(value).find(".rankColumn").children().html()
+			};
+			console.log(resultData);
+			//// Get points and put in object using function
+		});
+
 			// console.log(value);
 			var rank = parseInt($(value).find(".rankColumn").children().html());
 			var userId = $(value).find(".usernameColumn").attr("data-userid");
@@ -131,7 +142,16 @@ $(document).ready(function() {
 	    }).fail(function(err) {
 	    	console.log("Error: " + err);
 	    });
+
+
+
+	$("#logoutButton").on("click", function(){
+		sessionStorage.clear();
 	});
+
+
+});
+
 
 function calculatePoints(position) {
 	var numberOfPlayers = usernameArray.length;
@@ -153,7 +173,7 @@ function calculatePoints(position) {
 	return points;
 }
 
-});
+
 
 // Until a better method is found ----> page reload every 20 secs
 function update_content() {
@@ -164,6 +184,10 @@ function update_content() {
 		// alert("reloaded!");
 	});
 }
+
+
+
+
 
 
 
