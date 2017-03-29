@@ -5,7 +5,7 @@
 // If yes, update it, if not, create one.
 
 $(document).ready(function() {
-	$(".registerUnregister").on("click", function() {
+	$(".tournamentData").on("click", ".registerUnregister", function() {
 		var tournamentId = $(this).attr("data-tournamentId");
 		var userId = $(this).attr("data-userId");
 		// console.log("Inside register on click function.");
