@@ -30,7 +30,6 @@ module.exports = function(app) {
 //////// CREATE NEW object models TO PROVIDE SPECIFIC DATA FROM DB , AVOIDING ASYNC ISSUES ????? ///////
 
 app.get("/", function(req, res) {
-  var loggedIn = false;
   // Query to populate leaderboard
    db.User.findAll({
     include: [{
@@ -39,7 +38,6 @@ app.get("/", function(req, res) {
      order: [ [ 'updatedAt', 'DESC' ]]
    }).then(function(userResults) {
     // console.log(userResults);
-      // var userData = userResults[0];
       var updatedAtParent;
       var pointsData = userResults.map(function(userItem) {
         var points = 0;
@@ -98,49 +96,58 @@ app.get("/admin", function(req, res) {
 
 // Render tournament specific to user and other tournaments
   app.get("/user/:id", function(req, res) {
- 
-    var userId = req.params.id;
-    // Get tournaments and players table data
-    db.Tournament.findAll({
-      include: [{
-      model: db.Player
-    }]
-   }).then(function(tournamentResults){
-    // With tournamentsResults, map it to required json data format 
-    var userTournamentData = tournamentResults.map(function(tournamentItem) {
-        var ofUser = false;
-        var playerData = tournamentItem.dataValues.Players;
-        playerData.forEach(function(playerItem) {
-          // For current user
-            if(playerItem.dataValues.UserId == userId) {
-              // Check if this tournament was registered for
-              if(playerItem.dataValues.player_registered_flag == 1) {
-                // If yes, set flag to true
-                ofUser = true;
-                // else flag will be false
-              }
-              
-            }
-        });
-        // Return required data
-        return {
-          "userId": userId,
-           "id" : tournamentItem.id,
-           "name" : tournamentItem.name,
-            "date" : tournamentItem.date,
-            "time" : tournamentItem.time,
-            "ofUser" : ofUser
-        };
+    console.log("------");
+    console.log(req.session.uniqueID);
+    console.log("------");
 
-      });
-      // console.log(userTournamentData);
-     
-      res.render('user', {
-        // userName: userName,
-        tournament: userTournamentData,
-        helpers: handlebarHelpers
-      });
-  });
+    if(req.session.uniqueID === undefined) {
+      res.render("401");
+    }else {
+
+      var userId = req.params.id;
+      // Get tournaments and players table data
+      db.Tournament.findAll({
+        include: [{
+        model: db.Player
+      }]
+     }).then(function(tournamentResults){
+      // With tournamentsResults, map it to required json data format 
+      var userTournamentData = tournamentResults.map(function(tournamentItem) {
+          var ofUser = false;
+          var playerData = tournamentItem.dataValues.Players;
+          playerData.forEach(function(playerItem) {
+            // For current user
+              if(playerItem.dataValues.UserId == userId) {
+                // Check if this tournament was registered for
+                if(playerItem.dataValues.player_registered_flag == 1) {
+                  // If yes, set flag to true
+                  ofUser = true;
+                  // else flag will be false
+                }
+                
+              }
+          });
+          // Return required data
+          return {
+            "userId": userId,
+             "id" : tournamentItem.id,
+             "name" : tournamentItem.name,
+              "date" : tournamentItem.date,
+              "time" : tournamentItem.time,
+              "ofUser" : ofUser
+          };
+
+        });
+        // console.log(userTournamentData);
+       
+        res.render('user', {
+          // userName: userName,
+          tournament: userTournamentData,
+          helpers: handlebarHelpers
+        });
+    });
+  }
+ 
 });
 
   app.get("/register", function(req, res) {
@@ -202,11 +209,11 @@ app.get("/admin", function(req, res) {
     });
   });
 
-  // app.use(function(req, res) {
-  //   res.type('text/html');
-  //   res.status(404);
-  //   res.render('404');
-  // });
+  app.use(function(err, req, res, next) {
+    console.log(err.stack);
+    res.status(401);
+    res.render('401');
+  });
 
   app.use(function(err, req, res, next) {
     console.log(err.stack);
