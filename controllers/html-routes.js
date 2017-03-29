@@ -100,7 +100,7 @@ app.get("/admin", function(req, res) {
     console.log(req.session.uniqueID);
     console.log("------");
 
-    if(req.session.uniqueID === undefined) {
+    if(req.session.uniqueID === undefined || req.session.uniqueID[2] !== req.params.id) {
       res.render("401");
     }else {
 

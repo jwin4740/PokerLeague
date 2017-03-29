@@ -83,9 +83,8 @@ module.exports = function(app) {
                         salt: salt
                     }).then(function(result) {
                         // redirect to user.html with username in welcome message
-                        res.render('user', {
-                            userName: req.body.username
-                        });
+                         req.session.newRegister = true;
+                        res.redirect('/');
                     });   		
                 }
 
@@ -99,6 +98,7 @@ module.exports = function(app) {
         var email = req.body.email;
         var password = req.body.password;
         console.log("am here");
+         session.newRegister = false;
         //checks hash against hash for entry validation
         db.User.findOne({
             where: {
