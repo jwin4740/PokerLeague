@@ -24,6 +24,7 @@ $(document).ready(function() {
     	// console.log(checkinArea);
     	var checkinButton = $(this);
     	checkinButton.attr('disabled', true);
+    	checkinArea.attr("data-checkedin","true");
 
     	$.ajax({
 	      method: "PUT",
@@ -35,8 +36,9 @@ $(document).ready(function() {
 	    	// Hide checkIn button for checkedIn playerName
 	      	checkinButton.hide();
 	      	// Check mark for checked in players
-	      	checkinArea.html("<i data-userId='"+ userId + "' style='color: #19b739;' class='fa fa-3x fa-check' aria-hidden='true'></i>");
+	      	checkinArea.html("<i data-userId='"+ userId + "' style='color: #19b739;' class='fa fa-3x fa-check' aria-hidden='true' ></i>");
 	      	removeMessage();
+
 	      	/////////////// Add data-checkedIn to checkedIn player td ////////////////
 	    }).fail(function(data) {
 	    	console.log(data);
@@ -63,8 +65,8 @@ $(document).ready(function() {
 		clearInterval(refresher);
 		$(this).hide();
 		$("#checkinDiv").hide();
-		// console.log($("tbody").children());
-		usernameArray = $("[data-checkedIn='true']").prev();
+		
+		usernameArray = $("[data-checkedIn='true']").prev(); //creates a list of all elements NEXT TO the elements that meet this requirement
 		// console.log(usernameArray);
 		// Setting number of players to update rank
 		playerCount = usernameArray.length;
