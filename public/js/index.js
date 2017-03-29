@@ -1,13 +1,4 @@
-
-
-
-
-// if(sessionStorage.length === 0 ) {
-
-// }
-
-
-
+// Toggling signedIn and notSignedIn class (to display login/SignUp or Logout/LoggedIn:<username> buttons)
 if(sessionStorage.length !== 0){
 		$("#userName").text(sessionStorage.username);
 		$(".signedIn").toggleClass("hidden");
@@ -24,4 +15,15 @@ $("#logoutButton").on("click", function(){
 	sessionStorage.clear();
 });
 
+$(".register").on("click", function() {
+	if(sessionStorage.length !== 0) {
+		if(sessionStorage.role === "user"){
+			window.location = "/user/" + sessionStorage.userID;
+		} else if(sessionStorage.role === "admin"){
+			window.location = "/admin";
+		}
+	}else {
+		$('#loginModal').modal('show'); 
+	}
+})
 
