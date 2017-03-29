@@ -13,7 +13,7 @@ $(document).ready(function() {
 		var queryData = {
 			"userId": userId,
 			"tournamentId": tournamentId
-		}
+		};
 		// console.log("Gonna call ajax put.");
 		var thisButton = $(this);
 		thisButton.attr('disabled', true);
