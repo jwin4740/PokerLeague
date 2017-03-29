@@ -172,7 +172,7 @@ module.exports = function(app) {
                         updatedAt: updatedAt
                         }
                     }).then(function(data) {
-                        console.log(data)
+                        console.log(data);
                     });
                 }
                 // res.redirect("/user/"+userID);
@@ -196,7 +196,7 @@ module.exports = function(app) {
                 TournamentId: tournamentID
                 }
             }).then(function(data) {
-                res.json("Unregistered for tournament.")
+                res.json("Unregistered for tournament.");
             });
         }
     });

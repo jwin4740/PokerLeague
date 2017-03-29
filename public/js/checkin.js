@@ -74,7 +74,7 @@ $(document).ready(function() {
 			var usernameData = $(value).html();
 			
 			// var userIdData = 
-			$("#tournamentBody").append("<tr><td class='usernameColumn' data-userId='" + userIdData + "'>" + usernameData + "</td><td class='rankColumn'><button type='button' class='btn btn-lg btn-danger eliminate'>Eliminate</button></td></tr>").append()
+			$("#tournamentBody").append("<tr><td class='usernameColumn' data-userId='" + userIdData + "'>" + usernameData + "</td><td class='rankColumn'><button type='button' class='btn btn-lg btn-danger eliminate'>Eliminate</button></td></tr>").append();
 
 		});
 		$("#submitResults").attr('disabled', true).show();
@@ -102,11 +102,11 @@ $(document).ready(function() {
 			resultData = {
 				UserId: $(value).find(".usernameColumn").attr("data-userid"),
 				Rank: $(value).find(".rankColumn").children().html()
-			}
+			};
 			console.log(resultData);
 			//// Get points and put in object using function
 		});
-	})
+	});
 
 function calculatePoints() {
 	
@@ -123,6 +123,13 @@ function update_content() {
 		// alert("reloaded!");
 	});
 }
+
+
+$("#logoutButton").on("click", function(){
+	sessionStorage.clear();
+});
+
+
 
 
 

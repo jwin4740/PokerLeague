@@ -16,8 +16,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="notSignedIn"><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li> 
                 <li class="notSignedIn"><a href="/register">Sign Up</a></li>
-                <li class="signedIn hidden"><a href="#"> Logged In: <span id="userName"></span></a>
-                <li class="signedIn hidden"><a href="/logout">Logout</a></li>
+                <li class="signedIn hidden"><a id="loginLink" href="#"> Logged In: <span id="userName"></span></a>
+                <li class="signedIn hidden" id="logoutButton"><a href="/logout">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -101,8 +101,8 @@
                             <input id="password" type="password" class="form-control" name="password">
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="btnSubmit" class="btn btn-lg btn-danger center-block" data-dismiss="modal" onclick="onClick();">Login</button>
-                            <!--<input type="submit" id="submit" name="submit">-->
+                            <button type="submit" id="btnSubmit" class="btn btn-lg btn-danger center-block">Login</button>
+                          
                             
                         </div>
                     </form>
