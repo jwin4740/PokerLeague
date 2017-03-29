@@ -7,6 +7,7 @@
 $(document).ready(function() {
 	$("#submitResults").hide();
 	$("#tournamentArea").hide();
+	
 	// Update content to allow users registered after checkin page load to be displayed
     var refresher = setInterval(update_content, 20000); // 20 seconds
 
@@ -20,7 +21,7 @@ $(document).ready(function() {
     		TournamentId: tournament_id
     	};
     	var checkinArea = $(this).parent();
-    	console.log(checkinArea);
+    	// console.log(checkinArea);
     	var checkinButton = $(this);
     	checkinButton.attr('disabled', true);
 
@@ -30,7 +31,7 @@ $(document).ready(function() {
 	      data: checkinPlayerObject
 	    })
 	    .done(function(data) {
-	    	console.log(data);
+	    	// console.log(data);
 	    	// Hide checkIn button for checkedIn playerName
 	      	checkinButton.hide();
 	      	// Check mark for checked in players
@@ -96,7 +97,13 @@ $(document).ready(function() {
 	// submitButton . on click loop through each tr in table, use index to calculate rank, and run function to calculate points.
 	$("#submitResults").on("click", function(event) {
 		event.preventDefault();
+		var resultsDataArray = [];
+		var resultsData = {};
+		var tournamentId = $(this).attr("data-tournamentId");
+		console.log(tournamentId);
+		// Loop through each row in table to get data
 		$("#tournamentBody>tr").each(function(index, value) {
+
 			var resultData = {};
 			console.log(value);
 			resultData = {
@@ -106,13 +113,67 @@ $(document).ready(function() {
 			console.log(resultData);
 			//// Get points and put in object using function
 		});
+
+			// console.log(value);
+			var rank = parseInt($(value).find(".rankColumn").children().html());
+			var userId = $(value).find(".usernameColumn").attr("data-userid");
+			// Call function to calculate points
+			var points = calculatePoints(rank);
+			// Get points and put in object using function
+			resultsDataArray.push({
+				UserId: userId,
+				TournamentId: tournamentId,
+				points: points
+			});
+			resultsData = {resultsDataArray};
+			console.log(resultsData);			
+		});
+		console.log("Firing ajax");
+		$.ajax({
+	      method: "POST",
+	      url: "/player/results",
+	      data: resultsData
+	    })
+	    .success(function(data) {
+	    	console.log(data);
+	    	if(data.status === "success") {
+	    		window.location = data.redirectURL;
+	    	}
+	    }).fail(function(err) {
+	    	console.log("Error: " + err);
+	    });
+
+
+
+	$("#logoutButton").on("click", function(){
+		sessionStorage.clear();
 	});
 
-function calculatePoints() {
-	
-}
 
 });
+
+
+function calculatePoints(position) {
+	var numberOfPlayers = usernameArray.length;
+	var points = (numberOfPlayers - position + 1) * 5;
+	// console.log("Points after formula: " + points);
+	if(position === 1) {
+		// console.log("Position 1 points: " + points);
+		points = points + 30;
+		// console.log("Position 1 points: " + points);
+	}else if(position === 2) {
+		// console.log("Position 2 points: " + points);
+		points = points + 20;
+		// console.log("Position 2 points: " + points);
+	}else if(position === 3) {
+		// console.log("Position 3 points: " + points);
+		points = points + 10;
+		// console.log("Position 3 points: " + points);
+	}
+	return points;
+}
+
+
 
 // Until a better method is found ----> page reload every 20 secs
 function update_content() {
@@ -125,9 +186,6 @@ function update_content() {
 }
 
 
-$("#logoutButton").on("click", function(){
-	sessionStorage.clear();
-});
 
 
 

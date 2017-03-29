@@ -53,7 +53,7 @@ app.get("/", function(req, res) {
           "points": points
         };
       });
-      console.log(pointsData);
+      // console.log(pointsData);
     db.Tournament.findAll({}).then(function(tournamentResults){
       // console.log(tournamentResults);
         res.render("index", {
@@ -119,7 +119,7 @@ app.get("/admin", function(req, res) {
         };
 
       });
-      console.log(userTournamentData);
+      // console.log(userTournamentData);
      
       res.render('user', {
         // userName: userName,
@@ -157,14 +157,14 @@ app.get("/admin", function(req, res) {
         return {
           "username" : item.dataValues.username,
           "userId" : item.dataValues.id,
-          "tournamentId": tournament_Id,
           "player_checkedIn_flag": item.dataValues.Players[0].dataValues.player_checkedIn_flag
         };
       });
-      console.log(tournamentPlayers);
+      // console.log(tournamentPlayers);
       // Render checkin page with names of registered users
       res.render('checkin', {
         player: tournamentPlayers,
+        tournamentId: tournament_Id,
         // express handlebars helper function inc to increment index by 1 for serial number display
         helpers: {
             inc: function (index) { return parseInt(index) + 1; }

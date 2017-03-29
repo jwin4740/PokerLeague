@@ -53,47 +53,43 @@ module.exports = function(app) {
             });
         } else { //else look if there is a current user with same username or same email address
 
-    	db.User.findAll({
-	   	where: {
-	   		$or: [
-		   		{
-		   			username: req.body.username
-		   		},
-		   		{
-		   			email: req.body.email
-	   			}
-	   		]
-	   	}
-	   	}).then(function(userResults) {
-	   		if(userResults.length){ //if there is a match of same name, restart register page
-	   			res.render('register', {
-                errors: [{msg: "Username or e-mail already in use"}]
-            });
-	   		}else { //else hash password and create the user
-
-	   			 req.session.success = true;
-
-            var salt = genRandomString(32);
-            var hashedPassword = sha512(req.body.password, salt).passwordHash;
-
-            db.User.create({
-                email: req.body.email,
-                username: req.body.username,
-                hash: hashedPassword,
-                salt: salt
-            }).then(function(result) {
-                // redirect to user.html with username in welcome message
-                res.render('user', {
-                    userName: req.body.username
+        	db.User.findAll({
+    	   	where: {
+    	   		$or: [
+    		   		{
+    		   			username: req.body.username
+    		   		},
+    		   		{
+    		   			email: req.body.email
+    	   			}
+    	   		]
+    	   	}
+    	   	}).then(function(userResults) {
+    	   		if(userResults.length){ //if there is a match of same name, restart register page
+    	   			res.render('register', {
+                    errors: [{msg: "Username or e-mail already in use"}]
                 });
-            });   		
+    	   		}else { //else hash password and create the user
 
+    	   			req.session.success = true;
 
+                    var salt = genRandomString(32);
+                    var hashedPassword = sha512(req.body.password, salt).passwordHash;
 
-	   		}
+                    db.User.create({
+                        email: req.body.email,
+                        username: req.body.username,
+                        hash: hashedPassword,
+                        salt: salt
+                    }).then(function(result) {
+                        // redirect to user.html with username in welcome message
+                        res.render('user', {
+                            userName: req.body.username
+                        });
+                    });   		
+                }
 
-	   	});
-           
+    	   	});
         }
     });
 
@@ -202,26 +198,61 @@ module.exports = function(app) {
     });
     
 // PUT route to update checkedIn players in table
-  app.put("/player/checkin", function(req, res) {
-    db.Player.update(
-      {
-      	player_checkedIn_flag: 1
-      },
-      {
-        where: {
-          UserId: req.body.UserId,
-          TournamentId: req.body.TournamentId
-        }
-      }).then(function(data) {
-        res.json("flag updated on checkin");
-      });
-  });
+    app.put("/player/checkin", function(req, res) {
+        db.Player.update(
+          {
+          	player_checkedIn_flag: 1
+          },
+          {
+            where: {
+              UserId: req.body.UserId,
+              TournamentId: req.body.TournamentId
+            }
+          }).then(function(data) {
+            res.json("flag updated on checkin");
+          });
+    });
 
-app.get("/loggedIn", function(req, res) {
-	res.json(req.session);
-});
+// PUT route to update player points 
+    app.post("/player/results", function(req, res) {
+        // console.log(req.body.resultsDataArray);
+        var resultsArray = req.body.resultsDataArray;
+        var updatesPromiseArray = [];
+        // Looping through data array, and pushing the promise of each sequelize update query into an array
+        resultsArray.forEach(function(item) {
+            // console.log(item);
+            updatesPromiseArray.push(
+                            db.Player.update(
+                            {
+                              points: item.points
+                            },
+                            {
+                              where: {
+                                UserId: item.UserId,
+                                TournamentId: item.TournamentId
+                              }
+                            })
+            ); //end of promise array
+        });
 
+        // Waiting for all db updates to complete before deciding success/failure and returning control to client browser
+        Promise.all(updatesPromiseArray).then(function(data) {
+            // On success
+            console.log("success" + data);
+            res.json({
+                redirectURL: "/admin",
+                status: "success"
+            });
+            // On failure
+        }, function(err) {
+            console.log("Something failed.");
+            res.send(500, err);
+        });
+    });
 
-
+// Get request to get session data
+    app.get("/loggedIn", function(req, res) {
+    	res.json(req.session);
+    });
 };
 
