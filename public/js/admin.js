@@ -12,7 +12,30 @@ if(sessionStorage.length === 0 ) {
 	});
 }
 
+// Tournament buttons functionality
+// Edit button shows all edit buttons
+$("#tournamentsList").on("click", ".tournamentData>.edit", function(event) {
+	event.preventDefault();
+	console.log("I clicked");
+	$(this).parent().children(".editable").toggleClass("hidden");
+	$(this).parent().children(".non-editable").hide();
+	$(this).hide();
+	$(this).parent().children(".editButtons").toggleClass("hidden");
+});
+// Undo Edit button hides edit buttons and shows Edit button
+$("#tournamentsList").on("click", ".tournamentData>.undoEditClick", function() {
+	event.preventDefault();
+	console.log("I unclicked");
+	$(this).parent().children(".editable").toggleClass("hidden");
+	$(this).parent().children(".non-editable").show();
+	$(this).parent().children(".edit").show();
+	$(this).parent().children(".editButtons").toggleClass("hidden");
+});
+// Update button puts modifies db data
+$("")
+// Delete buttons removes that tournament from db data
 
+ 
 $("#logoutButton").on("click", function(){
 	sessionStorage.clear();
 });
