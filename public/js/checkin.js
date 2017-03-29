@@ -96,39 +96,29 @@ $(document).ready(function() {
 
 	// submitButton . on click loop through each tr in table, use index to calculate rank, and run function to calculate points.
 	$("#submitResults").on("click", function(event) {
-		event.preventDefault();
+
 		var resultsDataArray = [];
-		var resultsData = {};
-		var tournamentId = $(this).attr("data-tournamentId");
-		console.log(tournamentId);
-		// Loop through each row in table to get data
-		$("#tournamentBody>tr").each(function(index, value) {
-
-			var resultData = {};
-			console.log(value);
-			resultData = {
-				UserId: $(value).find(".usernameColumn").attr("data-userid"),
-				Rank: $(value).find(".rankColumn").children().html()
-			};
-			console.log(resultData);
-			//// Get points and put in object using function
-		});
-
-			// console.log(value);
-			var rank = parseInt($(value).find(".rankColumn").children().html());
-			var userId = $(value).find(".usernameColumn").attr("data-userid");
-			// Call function to calculate points
-			var points = calculatePoints(rank);
-			// Get points and put in object using function
-			resultsDataArray.push({
-				UserId: userId,
-				TournamentId: tournamentId,
-				points: points
-			});
-			resultsData = {resultsDataArray};
-			console.log(resultsData);			
+ 		var resultsData = {};
+ 		var tournamentId = $(this).attr("data-tournamentId");
+ 		console.log(tournamentId);
+ 		// Loop through each row in table to get data
+  		$("#tournamentBody>tr").each(function(index, value) {
+		// console.log(value);
+ 			var rank = parseInt($(value).find(".rankColumn").children().html());
+ 			var userId = $(value).find(".usernameColumn").attr("data-userid");
+ 			// Call function to calculate points
+ 			var points = calculatePoints(rank, usernameArray);
+ 			// Get points and put in object using function
+ 			resultsDataArray.push({
+ 				UserId: userId,
+ 				TournamentId: tournamentId,
+ 				points: points
+ 			});
+ 			resultsData = {resultsDataArray};
+ 			console.log(resultsData);	
 		});
 		console.log("Firing ajax");
+		// AJAX POST to post tournament results to database
 		$.ajax({
 	      method: "POST",
 	      url: "/player/results",
@@ -143,7 +133,7 @@ $(document).ready(function() {
 	    	console.log("Error: " + err);
 	    });
 
-
+	});
 
 	$("#logoutButton").on("click", function(){
 		sessionStorage.clear();
@@ -153,8 +143,8 @@ $(document).ready(function() {
 });
 
 
-function calculatePoints(position) {
-	var numberOfPlayers = usernameArray.length;
+function calculatePoints(position, playersArray) {
+	var numberOfPlayers = playersArray.length;
 	var points = (numberOfPlayers - position + 1) * 5;
 	// console.log("Points after formula: " + points);
 	if(position === 1) {
