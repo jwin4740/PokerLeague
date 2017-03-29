@@ -23,10 +23,17 @@
     </div><!-- /.container-fluid -->
 </nav>
 
+
+
 <div class="container text-center">
         <!--Header -->
         <div class="row">
             <div class="col-xs-12">
+            {{#if newUser}}
+                <div class="alert alert-success">
+                    <strong>Success!</strong> Your Account registration is complete. You can now <a href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+                 </div>
+             {{/if}}
                 <div class="">
                     <h1>Leaderboard</h1>
                 </div>

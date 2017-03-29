@@ -25,5 +25,5 @@ $(".register").on("click", function() {
 	}else {
 		$('#loginModal').modal('show'); 
 	}
-})
+});
 

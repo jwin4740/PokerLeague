@@ -72,7 +72,8 @@ app.get("/", function(req, res) {
         res.render("index", {
           playerData: pointsData,
           tournament: tournamentResults,
-          helpers: handlebarHelpers
+          helpers: handlebarHelpers,
+          newUser: req.session.newRegister
         });
     });
   });
