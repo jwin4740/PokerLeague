@@ -27,38 +27,59 @@ var handlebarHelpers =
 // =============================================================
 module.exports = function(app) {
 
-//////// CREATE NEW object models TO PROVIDE SPECIFIC DATA FROM DB , AVOIDING ASYNC ISSUES ////////
+//////// CREATE NEW object models TO PROVIDE SPECIFIC DATA FROM DB , AVOIDING ASYNC ISSUES ????? ///////
 
 app.get("/", function(req, res) {
-
+  var loggedIn = false;
+  // Query to populate leaderboard
    db.User.findAll({
     include: [{
       model: db.Player
-    }]
+    }],
+     order: [ [ 'updatedAt', 'DESC' ]]
    }).then(function(userResults) {
     // console.log(userResults);
       // var userData = userResults[0];
+      var updatedAtParent;
       var pointsData = userResults.map(function(userItem) {
         var points = 0;
         var playerData = userItem.dataValues.Players;
         playerData.forEach(function(playerItem) {
+          var updatedAt = playerItem.dataValues.createdAt;
           if(userItem.id === playerItem.UserId) {
               points = playerItem.dataValues.points + points;
+              // console.log("First datetime: " + moment(playerItem.dataValues.updatedAt).fromNow() + " playerItemUpdatedAt " + playerItem.dataValues.updatedAt);
+              // console.log("greater than second datetime: " + moment(updatedAt).fromNow() + " updatedAt " + updatedAt);
+              if(moment(playerItem.dataValues.updatedAt).fromNow() > moment(updatedAt).fromNow()){
+                updatedAt = playerItem.dataValues.updatedAt;
+              }
            }
+           updatedAtParent = updatedAt;
+           // console.log("---");
+           // console.log(moment(updatedAtParent).format());
+           // console.log("---");
          });
         return {
           "id": userItem.id,
           "username": userItem.username,
-          "lastPlayed": userItem.updatedAt,
+          "lastPlayed": updatedAtParent,
           "points": points
         };
       });
+
+      if(req.session.loggedIn === true) {
+        loggedIn = true;
+        console.log("Logged in: " + req.session.uniqueID[0]);
+      }else {
+        console.log("Not logged in");
+      }
       // console.log(pointsData);
     db.Tournament.findAll({}).then(function(tournamentResults){
       // console.log(tournamentResults);
         res.render("index", {
           playerData: pointsData,
           tournament: tournamentResults,
+          loggedIn: loggedIn,
           helpers: handlebarHelpers
         });
     });
@@ -186,12 +207,6 @@ app.get("/admin", function(req, res) {
       console.log(error);
       res.redirect('/');
     });
-  });
-
-  ////////// To do ////////////
-
-  app.get("/tournament", function(req, res) {
-    res.render('tournament');
   });
 
   // app.use(function(req, res) {

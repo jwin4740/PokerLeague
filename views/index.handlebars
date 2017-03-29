@@ -69,9 +69,7 @@
                         <div class="tournamentData">
                             <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
                             <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
-                            <a href = '/register/tournament/{{this.id}}'>
-                            <button class="btn btn-lg btn-success register">Register</button>
-                            </a>
+                            <button class="registerUnregister btn btn-lg btn-success register" data-tournamentId = "{{this.id}}">Register</button>
                         </div>
                     </div>
                     {{/each}}
