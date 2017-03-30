@@ -58,12 +58,9 @@
                 {{#each tournament}}
                     <form>
                         <div class="tournamentData" id="{{this.id}}">
-                            <p class="non-editable tournamentName">Name: {{this.name}}</p>
-                            <p class="editable tournamentName hidden">Name: <input type="textbox" value="{{this.name}}"></p>
-                            <p class="non-editable tournamentDate">Date: {{dateFormat this.date}}</p>
-                            <p class="editable tournamentDate hidden">Date: <input type="textbox" value="{{dateFormat this.date}}"></p>
-                            <p class="non-editable tournamentTime">Time: {{timeFormat this.time}}</p>
-                            <p class="editable tournamentTime hidden">Time: <input type="textbox" value="{{timeFormat this.time}}"></p>
+                            <p>Name: <input class="non-editable editBoxes tournamentName" type="textbox" value="{{this.name}}"></p>
+                            <p>Date: <input class="non-editable editBoxes tournamentDate" type="textbox" value="{{dateFormat this.date}}"></p>
+                            <p>Time: <input class="non-editable editBoxes tournamentTime" type="textbox" value="{{timeFormat this.time}}"></p>
                             <button class="btn btn-warning edit" id="edit{{this.id}}">Edit</button>
                             <button type='submit' class='editButtons hidden update btn btn-success'>Update</button>
                             <button type='submit' class='editButtons hidden delete btn btn-danger'>Delete</button>
