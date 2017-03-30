@@ -111,26 +111,23 @@ module.exports = function(app) {
             	session.loggedIn = true;
                 session.uniqueID = [data.email, data.role, data.id, data.username];
                 if (data.role === "admin") {
-                    res.redirect('/admin');
+                    res.send({redirect: '/admin'});
                 } else if (data.role === "user") {
-                    res.redirect('/user/'+ data.id);
+                    res.send({redirect: '/user/' + data.id});
                 } else {
                     console.log('No role found');
                 }
             } else {
                 console.log("Illegal entry detected.");
-                console.log("Illegal entry detected.");
-                console.log("Illegal entry detected.");
-                console.log("Illegal entry detected.");
-                console.log("Illegal entry detected.");
-                console.log("Illegal entry detected.");
-                console.log("Illegal entry detected.");
                 res.redirect('/');
             }
 
+        
+        }).catch(function(err) {
+            res.end(err);
         });
-
     });
+
 
 //REGISTER FOR TOURNAMENT
     app.put('/register/tournament', function(req, res) {

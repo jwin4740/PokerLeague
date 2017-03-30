@@ -84,6 +84,29 @@ $(document).ready(function() {
 		});
 	});
 
+// Tournament buttons functionality
+// Edit button shows all edit buttons
+$("#tournamentsList").on("click", ".tournamentData>.edit", function(event) {
+	event.preventDefault();
+	console.log("I clicked");
+	$(this).parent().children(".editable").toggleClass("hidden");
+	$(this).parent().children(".non-editable").hide();
+	$(this).hide();
+	$(this).parent().children(".editButtons").toggleClass("hidden");
+});
+// Undo Edit button hides edit buttons and shows Edit button
+$("#tournamentsList").on("click", ".tournamentData>.undoEditClick", function() {
+	event.preventDefault();
+	console.log("I unclicked");
+	$(this).parent().children(".editable").toggleClass("hidden");
+	$(this).parent().children(".non-editable").show();
+	$(this).parent().children(".edit").show();
+	$(this).parent().children(".editButtons").toggleClass("hidden");
+});
+// Update button puts modifies db data
+
+// Delete buttons removes that tournament from db data
+
 
 	// DELETE BUTTON TO "DELETE" TOURNAMENT FROM DB
 	// On click of Delete button,
@@ -134,6 +157,25 @@ $(document).ready(function() {
 	$(".non-editable").attr('disabled', true);
 });
 
+<<<<<<< HEAD
+$("#loginForm").on("submit", function(data){
+	event.preventDefault();
+	$.ajax({
+      url: $('#loginForm').attr('action'),
+      type: "post",
+      data : $('#loginForm').serialize(),
+      success: function(response){
+      	console.log("Success!");
+        window.location = response.redirect;
+      },
+      error: function(error){
+      	console.log("Failure");
+      	console.log(error);
+      }
+    });
+
+});
+=======
 // Function to change input textbox editable to non-editable and disabled
 function changeBackFromEdit(buttonObject) {
 	var date = buttonObject.parent().find(".tournamentDate").val();
@@ -150,4 +192,5 @@ function changeBackFromEdit(buttonObject) {
 }
 
 
+>>>>>>> e10658b604a1e4978797765bbd1536b6dbaa1d5c
 
