@@ -3,7 +3,7 @@ var db = require("../models");
 var moment = require("moment");
 
 var session;
-
+ 
 var handlebarHelpers = 
           {
             inc: function (index) { 
@@ -27,10 +27,26 @@ var handlebarHelpers =
 // =============================================================
 module.exports = function(app) {
 
-//////// CREATE NEW object models TO PROVIDE SPECIFIC DATA FROM DB , AVOIDING ASYNC ISSUES ????? ///////
-
 app.get("/", function(req, res) {
   // Query to populate leaderboard
+// Get usernames and ids where role = user
+// For each of those, get points and add to points
+// For each of those, also get updatedAt, order DESC
+
+//------
+
+//// Users - id , include players where players id = user id
+// push to array..
+/// For each -> get points, pointsArray.reduce(a + b)
+/// Gor each also get tournament ids ...????
+// Get date from tournaments........ get latest tournament.. order by date.. ?????
+//... To do.
+
+  db.User.findAll({
+    attributes: []
+  })
+
+//---------------------------
    db.User.findAll({
     include: [{
       model: db.Player
@@ -38,11 +54,27 @@ app.get("/", function(req, res) {
      order: [ [ 'updatedAt', 'DESC' ]]
    }).then(function(userResults) {
     // console.log(userResults);
-      var updatedAtParent;
       var pointsData = userResults.map(function(userItem) {
+        console.log("");
+        console.log("-------");
+        console.log("");
+        console.log(userItem);
+        console.log("");
+        console.log("-------");
+        console.log("");
+
+        var updatedAtParent;
         var points = 0;
         var playerData = userItem.dataValues.Players;
         playerData.forEach(function(playerItem) {
+           console.log("");
+            console.log("-&&&&&&-");
+            console.log(""); 
+            console.log(playerItem);
+        console.log("");
+        console.log("-&&&&&&-");
+        console.log("");
+
           var updatedAt = playerItem.dataValues.createdAt;
           if(userItem.id === playerItem.UserId) {
               points = playerItem.dataValues.points + points;
