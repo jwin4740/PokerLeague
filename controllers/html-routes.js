@@ -27,10 +27,26 @@ var handlebarHelpers =
 // =============================================================
 module.exports = function(app) {
 
-//////// CREATE NEW object models TO PROVIDE SPECIFIC DATA FROM DB , AVOIDING ASYNC ISSUES ????? ///////
-
 app.get("/", function(req, res) {
   // Query to populate leaderboard
+// Get usernames and ids where role = user
+// For each of those, get points and add to points
+// For each of those, also get updatedAt, order DESC
+
+//------
+
+//// Users - id , include players where players id = user id
+// push to array..
+/// For each -> get points, pointsArray.reduce(a + b)
+/// Gor each also get tournament ids ...????
+// Get date from tournaments........ get latest tournament.. order by date.. ?????
+//... To do.
+
+  db.User.findAll({
+    attributes: []
+  })
+
+//---------------------------
    db.User.findAll({
     include: [{
       model: db.Player
