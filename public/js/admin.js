@@ -32,11 +32,29 @@ $("#tournamentsList").on("click", ".tournamentData>.undoEditClick", function() {
 	$(this).parent().children(".editButtons").toggleClass("hidden");
 });
 // Update button puts modifies db data
-$("")
+
 // Delete buttons removes that tournament from db data
 
  
 $("#logoutButton").on("click", function(){
 	sessionStorage.clear();
+});
+
+$("#loginForm").on("submit", function(data){
+	event.preventDefault();
+	$.ajax({
+      url: $('#loginForm').attr('action'),
+      type: "post",
+      data : $('#loginForm').serialize(),
+      success: function(response){
+      	console.log("Success!");
+        window.location = response.redirect;
+      },
+      error: function(error){
+      	console.log("Failure");
+      	console.log(error);
+      }
+    });
+
 });
 

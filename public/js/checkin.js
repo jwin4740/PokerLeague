@@ -177,6 +177,24 @@ function update_content() {
 	});
 }
 
+$("#loginForm").on("submit", function(data){
+	event.preventDefault();
+	$.ajax({
+      url: $('#loginForm').attr('action'),
+      type: "post",
+      data : $('#loginForm').serialize(),
+      success: function(response){
+      	console.log("Success!");
+        window.location = response.redirect;
+      },
+      error: function(error){
+      	console.log("Failure");
+      	console.log(error);
+      }
+    });
+
+});
+
 
 
 
