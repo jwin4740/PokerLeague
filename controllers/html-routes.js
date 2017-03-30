@@ -3,7 +3,7 @@ var db = require("../models");
 var moment = require("moment");
 
 var session;
-
+ 
 var handlebarHelpers = 
           {
             inc: function (index) { 
@@ -38,11 +38,27 @@ app.get("/", function(req, res) {
      order: [ [ 'updatedAt', 'DESC' ]]
    }).then(function(userResults) {
     // console.log(userResults);
-      var updatedAtParent;
       var pointsData = userResults.map(function(userItem) {
+        console.log("");
+        console.log("-------");
+        console.log("");
+        console.log(userItem);
+        console.log("");
+        console.log("-------");
+        console.log("");
+
+        var updatedAtParent;
         var points = 0;
         var playerData = userItem.dataValues.Players;
         playerData.forEach(function(playerItem) {
+           console.log("");
+            console.log("-&&&&&&-");
+            console.log(""); 
+            console.log(playerItem);
+        console.log("");
+        console.log("-&&&&&&-");
+        console.log("");
+
           var updatedAt = playerItem.dataValues.createdAt;
           if(userItem.id === playerItem.UserId) {
               points = playerItem.dataValues.points + points;

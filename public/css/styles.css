@@ -6,3 +6,8 @@
 	margin: 0 auto;
 	height: 300px;
 }
+
+.non-editable {
+	border: none;
+	background-color: transparent;
+}
