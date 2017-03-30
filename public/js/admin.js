@@ -103,6 +103,12 @@ $("#tournamentsList").on("click", ".tournamentData>.update", function(event) {
 // Change back the editable fields by writing code written above between the //* and //*
 // For better error handling, write a .catch in api-routes and a .fail in ajax call here
 
+// // Delete buttons removes that tournament from db data
+// $("#tournamentsList").on("click", ".tournamentData>.delete", function(event) {
+// 	event.preventDefault();
+// 	console.log("deleting tournament data");
+
+// });
 
 $("#logoutButton").on("click", function(){
 	sessionStorage.clear();
@@ -112,38 +118,7 @@ $("#logoutButton").on("click", function(){
 	$(".non-editable").attr('disabled', true);
 });
 
-//// Update button puts modifies db data
-// $("#tournamentsList").on("click", ".tournamentData>.update", function(event) {
-// 	event.preventDefault();
-// 	console.log($(this).parent());
-// 	var tournament_id = $(this).attr("data-tournamentId");
-// 	// var tournament_name = $(;
-// 	// var tournament_date = $(this).attr("data-tournamentDate");
-// 	// var tournament_time = $(this).attr("data-tournamentTime");
-// 	console.log(tournament_id);
-// 	var tournamentObject = {
-// 		TournamentId: tournament_id,
-// 		TournamentName: tournament_name,
-// 		TournamentDate: tournament_date,
-// 		TournamentTime: tournament_time
-// 	};
 
-// 	$.ajax({
-// 		method: "PUT",
-// 		url: "/update/tournament",
-// 		data: tournamentObject
-// 	})
-// 	.done(function(data) {
-// 		console.log(data);
-// 		console.log("tournament updated");
-// 	})
-// });
 
-// // Delete buttons removes that tournament from db data
-// $("#tournamentsList").on("click", ".tournamentData>.delete", function(event) {
-// 	event.preventDefault();
-// 	console.log("deleting tournament data");
-
-// });
 
 
