@@ -64,3 +64,8 @@ body {
     margin-bottom: -3px;
     margin-top: 3px;
 }
+
+.non-editable {
+    border: none;
+    background-color: transparent;
+}

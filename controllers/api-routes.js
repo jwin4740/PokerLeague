@@ -250,6 +250,51 @@ module.exports = function(app) {
         });
     });
 
+//PUT route to update tournament info
+    app.put("/update/tournament", function(req, res) {
+        db.Tournament.update(
+            {
+                name: req.body.TournamentName,
+                date: req.body.TournamentDate,
+                time: req.body.TournamentTime
+            },
+            {
+                where:{
+                    id: req.body.TournamentId
+                }
+            }).then(function(data){
+                console.log(data);
+                res.send("updated");
+            });//.catch(function(error) {
+            //     console.log(error);
+            //     // res.json("Error " + error);
+            //     res.render("500", {error: error});
+            // });
+    });
+
+
+
+//PUT route to delete tournament info
+ app.put("/delete/tournament", function(req, res) {
+        db.Tournament.update(
+            {
+                active_flag: 0
+            },
+            {
+                where:{
+                    id: req.body.TournamentId
+                }
+            }).then(function(data){
+                console.log(data);
+                res.send("deleted tournament - updated active_flag");
+            });//.catch(function(error) {
+            //     console.log(error);
+            //     // res.json("Error " + error);
+            //     res.render("500", {error: error});
+            // });
+    });
+
+
 // Get request to get session data
     app.get("/loggedIn", function(req, res) {
     	res.json(req.session);
