@@ -52,11 +52,40 @@ $("#tournamentsList").on("click", ".tournamentData>.undoEditClick", function() {
 
 });
 
+
 // UPDATE BUTTON TO MODIFY TOURNAMENT DB DATA
 // On click of Update button,
+$("#tournamentsList").on("click", ".tournamentData>.update", function(event) {
+	event.preventDefault();
+
 // Get val() from each of the textboxes,
+	var tournament_name = $(this).parent().find(".tournamentName").val();
+	var tournament_date = $(this).parent().find(".tournamentDate").val();
+	var tournament_time = $(this).parent().find(".tournamentTime").val();
+	console.log(tournament_name);
 // Get tournamentId from the parent div of the button clicked
+	var tournament_id = $(this).attr("data-tournamentId");
+
+	var tournamentObject = {
+		TournamentId: tournament_id,
+		TournamentName: tournament_name,
+		TournamentDate: tournament_date,
+		TournamentTime: tournament_time
+	};
+ 	
+
 // Fire an ajax put/post (?) /update/tournament
+	$.ajax({
+		method: "PUT",
+		url: "/update/tournament",
+		data: tournamentObject
+	})
+	.done(function(data) {
+		console.log(data);
+		console.log("tournament updated");
+	})
+});
+
 // In API routes, /update/tournament, do a sequelize UPDATE tournament set tournament name, date, time = values received, Where id = tournamentId
 // .then(function(data) {res.send("Updated")})
 // "Updated" will be received in the ajax.done(function(data){console.log(data)})
@@ -74,12 +103,21 @@ $("#tournamentsList").on("click", ".tournamentData>.undoEditClick", function() {
 // Change back the editable fields by writing code written above between the //* and //*
 // For better error handling, write a .catch in api-routes and a .fail in ajax call here
 
+// // Delete buttons removes that tournament from db data
+// $("#tournamentsList").on("click", ".tournamentData>.delete", function(event) {
+// 	event.preventDefault();
+// 	console.log("deleting tournament data");
+
+// });
+
 $("#logoutButton").on("click", function(){
 	sessionStorage.clear();
 });
 
+
 	$(".non-editable").attr('disabled', true);
 });
+
 
 
 

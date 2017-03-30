@@ -56,13 +56,15 @@
         <div class="col-xs-12">
             <div class="" id="tournamentsList">
                 {{#each tournament}}
-                    <form>
+                    <form id="updateTournamentForm" method="post" action="update/tournament">
                         <div class="tournamentData" id="{{this.id}}">
+
                             <p>Name: <input class="non-editable editBoxes tournamentName" type="textbox" value="{{this.name}}"></p>
                             <p>Date: <input class="non-editable editBoxes tournamentDate" type="textbox" value="{{dateFormat this.date}}"></p>
                             <p>Time: <input class="non-editable editBoxes tournamentTime" type="textbox" value="{{timeFormat this.time}}"></p>
+
                             <button class="btn btn-warning edit" id="edit{{this.id}}">Edit</button>
-                            <button type='submit' class='editButtons hidden update btn btn-success'>Update</button>
+                            <button type='submit' class='editButtons hidden update btn btn-success' data-tournamentId="{{this.id}}">Update</button>
                             <button type='submit' class='editButtons hidden delete btn btn-danger'>Delete</button>
                             <button class='editButtons undoEditClick hidden btn btn-warning'><i class='fa fa-undo' aria-hidden='true'></i></button>
                         </div>
