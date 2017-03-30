@@ -99,12 +99,12 @@ app.get("/admin", function(req, res) {
     console.log("------");
     console.log(req.session.uniqueID);
     console.log("------");
+    var userId = req.params.id;
+    console.log(typeof req.session.uniqueID[2]);
+    console.log(typeof userId);
 
-    if(req.session.uniqueID === undefined) {
-      res.render("401");
-    }else {
 
-      var userId = req.params.id;
+  if(req.session.uniqueID[2] === parseInt(userId)) {
       // Get tournaments and players table data
       db.Tournament.findAll({
         include: [{
@@ -146,9 +146,13 @@ app.get("/admin", function(req, res) {
           helpers: handlebarHelpers
         });
     });
+  }else{
+    res.render("401");
   }
+
  
 });
+
 
   app.get("/register", function(req, res) {
     //Todo//
