@@ -250,6 +250,34 @@ module.exports = function(app) {
         });
     });
 
+//PUT route to update tournament info
+// / In API routes, /update/tournament, do a sequelize UPDATE tournament set tournament name, date, time = values received, Where id = tournamentId
+// .then(function(data) {res.send("Updated")})
+    app.put("/update/tournament", function(req, res) {
+        db.Tournament.update(
+            {
+                name: req.body.TournamentName,
+                date: req.body.TournamentDate,
+                time: req.body.TournamentTime
+            },
+            {
+                where:{
+                    id: req.body.TournamentId
+                }
+            }).then(function(data){
+                console.log(data);
+                res.send("updated");
+            });
+    });
+
+// "Updated" will be received in the ajax.done(function(data){console.log(data)})
+// Change back the editable fields by writing code written above between the //* and //*
+// For better error handling, write a .catch in api-routes and a .fail in ajax call here
+
+//PUT route to delete tournament info
+
+
+
 // Get request to get session data
     app.get("/loggedIn", function(req, res) {
     	res.json(req.session);
