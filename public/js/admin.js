@@ -36,7 +36,7 @@ $("#tournamentsList").on("click", ".tournamentData>.edit", function(event) {
 $("#tournamentsList").on("click", ".tournamentData>.undoEditClick", function() {
 	event.preventDefault();
 	console.log("Undo edit");
-	// Get new values from fields
+//*	// Get new values from fields
 	var date = $(this).parent().find(".tournamentDate").val();
 	var time = $(this).parent().find(".tournamentTime").val();
 	// Change textboxes back to text type with a value formatted back to original displayed format
@@ -48,13 +48,32 @@ $("#tournamentsList").on("click", ".tournamentData>.undoEditClick", function() {
 	$(this).parent().children(".edit").show();
 	// Toggle display of Update, Delete and Undo edit buttons
 	$(this).parent().children(".editButtons").toggleClass("hidden");
+//*
+
 });
 
-// Update button puts modifies db data
+// UPDATE BUTTON TO MODIFY TOURNAMENT DB DATA
+// On click of Update button,
+// Get val() from each of the textboxes,
+// Get tournamentId from the parent div of the button clicked
+// Fire an ajax put/post (?) /update/tournament
+// In API routes, /update/tournament, do a sequelize UPDATE tournament set tournament name, date, time = values received, Where id = tournamentId
+// .then(function(data) {res.send("Updated")})
+// "Updated" will be received in the ajax.done(function(data){console.log(data)})
+// Change back the editable fields by writing code written above between the //* and //*
+// For better error handling, write a .catch in api-routes and a .fail in ajax call here
 
-// Delete buttons removes that tournament from db data
 
- 
+// DELETE BUTTON TO "DELETE" TOURNAMENT FROM DB
+// On click of Delete button,
+// Get tournamentId from parent div of button clicked
+// Fire an ajax put to /delete/tournament
+// In API routes, /delete/tournament, do a sequelize UPDATE set active_flag = 0 where tournamentid = tournamentID
+// .then(function(data) {res.send("Deleted")})
+// "Deleted" will be received in the ajax.done(function(data){console.log(data)})
+// Change back the editable fields by writing code written above between the //* and //*
+// For better error handling, write a .catch in api-routes and a .fail in ajax call here
+
 $("#logoutButton").on("click", function(){
 	sessionStorage.clear();
 });
