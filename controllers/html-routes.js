@@ -65,7 +65,11 @@ app.get("/", function(req, res) {
         };
       });
       // console.log(pointsData);
-    db.Tournament.findAll({}).then(function(tournamentResults){
+    db.Tournament.findAll({
+      where: {
+        active_flag: 1
+      }
+    }).then(function(tournamentResults){
       // console.log(tournamentResults);
         res.render("index", {
           playerData: pointsData,
@@ -81,7 +85,11 @@ app.get("/", function(req, res) {
 app.get("/admin", function(req, res) {
   session = req.session;
   if (session.uniqueID[1] === 'admin'){
-  db.Tournament.findAll({}).then(function(tournamentResults){
+  db.Tournament.findAll({
+    where: {
+      active_flag: 1
+    }
+  }).then(function(tournamentResults){
     res.render("admin", {
       tournament: tournamentResults,
       helpers: handlebarHelpers
@@ -109,7 +117,10 @@ app.get("/admin", function(req, res) {
       db.Tournament.findAll({
         include: [{
         model: db.Player
-      }]
+      }],
+      where: {
+        active_flag: 1
+      }
      }).then(function(tournamentResults){
       // With tournamentsResults, map it to required json data format 
       var userTournamentData = tournamentResults.map(function(tournamentItem) {
