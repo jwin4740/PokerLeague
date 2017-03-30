@@ -17,6 +17,11 @@ module.exports = function(sequelize, DataTypes) {
     time: {
       type: DataTypes.TIME,
       allowNull: false
+    },
+    active_flag: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 0
     }
   },
     // To create an association between Tournaments and Players
