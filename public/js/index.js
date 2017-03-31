@@ -1,4 +1,8 @@
 // Toggling signedIn and notSignedIn class (to display login/SignUp or Logout/LoggedIn:<username> buttons)
+
+$("#loginErrorMessage").hide();
+
+
 if(sessionStorage.length !== 0){
 		$("#userName").text(sessionStorage.username);
 		$(".signedIn").toggleClass("hidden");
@@ -39,8 +43,8 @@ $("#loginForm").on("submit", function(data){
         window.location = response.redirect;
       },
       error: function(error){
-      	console.log("Failure");
       	console.log(error);
+      	$("#loginErrorMessage").show();
       }
     });
 
