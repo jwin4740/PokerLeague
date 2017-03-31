@@ -79,7 +79,7 @@ app.get("/", function(req, res) {
                   "name": tournamentName,
                   "date": tournamentDate,
                   "time": tournamentTime
-                }
+                };
                 // Pushing each tournament object to array to get latest based on date
                 tournamentsDataArray.push(tournamentDataObject);
                 // console.log(playerItem.dataValues.Tournament.dataValues.date);
@@ -102,7 +102,7 @@ app.get("/", function(req, res) {
                 "tournamentName": latestTournamentData.name,
                 "tournamentDate": latestTournamentData.date,
                 "tournamentTime": latestTournamentData.time
-              }
+              };
 
               // console.log(JSONdataToSend);
               responseArray.push(JSONdataToSend);
@@ -123,7 +123,8 @@ app.get("/", function(req, res) {
                 res.render("index", {
                     tournament: tournamentData,
                     responseData: responseArray,
-                    helpers: handlebarHelpers
+                    helpers: handlebarHelpers,
+                    newUser: req.session.newRegister
                 });
             });
         })

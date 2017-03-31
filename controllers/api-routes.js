@@ -105,7 +105,7 @@ module.exports = function(app) {
                 email: email
             }
         }).then(function(data) {
-            var salt = data.salt;
+             var salt = data.salt;
             var hashedPassword = sha512(req.body.password, salt).passwordHash;
             if (hashedPassword === data.hash) {
             	session.loggedIn = true;
@@ -119,12 +119,14 @@ module.exports = function(app) {
                 }
             } else {
                 console.log("Illegal entry detected.");
-                res.redirect('/');
-            }
+                 res.status(400).send();
+                  }
+
 
         
         }).catch(function(err) {
-            res.end(err);
+            console.log("The error is" + err);
+            res.status(400).send();
         });
     });
 
