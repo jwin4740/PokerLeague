@@ -11,7 +11,7 @@ var handlebarHelpers =
             },
 
             dateFormat: function(date) {
-              return moment(date).format("ll");
+              return moment.utc(date).format("LL");
             },
             
             timeFormat: function(time) {
@@ -48,23 +48,23 @@ app.get("/", function(req, res) {
                 }
             ]
         })
-        .then(function(results) {
+        .then(function(results) { //all users that exist that played in any tournament
+          // console.log("Here are the results you wanted: " + JSON.stringify(results, null, 2));
             // Array to convert to response object
             var responseArray = [];
             // console.log(results);
-            results.forEach(function(resultItem) {
-              // console.log("");
+            results.forEach(function(resultItem) { //for each user
+              // console.log("Here are the results you wanted: " + JSON.stringify(resultItem, null, 2));
+      
               console.log("-------");
-              // console.log(resultItem.dataValues.username);
-              // console.log(resultItem.dataValues.Players);
+        
               var playerData = resultItem.dataValues.Players;
               var points = 0;
               var tournamentsDataArray = [];
+              var username = resultItem.dataValues.username;
 
-              playerData.forEach(function(playerItem){
-                // console.log("    ------     ");
-                // console.log(playerItem);
-                // console.log("    ------     ");
+              playerData.forEach(function(playerItem){ //for each time this user has ever been a player in a touranment (also attaches tournament data)
+           
                 points = points + playerItem.dataValues.points;
                 var tournamentName = playerItem.dataValues.Tournament.dataValues.name;
                 var tournamentDate = playerItem.dataValues.Tournament.dataValues.date;
@@ -75,31 +75,33 @@ app.get("/", function(req, res) {
                   "date": tournamentDate,
                   "time": tournamentTime
                 };
+
+                console.log(tournamentDataObject);
                 // Pushing each tournament object to array to get latest based on date
                 tournamentsDataArray.push(tournamentDataObject);
                 // console.log(playerItem.dataValues.Tournament.dataValues.date);
               });
-              // console.log("******");
-              var username = resultItem.dataValues.username;
-              // console.log(username);
-              // console.log(points);
-   
-              // If more than one tournaments were played
+
+              
+              // If more than one tournament was played
               var latestTournamentData = tournamentsDataArray.sort(function(a, b) {
                   return (a.date < b.date);
               })[0];
 
-              // console.log(latestTournamentData);
+              console.log(latestTournamentData);
              
               var JSONdataToSend = {
                 "username": username,
                 "points": points,
                 // "tournamentName": latestTournamentData.name,
                 "tournamentDate": latestTournamentData.date,
+                "tournamentTime": latestTournamentData.time
                 // "tournamentTime": latestTournamentData.time
               };
 
-              // console.log(JSONdataToSend);
+
+
+              console.log(JSONdataToSend);
               responseArray.push(JSONdataToSend);
               // Sorting to display users based on descending order of points (done here to get proper index in handlebars as rank)
               responseArray.sort(function(a, b) {
@@ -108,7 +110,7 @@ app.get("/", function(req, res) {
 
             });
 
-            // console.log(responseArray);
+            console.log(responseArray);
 
             db.Tournament.findAll({
               where: {
