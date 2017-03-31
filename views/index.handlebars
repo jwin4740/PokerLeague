@@ -48,7 +48,6 @@
                             <th class='text-center'>Rank</th>
                             <th class='text-center'>Player</th>
                             <th class='text-center'>Last Played</th>
-                            <th class='text-center'>Tournament</th>
                             <th class='text-center'>Points</th>
                         </tr>
                     </thead>
@@ -58,7 +57,6 @@
                             <th scope="row">{{inc @index}}</th>
                             <td>{{this.username}}</td>
                             <td>{{dateTimeFormat this.tournamentDate}}</td>
-                            <td>{{this.tournamentName}}</td>
                             <td>{{this.points}}</td>
                         </tr>
                         {{/each}}
@@ -68,8 +66,10 @@
         </div>
 {{!-- Test button to check blue colored button for Checkins, Edits etc --}}
 <button class="btn btn-lg btn-success blue" data-tournamentId="{{this.id}}">Register</button>
+
+<h3 class="text-left">Open Tournaments</h3>
         <!-- List of Tournaments -->
-        <div class="row">
+        <div class="row text-left">
             <div class="col-xs-12">
                 <div id="tournamentsList">
                     {{#each tournament}}
@@ -79,7 +79,7 @@
                         <div class="tournamentData">
                             <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
                             <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
-                            <button class="btn btn-lg btn-success register" data-tournamentId="{{this.id}}">Register</button>
+                            <button class="btn btn-lg btn-success green register" data-tournamentId="{{this.id}}">Register</button>
                         </div>
                     </div>
                     {{/each}}
