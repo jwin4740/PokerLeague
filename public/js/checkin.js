@@ -108,6 +108,7 @@ $(document).ready(function() {
 		
 		usernameArray = $("[data-checkedIn='true']").prev(); //creates a list of all elements NEXT TO the elements that meet this requirement
 		// console.log(usernameArray);
+
 		// Setting number of players to update rank
 		playerCount = usernameArray.length;
 
@@ -129,11 +130,25 @@ $(document).ready(function() {
 		if(playerCount === 1) {
 			$("#submitResults").attr('disabled', false);
 		}
-		$(this).parent().append("<h1>"+playerCount+"</h1>");
+		$(this).parent().append("<h1>"+playerCount+"</h1><button class='btn btn-danger undo btn-lg red'><i class='fa fa-undo' aria-hidden='true'></i></button>");
 		// console.log($(this).parent().parent());
 		$("#tournamentBody").prepend($(this).parent().parent());
 		$(this).remove();
 		playerCount = playerCount - 1;
+	});
+
+	// On click of eliminate, length of array usernameArray 
+	$("#tournamentBody").on("click", ".undo", function(event) {
+		event.preventDefault();
+		if(playerCount === 1) {
+			$("#submitResults").attr('disabled', true);
+		}
+		console.log($(this));
+		console.log($(this).parent());
+		$(this).parent().children('h1').remove();
+		$(this).parent().children('button').replaceWith("<button type='button' class='btn btn-lg btn-danger red eliminate'>Eliminate</button>");
+		//////////// Check for playerCount displaying wrong numbers ////////////
+		playerCount = playerCount + 1;
 	});
 
 	// submitButton . on click loop through each tr in table, use index to calculate rank, and run function to calculate points.
