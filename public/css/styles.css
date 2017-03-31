@@ -11,7 +11,12 @@
 body {
     background-image: url('/images/pokerbg1.jpg');
     color: white;
-    font-family: 'Inconsolata', monospace;
+	
+	/*font-family: 'Fugaz One', cursive;*/
+	font-family: 'Reem Kufi', sans-serif;
+	/*font-family: 'Racing Sans One', cursive;*/
+
+	font-size: 16px;
 }
 
 th {
@@ -34,7 +39,7 @@ th {
     src: url('/css/pokercards.ttf');
 }*/
 
-.btn {
+/*.btn {
     border-top: 1px solid #fc9292;
     background: #241414;
     background: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#241414));
@@ -55,8 +60,8 @@ th {
     font-family: Helvetica, Arial, Sans-Serif;
     text-decoration: none;
     vertical-align: middle;
-}
-
+}*/
+/*
 .btn:hover {
     border-top-color: #ff0505;
     background: #ff0505;
@@ -66,16 +71,20 @@ th {
 .btn:active {
     border-top-color: #ff0000;
     background: #ff0000;
+}*/
+
+.btn {
+    box-shadow: 0 3px 0 0 #8e1328;
 }
 
-.btn.raised {
-    box-shadow: 0 3px 0 0 #ff0505;
-}
-
-.btn.raised:active,
-.btn-primary.raised.active {
-    background: #ff0505;
+.btn:active,
+.btn.active {
+    background: #8e1328;
     box-shadow: none;
     margin-bottom: -3px;
     margin-top: 3px;
+}
+
+a, .btn {
+	outline: none !important;
 }

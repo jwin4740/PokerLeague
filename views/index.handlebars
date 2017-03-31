@@ -66,14 +66,15 @@
                 </table>
             </div>
         </div>
-
+{{!-- Test button to check blue colored button for Checkins, Edits etc --}}
+<button class="btn btn-lg btn-success blue" data-tournamentId="{{this.id}}">Register</button>
         <!-- List of Tournaments -->
         <div class="row">
             <div class="col-xs-12">
-                <div class="" id="tournamentsList">
+                <div id="tournamentsList">
                     {{#each tournament}}
-                    <div data-toggle="collapse" data-parent="#tournamentsList" href="#collapse{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
-                    <button class = "btn btn-lg btn-danger">{{this.name}}</button></div>
+                    <div class="tournamentDiv" data-toggle="collapse" data-parent="#tournamentsList" href="#collapse{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
+                    <button class="btn btn-lg btn-danger tournamentButtons">{{this.name}}</button></div>
                     <div id="collapse{{this.id}}" class="collapse">
                         <div class="tournamentData">
                             <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
