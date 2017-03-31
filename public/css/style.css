@@ -35,7 +35,7 @@ th {
 }
 
 .btn.red {
-	background: #D9534F;
+	background: #c1423f;
     box-shadow: 0 3px 0 0 #8e1328;
     color: #F9F7ED;
     /*font-family: 'Racing Sans One', cursive;*/
@@ -49,13 +49,13 @@ th {
     /*box-shadow: 0 0px 0 0 #8e1328;*/
 }
 
-.btn.red:hover, .btn.red:focus {
-	background: #e85a58;
+.btn.red:hover {
+	background: #8e1328;
 }
 
 .btn.green {
 	box-shadow: 0 3px 0 0 #226044;
-	background: #31e28f;
+	background: #18b56c;
 
 }
 
@@ -67,7 +67,7 @@ th {
 .btn.green:hover, 
 .btn.green:active, 
 .btn.green:focus  {
-	background: #54eaa4;
+	background: #168250;
 }
 
 .blue {
@@ -139,6 +139,11 @@ a, .btn {
 	height: 40px;
 }
 
+h1 {
+	margin-bottom: 25px;
+
+}
+
 h2 {
 	margin-top: 60px;
 }
@@ -149,6 +154,11 @@ h2 {
 
 .modal-title {
 	font-size: 20px;
+}
+
+small {
+	display: block;
+	margin-top: 20px;
 }
 
 
@@ -174,11 +184,15 @@ body {
 }
 
 
-
+.navbar {
+	height: 95px;
+}
 
 .navbar-nav > li > a {
-   line-height: 120px;
-   font-size: 20px
+   line-height: 60px;
+   font-size: 20px;
+   margin-right: 15px;
+
 }
 
 #barrLogo {
