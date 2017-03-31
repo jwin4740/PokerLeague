@@ -7,11 +7,23 @@
 	height: 300px;
 }
 
+.gradient {
+	  background-color:
+	    linear-gradient(
+	      black, transparent
+	    );
+	}
 
 body {
-    background-image: url('/images/pokerbg1.jpg');
+	background: linear-gradient(
+                     rgba(0,0,0, 0.9), 
+                     rgba(0,0,0, 0.7)),
+                     url('/images/poker.jpg');
+    background-size: cover;
+    background-position: fixed;
+
+   /*background-image: url('/images/pokerbg1.jpg');*/
     color: white;
-	
 	/*font-family: 'Fugaz One', cursive;*/
 	font-family: 'Reem Kufi', sans-serif;
 	/*font-family: 'Racing Sans One', cursive;*/
@@ -34,57 +46,87 @@ th {
 }
 
 
-/*@font-face {
-    font-family: 'pokercards';
-    src: url('/css/pokercards.ttf');
-}*/
-
-/*.btn {
-    border-top: 1px solid #fc9292;
-    background: #241414;
-    background: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#241414));
-    background: -webkit-linear-gradient(top, #ff0000, #241414);
-    background: -moz-linear-gradient(top, #ff0000, #241414);
-    background: -ms-linear-gradient(top, #ff0000, #241414);
-    background: -o-linear-gradient(top, #ff0000, #241414);
-    padding: 9px 18px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    -webkit-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-    -moz-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-    box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-    text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
-    color: white;
-    font-size: 16px;
-    font-family: Helvetica, Arial, Sans-Serif;
-    text-decoration: none;
-    vertical-align: middle;
-}*/
-/*
-.btn:hover {
-    border-top-color: #ff0505;
-    background: #ff0505;
-    color: #ffffff;
-}
-
-.btn:active {
-    border-top-color: #ff0000;
-    background: #ff0000;
-}*/
-
-.btn {
-    box-shadow: 0 3px 0 0 #8e1328;
+.btn-danger {
+    box-shadow: 0 4px 0 0 #8e1328;
 }
 
 .btn:active,
 .btn.active {
     background: #8e1328;
     box-shadow: none;
-    margin-bottom: -3px;
-    margin-top: 3px;
+    /*margin-bottom: -1px;*/
+    margin-top: 4px;
+}
+
+.btn-success {
+	box-shadow: 0 4px 0 0 #397739;
+}
+
+.btn-warning {
+	box-shadow: 0 4px 0 0 #bf8028;
+}
+
+.btn-info {
+	box-shadow: 0 4px 0 0 #379ab7;
 }
 
 a, .btn {
 	outline: none !important;
+}
+
+.tournamentButtons {
+	width: 250px;
+	margin-bottom: 10px;
+}
+
+.tournamentDiv {
+	margin-top: 30px;
+}
+
+
+.tournamentsList {
+	padding-left: 40px;
+	padding-top: 15px;
+	border: 2px solid black;
+	border-radius: 7px;
+	width: 60%;
+}
+
+.tournamentData {
+	margin-bottom: 40px;
+}
+
+.tournamentDataDiv {
+	border: 2px solid black;
+	border-radius: 7px;
+	width: 60%;
+	padding: 30px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.checkInPlayers {
+	margin-top: -86px;
+	float: right;
+}
+
+.checkInPlayers:active {
+	margin-top: -83px;
+}
+
+.form-control {
+	font-size: 16px;
+	height: 40px;
+}
+
+h2 {
+	margin-top: 60px;
+}
+
+.input-group-addon {
+	font-size: 16px;
+}
+
+.modal-title {
+	font-size: 20px;
 }

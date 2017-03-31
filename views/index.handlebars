@@ -74,7 +74,7 @@
                 <div id="tournamentsList">
                     {{#each tournament}}
                     <div class="tournamentDiv" data-toggle="collapse" data-parent="#tournamentsList" href="#collapse{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
-                    <button class="btn btn-lg btn-danger tournamentButtons">{{this.name}}</button></div>
+                    <button class="btn btn-lg btn-danger red tournamentButtons">{{this.name}}</button></div>
                     <div id="collapse{{this.id}}" class="collapse">
                         <div class="tournamentData">
                             <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
@@ -110,7 +110,7 @@
                             <input id="password" type="password" class="form-control" name="password">
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" id="btnSubmit" class="btn btn-lg btn-danger center-block">Login</button>
+                            <button type="submit" id="btnSubmit" class="btn btn-lg btn-danger red center-block">Login</button>
                           
                           <small>Don't have an account? <a href="/register"><strong>Sign up</strong></a> for one.</small>
                             
