@@ -104,9 +104,9 @@ a, .btn {
 .tournamentsList {
 	padding-left: 40px;
 	padding-top: 15px;
-	border: 2px solid black;
-	border-radius: 7px;
-	width: 60%;
+	/*border: 2px solid black;*/
+	/*border-radius: 7px;*/
+	/*width: 60%;*/
 }
 
 .tournamentData {
@@ -114,8 +114,8 @@ a, .btn {
 }
 
 .tournamentDataDiv {
-	border: 2px solid black;
-	border-radius: 7px;
+	/*border: 2px solid black;*/
+	/*border-radius: 7px;*/
 	width: 60%;
 	padding: 30px;
 	margin-top: 20px;

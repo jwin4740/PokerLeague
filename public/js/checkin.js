@@ -63,7 +63,7 @@ $(document).ready(function() {
 		// console.log(checkinArea);
 		var checkedInButton = $(this);
 		checkedInButton.attr('disabled', true);
-		checkedInButton.attr("data-checkedin","true");
+		checkinArea.attr("data-checkedin","false");
 
 		$.ajax({
 	      method: "PUT",
@@ -100,28 +100,36 @@ $(document).ready(function() {
     // On starting Tournament, take players that have been checked in (sequel query or using )
     $("#startTournament").on("click", function(event) {
 		event.preventDefault();
-		$("#tournamentArea").show();
-		// Stopping page refresh
-		clearInterval(refresher);
-		$(this).hide();
-		$("#checkinDiv").hide();
-		
 		usernameArray = $("[data-checkedIn='true']").prev(); //creates a list of all elements NEXT TO the elements that meet this requirement
-		// console.log(usernameArray);
+		if(usernameArray.length <=1) {
+			$(this).attr('disabled', true);
+			$(this).parent().append("<p>Unable to start tournament with current number of players.</p>");
+			removeMessage($(this).parent());
+			$(this).attr('disabled', false);
+		}else {
 
-		// Setting number of players to update rank
-		playerCount = usernameArray.length;
-
-		usernameArray.each(function(index, value) {
+			$("#tournamentArea").show();
+			// Stopping page refresh
+			clearInterval(refresher);
+			$(this).hide();
+			$("#checkinDiv").hide();
 			
-			var userIdData = $(value).attr("data-userId");
-			var usernameData = $(value).html();
-			
-			// var userIdData = 
-			$("#tournamentBody").append("<tr><td class='usernameColumn' data-userId='" + userIdData + "'>" + usernameData + "</td><td class='rankColumn'><button type='button' class='btn btn-lg btn-danger red eliminate'>Eliminate</button></td></tr>").append();
+			// console.log(usernameArray);
 
-		});
-		$("#submitResults").attr('disabled', true).show();
+			// Setting number of players to update rank
+			playerCount = usernameArray.length;
+
+			usernameArray.each(function(index, value) {
+				
+				var userIdData = $(value).attr("data-userId");
+				var usernameData = $(value).html();
+				
+				// var userIdData = 
+				$("#tournamentBody").append("<tr><td class='usernameColumn' data-userId='" + userIdData + "'>" + usernameData + "</td><td class='rankColumn'><button type='button' class='btn btn-lg btn-danger red eliminate'>Eliminate</button></td></tr>").append();
+
+			});
+			$("#submitResults").attr('disabled', true).show();
+		}
 	});
 
 	// On click of eliminate, length of array usernameArray 
