@@ -1,0 +1,80 @@
+body {
+	background-color: #F9F7ED;
+	/*font-family: 'Fugaz One', cursive;*/
+	font-family: 'Reem Kufi', sans-serif;
+	/*font-family: 'Racing Sans One', cursive;*/
+	font-size: 18px;
+}
+
+.errorMessage {
+	padding-top: 60px;
+	border: 3px solid black;
+	border-radius: 7px;
+	width: 88%;
+	margin: 0 auto;
+	height: 300px;
+}
+
+th {
+	text-align: center;
+}
+
+.non-editable {
+	border: none;
+	background-color: transparent;
+}
+
+.btn {
+    box-shadow: 0 4px 0 0 #8e1328;
+    color: #F9F7ED;
+}
+
+.btn.register {
+	box-shadow: 0 4px 0 0 #1e3a1e;
+	background: #4fd998;
+
+}
+
+.blue {
+	box-shadow: 0 4px 0 0 #224770;
+/*#4A89DC;*/
+	background: #4f90d9;
+}
+
+.btn:active {
+    background: #ED5565;
+    box-shadow: none;
+    margin-bottom: -3px;
+    margin-top: 3px;
+}
+
+.btn:hover {
+	background: #ED5565;
+}
+
+.btn.register:hover {
+	background: #A0D468;
+}
+
+.btn.register:active {
+	background: #0c510c;
+}
+
+.btn.blue:active, .btn.blue:hover, .btn.blue:focus {
+	background: #5D9CEC;
+}
+
+
+a, .btn {
+	outline: none !important;
+}
+
+.tournamentButtons {
+	width: 250px;
+	margin-bottom: 10px;
+	/*margin-top: 30px;*/
+}
+
+.tournamentDiv {
+	margin-top: 30px;
+}
