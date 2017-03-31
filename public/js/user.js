@@ -29,7 +29,7 @@ $(document).ready(function() {
 		    	var currentTournament = thisButton.parent();
 		    	// console.log(currentTournament);
 		    	thisButton.remove();
-		    	currentTournament.append("<button class='registerUnregister btn btn-lg btn-danger unregister' data-userId='" + userId + "' data-tournamentId = '" + tournamentId + "'>Unregister</button>");
+		    	currentTournament.append("<button class='registerUnregister btn btn-lg btn-danger red unregister' data-userId='" + userId + "' data-tournamentId = '" + tournamentId + "'>Unregister</button>");
 		    	$("#registeredTournamentsList").append(currentTournament);
 		    }).fail(function(data) {
 		    	thisButton.attr('disabled', false);
@@ -46,7 +46,7 @@ $(document).ready(function() {
 		    	var currentTournament = thisButton.parent();
 		    	// console.log(currentTournament);
 		    	thisButton.remove();
-		    	currentTournament.append("<button class='registerUnregister btn btn-lg btn-success register' data-userId='" + userId + "' data-tournamentId = '" + tournamentId + "'>Register</button>");
+		    	currentTournament.append("<button class='registerUnregister btn btn-lg btn-success green register' data-userId='" + userId + "' data-tournamentId = '" + tournamentId + "'>Register</button>");
 		    	$("#unregisteredTournamentsList").append(currentTournament);
 		    }).fail(function(data) {
 		    	thisButton.attr('disabled', false);
