@@ -11,7 +11,7 @@ $(document).ready(function() {
 	// Update content to allow users registered after checkin page load to be displayed
     var refresher = setInterval(update_content, 20000); // 20 seconds
 
-    $(".checkIn").on("click", function(event) {
+    $(".checkinArea").on("click", ".checkIn", function(event) {
     	event.preventDefault();
     	var userId = $(this).attr("data-userId");
     	var tournament_id = $(this).attr("data-tournamentId");
@@ -36,23 +36,63 @@ $(document).ready(function() {
 	    	// Hide checkIn button for checkedIn playerName
 	      	checkinButton.hide();
 	      	// Check mark for checked in players
-	      	checkinArea.html("<i data-userId='"+ userId + "' style='color: #19b739;' class='fa fa-3x fa-check' aria-hidden='true' ></i>");
-	      	removeMessage();
-
-	      	/////////////// Add data-checkedIn to checkedIn player td ////////////////
+	      	checkinArea.html("<i data-tournamentId='" + tournament_id + "' data-userId='"+ userId + "' style='color: #31E28F;' class='fa fa-3x fa-check' aria-hidden='true' ></i>");
+	      	checkinArea.append("<p>Player successfully checked in.</p>");
+	      	removeMessage(checkinArea);
+	      	
 	    }).fail(function(data) {
 	    	console.log(data);
 	    	checkinButton.attr('disabled', false);
 	    	// Add css for error messages similar to form validation during register for uniformity.
 	    	checkinArea.append("<p>Unable to Check In player. Try again.</p>");
-	    	removeMessage();
+	    	removeMessage(checkinArea);
 	    });
+	});
 
-	    // Function to remove success/ fail message after 3 secs
-	    function removeMessage() {
-	    	setTimeout(function(){ checkinArea.children("p").remove(); }, 3000);
-	    }
+
+    $(".checkinArea").on("click", "i", function(event) {
+		event.preventDefault();
+		var userId = $(this).attr("data-userId");
+		var tournament_id = $(this).attr("data-tournamentId");
+		
+		var undoCheckInPlayerObject = {
+			UserId: userId,
+			TournamentId: tournament_id
+		};
+		var checkinArea = $(this).parent();
+		// console.log(checkinArea);
+		var checkedInButton = $(this);
+		checkedInButton.attr('disabled', true);
+		checkedInButton.attr("data-checkedin","true");
+
+		$.ajax({
+	      method: "PUT",
+	      url: "/player/undocheckin",
+	      data: undoCheckInPlayerObject
+	    })
+	    .done(function(data) {
+	    	// console.log(data);
+	    	// Hide checkIn button for checkedIn playerName
+	      	checkedInButton.hide();
+	      	// Check mark for checked in players
+	      	checkinArea.html("<button type='button' class='btn btn-lg btn-info blue checkIn' data-userId='" + userId + "' data-tournamentId='" + tournament_id + "''>Check In</button>");
+	      	checkinArea.append("<p>Player unchecked.</p>");
+	      	removeMessage(checkinArea);
+	      	
+	    }).fail(function(data) {
+	    	console.log(data);
+	    	checkedInButton.attr('disabled', false);
+	    	// Add css for error messages similar to form validation during register for uniformity.
+	    	checkinArea.append("<p>Unable to uncheck player. Try again.</p>");
+	    	removeMessage(checkinArea);
+	    }); 
+	    
     });
+
+    // Function to remove success/ fail message after 3 secs
+    function removeMessage(checkinArea) {
+    	setTimeout(function(){ checkinArea.children("p").remove(); }, 3000);
+    }
 
     var usernameArray = [];
     var playerCount = 0;
@@ -68,6 +108,7 @@ $(document).ready(function() {
 		
 		usernameArray = $("[data-checkedIn='true']").prev(); //creates a list of all elements NEXT TO the elements that meet this requirement
 		// console.log(usernameArray);
+
 		// Setting number of players to update rank
 		playerCount = usernameArray.length;
 
@@ -77,7 +118,7 @@ $(document).ready(function() {
 			var usernameData = $(value).html();
 			
 			// var userIdData = 
-			$("#tournamentBody").append("<tr><td class='usernameColumn' data-userId='" + userIdData + "'>" + usernameData + "</td><td class='rankColumn'><button type='button' class='btn btn-lg btn-danger eliminate'>Eliminate</button></td></tr>").append();
+			$("#tournamentBody").append("<tr><td class='usernameColumn' data-userId='" + userIdData + "'>" + usernameData + "</td><td class='rankColumn'><button type='button' class='btn btn-lg btn-danger red eliminate'>Eliminate</button></td></tr>").append();
 
 		});
 		$("#submitResults").attr('disabled', true).show();
@@ -89,11 +130,25 @@ $(document).ready(function() {
 		if(playerCount === 1) {
 			$("#submitResults").attr('disabled', false);
 		}
-		$(this).parent().append("<h1>"+playerCount+"</h1>");
+		$(this).parent().append("<h1>"+playerCount+"</h1><button class='btn btn-danger undo btn-lg red'><i class='fa fa-undo' aria-hidden='true'></i></button>");
 		// console.log($(this).parent().parent());
 		$("#tournamentBody").prepend($(this).parent().parent());
 		$(this).remove();
 		playerCount = playerCount - 1;
+	});
+
+	// On click of eliminate, length of array usernameArray 
+	$("#tournamentBody").on("click", ".undo", function(event) {
+		event.preventDefault();
+		if(playerCount === 1) {
+			$("#submitResults").attr('disabled', true);
+		}
+		console.log($(this));
+		console.log($(this).parent());
+		$(this).parent().children('h1').remove();
+		$(this).parent().children('button').replaceWith("<button type='button' class='btn btn-lg btn-danger red eliminate'>Eliminate</button>");
+		//////////// Check for playerCount displaying wrong numbers ////////////
+		playerCount = playerCount + 1;
 	});
 
 	// submitButton . on click loop through each tr in table, use index to calculate rank, and run function to calculate points.
@@ -194,10 +249,4 @@ $("#loginForm").on("submit", function(data){
     });
 
 });
-
-
-
-
-
-
 

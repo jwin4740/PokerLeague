@@ -1,0 +1,192 @@
+
+
+
+
+body {
+	background-color: #F9F7ED;
+	/*font-family: 'Fugaz One', cursive;*/
+	font-family: 'Reem Kufi', sans-serif;
+	/*font-family: 'Racing Sans One', cursive;*/
+	font-size: 18px;
+}
+
+.errorMessage {
+	padding-top: 60px;
+	border: 3px solid black;
+	border-radius: 7px;
+	width: 88%;
+	margin: 0 auto;
+	height: 300px;
+}
+
+th {
+	font-size: 20px;
+	font-weight: 800;
+	text-align: center;
+}
+
+.non-editable {
+	border: none;
+	background-color: transparent;
+}
+
+.btn {
+	font-family: 'Fugaz One', cursive;
+}
+
+.btn.red {
+	background: #D9534F;
+    box-shadow: 0 3px 0 0 #8e1328;
+    color: #F9F7ED;
+    /*font-family: 'Racing Sans One', cursive;*/
+
+}
+
+.btn.red:active {
+    background: #a03c39;
+    box-shadow: none;
+    margin-top: 3px;
+    /*box-shadow: 0 0px 0 0 #8e1328;*/
+}
+
+.btn.red:hover, .btn.red:focus {
+	background: #e85a58;
+}
+
+.btn.green {
+	box-shadow: 0 3px 0 0 #226044;
+	background: #31e28f;
+
+}
+
+.btn.green:active {
+ 	box-shadow: none;
+    margin-top: 3px;
+}
+
+.btn.green:hover, 
+.btn.green:active, 
+.btn.green:focus  {
+	background: #54eaa4;
+}
+
+.blue {
+	box-shadow: 0 3px 0 0 #224770;
+	background: #4f90d9;
+}
+
+
+.btn.blue:active, {
+	box-shadow: none;
+    margin-top: 3px; 
+}
+
+.btn.blue:active, 
+.btn.blue:hover, 
+.btn.blue:focus {
+	background: #5D9CEC;
+}
+
+a, .btn {
+	outline: none !important;
+}
+
+.tournamentButtons {
+	width: 250px;
+	margin-bottom: 10px;
+}
+
+.tournamentDiv {
+	margin-top: 30px;
+}
+
+
+.tournamentsList {
+	padding-left: 40px;
+	padding-top: 15px;
+	border: 2px solid black;
+	border-radius: 7px;
+	width: 60%;
+}
+
+.tournamentData {
+	margin-bottom: 40px;
+}
+
+.tournamentDataDiv {
+	border: 2px solid black;
+	border-radius: 7px;
+	width: 60%;
+	padding: 30px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.cream {
+	color: #F9F7ED;
+}
+.checkInPlayers {
+	margin-top: -86px;
+	float: right;
+}
+
+.btn.green.checkInPlayers:active {
+	margin-top: -83px;
+}
+
+.form-control {
+	font-size: 16px;
+	height: 40px;
+}
+
+h2 {
+	margin-top: 60px;
+}
+
+.input-group-addon {
+	font-size: 16px;
+}
+
+.modal-title {
+	font-size: 20px;
+}
+
+
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+
+
+
+.navbar-nav > li > a {
+   line-height: 120px;
+   font-size: 20px
+}
+
+#barrLogo {
+	height: 130px;
+	margin: 10px;
+}
+
+
+@media only screen and (max-width : 765px) { 
+/*break point for when navbar collapses*/
+}

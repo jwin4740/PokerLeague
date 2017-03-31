@@ -8,14 +8,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Barr Poker League</a>
+            <a href="/" class="pull-left"><img id="barrLogo" class="img-responsive" src="/images/barrLogo.png"></a> 
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
              <ul class="nav navbar-nav navbar-right">
                 <!-- Removed Login and Sign Up option from Menubar since only signed in Admin users can even see this page -->
-                <li class="signedIn"><p>Welcome <span id="userName">{{userName}}</span></p> 
+                <li class="signedIn hidden"><a id="loginLink" href="#"> Logged In: <span id="userName"></span></a>
                 <li class="signedIn" id="logoutButton"><a href="/logout">Logout</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -48,8 +48,14 @@
                             <th scope="row">{{inc @index}}</th>
                             <td data-userId="{{this.userId}}">{{this.username}}</td>
                             <td class="checkinArea" data-checkedIn="{{this.player_checkedIn_flag}}">
-                            {{#if this.player_checkedIn_flag}}<i data-userId="{{this.userId}}" style="color: #19b739;" class="fa fa-3x fa-check" aria-hidden="true"></i>{{/if}}
-                            {{#unless this.player_checkedIn_flag}}<button type="button" class="btn btn-lg btn-info checkIn" data-userId="{{this.userId}}" data-tournamentId="{{../tournamentId}}">Check In</button></td>{{/unless}}
+
+                            {{#if this.player_checkedIn_flag}}
+                            <i data-userId="{{this.userId}}" data-tournamentId="{{../tournamentId}}" style="color: #31E28F;" class="fa fa-3x fa-check" aria-hidden="true"></i>
+                            {{/if}}
+
+                            {{#unless this.player_checkedIn_flag}}
+                            <button type="button" class="btn btn-lg btn-info blue checkIn" data-userId="{{this.userId}}" data-tournamentId="{{../tournamentId}}">Check In</button></td>
+                            {{/unless}}
                         </tr>
                         {{/each}}
                     </tbody>
@@ -59,7 +65,7 @@
 
     <!-- Button to be kept disabled until tournament begin time. Enable button 1 minute before tournament start time, so it's not accidentally clicked before everyone gets a chance to checkin. -->
 
-    <button type="submit" class="btn btn-lg btn-success" id="startTournament">Start Tournament</button>
+    <button type="submit" class="btn btn-lg btn-success green" id="startTournament">Start Tournament</button>
 
     <div id="tournamentArea">
          <div class="row">
@@ -75,14 +81,16 @@
                         
                     </tbody>
                 </table>
-                <button type="button" id="submitResults" data-tournamentId="{{tournamentId}}" class="btn btn-lg btn-success">Submit Results</button>
+                <button type="button" id="submitResults" data-tournamentId="{{tournamentId}}" class="btn btn-lg btn-success green">Submit Results</button>
             </div>
         </div>
+
+
     </div>
 
-    <footer class="container-fluid text-center">
-        <div>
-            <small>&copy; 2017</small>
-        </div>
+    <footer class="footer">
+      <div class="container text-center">
+        <span class="text-muted">&copy; Route 7 Bar & Grill 2017</span>
+      </div>
     </footer>
     <script type="text/javascript" src="/js/checkin.js"></script>

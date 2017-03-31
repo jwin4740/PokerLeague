@@ -9,7 +9,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Barr Poker League</a>
+             <a href="/" class="pull-left"><img id="barrLogo" class="img-responsive" src="/images/barrLogo.png"></a> 
+           {{!--  <a class="navbar-brand" href="/"><img class="navbar-brand" src="images/barrLogo.png" alt="Barr Poker Spade Logo"></img></a> --}}
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -49,7 +50,6 @@
                             <th class='text-center'>Rank</th>
                             <th class='text-center'>Player</th>
                             <th class='text-center'>Last Played</th>
-                            <th class='text-center'>Tournament</th>
                             <th class='text-center'>Points</th>
                         </tr>
                     </thead>
@@ -58,8 +58,7 @@
                         <tr>
                             <th scope="row">{{inc @index}}</th>
                             <td>{{this.username}}</td>
-                            <td>{{dateTimeFormat this.tournamentDate}}</td>
-                            <td>{{this.tournamentName}}</td>
+                            <td>{{dateFormat this.tournamentDate}} {{timeFormat this.tournamentTime}}</td>
                             <td>{{this.points}}</td>
                         </tr>
                         {{/each}}
@@ -68,18 +67,20 @@
             </div>
         </div>
 
+
+<h3 class="text-left">Open Tournaments</h3>
         <!-- List of Tournaments -->
-        <div class="row">
+        <div class="row text-left">
             <div class="col-xs-12">
-                <div class="" id="tournamentsList">
+                <div id="tournamentsList">
                     {{#each tournament}}
-                    <div data-toggle="collapse" data-parent="#tournamentsList" href="#collapse{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
-                    <button class = "btn btn-lg btn-danger">{{this.name}}</button></div>
+                    <div class="tournamentDiv" data-toggle="collapse" data-parent="#tournamentsList" href="#collapse{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
+                    <button class="btn btn-lg btn-danger red tournamentButtons">{{this.name}}</button></div>
                     <div id="collapse{{this.id}}" class="collapse">
                         <div class="tournamentData">
                             <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
                             <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
-                            <button class="btn btn-lg btn-success register" data-tournamentId="{{this.id}}">Register</button>
+                            <button class="btn btn-lg btn-success green register" data-tournamentId="{{this.id}}">Register</button>
                         </div>
                     </div>
                     {{/each}}
@@ -110,7 +111,7 @@
                             <input id="password" type="password" class="form-control" name="password">
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" id="btnSubmit" class="btn btn-lg btn-danger center-block">Login</button>
+                            <button type="submit" id="btnSubmit" class="btn btn-lg btn-danger red center-block">Login</button>
                           
                           <small>Don't have an account? <a href="/register"><strong>Sign up</strong></a> for one.</small>
                             
@@ -121,12 +122,17 @@
             </div>
         </div>
     </div>
+
+
     
 </div>
-    <footer class="container-fluid text-center">
-        <div>
-            <small>&copy; 2017</small>
-        </div>
+    
+
+       <footer class="footer">
+      <div class="container text-center">
+        <span class="text-muted">&copy; Route 7 Bar & Grill 2017</span>
+      </div>
     </footer>
+
 
     <script type="text/javascript" src="/js/index.js"></script>
