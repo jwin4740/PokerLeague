@@ -57,7 +57,7 @@
                         <tr>
                             <th scope="row">{{inc @index}}</th>
                             <td>{{this.username}}</td>
-                            <td>{{dateTimeFormat this.tournamentDate}}</td>
+                            <td>{{dateFormat this.tournamentDate}} {{timeFormat this.tournamentTime}}</td>
                             <td>{{this.points}}</td>
                         </tr>
                         {{/each}}
