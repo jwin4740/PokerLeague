@@ -206,7 +206,7 @@ app.get("/admin", function(req, res) {
         // console.log(userTournamentData);
        
         res.render('user', {
-          // userName: userName,
+          userName: req.session.uniqueID[3],
           tournament: userTournamentData,
           helpers: handlebarHelpers
         });
