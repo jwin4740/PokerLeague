@@ -48,8 +48,14 @@
                             <th scope="row">{{inc @index}}</th>
                             <td data-userId="{{this.userId}}">{{this.username}}</td>
                             <td class="checkinArea" data-checkedIn="{{this.player_checkedIn_flag}}">
-                            {{#if this.player_checkedIn_flag}}<i data-userId="{{this.userId}}" style="color: #31E28F;" class="fa fa-3x fa-check" aria-hidden="true"></i>{{/if}}
-                            {{#unless this.player_checkedIn_flag}}<button type="button" class="btn btn-lg btn-info blue checkIn" data-userId="{{this.userId}}" data-tournamentId="{{../tournamentId}}">Check In</button></td>{{/unless}}
+
+                            {{#if this.player_checkedIn_flag}}
+                            <i data-userId="{{this.userId}}" data-tournamentId="{{../tournamentId}}" style="color: #31E28F;" class="fa fa-3x fa-check" aria-hidden="true"></i>
+                            {{/if}}
+
+                            {{#unless this.player_checkedIn_flag}}
+                            <button type="button" class="btn btn-lg btn-info blue checkIn" data-userId="{{this.userId}}" data-tournamentId="{{../tournamentId}}">Check In</button></td>
+                            {{/unless}}
                         </tr>
                         {{/each}}
                     </tbody>

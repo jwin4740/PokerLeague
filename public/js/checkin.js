@@ -11,7 +11,7 @@ $(document).ready(function() {
 	// Update content to allow users registered after checkin page load to be displayed
     var refresher = setInterval(update_content, 20000); // 20 seconds
 
-    $(".checkIn").on("click", function(event) {
+    $(".checkinArea").on("click", ".checkIn", function(event) {
     	event.preventDefault();
     	var userId = $(this).attr("data-userId");
     	var tournament_id = $(this).attr("data-tournamentId");
@@ -36,23 +36,63 @@ $(document).ready(function() {
 	    	// Hide checkIn button for checkedIn playerName
 	      	checkinButton.hide();
 	      	// Check mark for checked in players
-	      	checkinArea.html("<i data-userId='"+ userId + "' style='color: #31E28F;' class='fa fa-3x fa-check' aria-hidden='true' ></i>");
-	      	removeMessage();
-
-	      	/////////////// Add data-checkedIn to checkedIn player td ////////////////
+	      	checkinArea.html("<i data-tournamentId='" + tournament_id + "' data-userId='"+ userId + "' style='color: #31E28F;' class='fa fa-3x fa-check' aria-hidden='true' ></i>");
+	      	checkinArea.append("<p>Player successfully checked in.</p>");
+	      	removeMessage(checkinArea);
+	      	
 	    }).fail(function(data) {
 	    	console.log(data);
 	    	checkinButton.attr('disabled', false);
 	    	// Add css for error messages similar to form validation during register for uniformity.
 	    	checkinArea.append("<p>Unable to Check In player. Try again.</p>");
-	    	removeMessage();
+	    	removeMessage(checkinArea);
 	    });
+	});
 
-	    // Function to remove success/ fail message after 3 secs
-	    function removeMessage() {
-	    	setTimeout(function(){ checkinArea.children("p").remove(); }, 3000);
-	    }
+
+    $(".checkinArea").on("click", "i", function(event) {
+		event.preventDefault();
+		var userId = $(this).attr("data-userId");
+		var tournament_id = $(this).attr("data-tournamentId");
+		
+		var undoCheckInPlayerObject = {
+			UserId: userId,
+			TournamentId: tournament_id
+		};
+		var checkinArea = $(this).parent();
+		// console.log(checkinArea);
+		var checkedInButton = $(this);
+		checkedInButton.attr('disabled', true);
+		checkedInButton.attr("data-checkedin","true");
+
+		$.ajax({
+	      method: "PUT",
+	      url: "/player/undocheckin",
+	      data: undoCheckInPlayerObject
+	    })
+	    .done(function(data) {
+	    	// console.log(data);
+	    	// Hide checkIn button for checkedIn playerName
+	      	checkedInButton.hide();
+	      	// Check mark for checked in players
+	      	checkinArea.html("<button type='button' class='btn btn-lg btn-info blue checkIn' data-userId='" + userId + "' data-tournamentId='" + tournament_id + "''>Check In</button>");
+	      	checkinArea.append("<p>Player unchecked.</p>");
+	      	removeMessage(checkinArea);
+	      	
+	    }).fail(function(data) {
+	    	console.log(data);
+	    	checkedInButton.attr('disabled', false);
+	    	// Add css for error messages similar to form validation during register for uniformity.
+	    	checkinArea.append("<p>Unable to uncheck player. Try again.</p>");
+	    	removeMessage(checkinArea);
+	    }); 
+	    
     });
+
+    // Function to remove success/ fail message after 3 secs
+    function removeMessage(checkinArea) {
+    	setTimeout(function(){ checkinArea.children("p").remove(); }, 3000);
+    }
 
     var usernameArray = [];
     var playerCount = 0;
@@ -194,10 +234,4 @@ $("#loginForm").on("submit", function(data){
     });
 
 });
-
-
-
-
-
-
 

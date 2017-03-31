@@ -212,6 +212,22 @@ module.exports = function(app) {
           });
     });
 
+// PUT route to uncheck players if need be /player/undocheckin
+    app.put("/player/undocheckin", function(req, res) {
+        db.Player.update(
+          {
+            player_checkedIn_flag: 0
+          },
+          {
+            where: {
+              UserId: req.body.UserId,
+              TournamentId: req.body.TournamentId
+            }
+          }).then(function(data) {
+            res.json("flag updated on checkin");
+          });
+    });
+
 // PUT route to update player points 
     app.post("/player/results", function(req, res) {
         // console.log(req.body.resultsDataArray);
