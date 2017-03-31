@@ -7,15 +7,25 @@
 	height: 300px;
 }
 
-.non-editable {
-	border: none;
-	background-color: transparent;
-}
 
 body {
     background-image: url('/images/pokerbg1.jpg');
     color: white;
     font-family: 'Inconsolata', monospace;
+}
+
+th {
+	text-align: center;
+}
+
+.modal, input {
+	color: black;
+}
+
+.non-editable {
+	border: none;
+	background-color: transparent;
+	color: white;
 }
 
 
