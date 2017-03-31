@@ -77,7 +77,7 @@ $(document).ready(function() {
 			var usernameData = $(value).html();
 			
 			// var userIdData = 
-			$("#tournamentBody").append("<tr><td class='usernameColumn' data-userId='" + userIdData + "'>" + usernameData + "</td><td class='rankColumn'><button type='button' class='btn btn-lg btn-danger eliminate'>Eliminate</button></td></tr>").append();
+			$("#tournamentBody").append("<tr><td class='usernameColumn' data-userId='" + userIdData + "'>" + usernameData + "</td><td class='rankColumn'><button type='button' class='btn btn-lg btn-danger red eliminate'>Eliminate</button></td></tr>").append();
 
 		});
 		$("#submitResults").attr('disabled', true).show();

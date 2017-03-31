@@ -27,21 +27,25 @@ th {
 }
 
 .btn {
+	font-family: 'Fugaz One', cursive;
+}
+
+.btn.red {
+	background: #D9534F;
     box-shadow: 0 3px 0 0 #8e1328;
     color: #F9F7ED;
-    font-family: 'Fugaz One', cursive;
     /*font-family: 'Racing Sans One', cursive;*/
 
 }
 
-.btn:active {
+.btn.red:active {
     background: #a03c39;
     box-shadow: none;
     margin-top: 3px;
     /*box-shadow: 0 0px 0 0 #8e1328;*/
 }
 
-.btn:hover, .btn:focus {
+.btn.red:hover, .btn.red:focus {
 	background: #e85a58;
 }
 
@@ -49,6 +53,11 @@ th {
 	box-shadow: 0 3px 0 0 #226044;
 	background: #31e28f;
 
+}
+
+.btn.green:active {
+ 	box-shadow: none;
+    margin-top: 3px;
 }
 
 .btn.green:hover, 
@@ -62,6 +71,11 @@ th {
 	background: #4f90d9;
 }
 
+
+.btn.blue:active, {
+	box-shadow: none;
+    margin-top: 3px; 
+}
 
 .btn.blue:active, 
 .btn.blue:hover, 
@@ -109,7 +123,7 @@ a, .btn {
 	float: right;
 }
 
-.checkInPlayers:active {
+.btn.green.checkInPlayers:active {
 	margin-top: -83px;
 }
 
