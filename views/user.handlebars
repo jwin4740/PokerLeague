@@ -22,13 +22,15 @@
 
 <div class="container">
 
-    <h2>Hello {{userName}}!</h2>
+    <h1>Welcome, {{userName}}!</h1>
 
-    <h1>Registered Tournaments</h1>
+ {{!--    <button class="btn btn-lg btn-danger editDetails" data-userId="{{this.userId}}" data-tournamentId = "{{this.id}}">Edit user Details</button> --}}
+
+    <h2>Registered Tournaments</h2>
      <!-- List of Tournaments -->
     <div class="row">
         <div class="col-xs-12">
-            <div class="" id="registeredTournamentsList">
+            <div class="tournamentsList" id="registeredTournamentsList">
                 {{#each tournament}}
                 	{{#if this.ofUser }}
                     <div class="tournamentData" id="registered_{{this.id}}">
@@ -45,11 +47,11 @@
         </div>
     </div>
 
-    <h1>Other tournaments</h1>
+    <h2>Other tournaments</h2>
      <!-- List of Tournaments -->
     <div class="row">
         <div class="col-xs-12">
-            <div class="" id="unregisteredTournamentsList">
+            <div class="tournamentsList" id="unregisteredTournamentsList">
                 {{#each tournament}}
                 	{{#unless this.ofUser }}
                     <div class="tournamentData" id="unregistered_{{this.id}}">
@@ -57,7 +59,7 @@
                         <p class="tournamentDate">Date: {{dateFormat this.date}}</p>
                         <p class="tournamentTime">Time: {{timeFormat this.time}}</p>
                         <!-- <a href='/register/tournament/{{this.id}}'> -->
-                        <button class="registerUnregister btn btn-lg btn-success register" data-userId="{{this.userId}}" data-tournamentId = "{{this.id}}">Register</button>
+                        <button class="registerUnregister btn btn-lg green btn-success register" data-userId="{{this.userId}}" data-tournamentId = "{{this.id}}">Register</button>
                         <!-- </a> -->
                     </div>
                     {{/unless}}

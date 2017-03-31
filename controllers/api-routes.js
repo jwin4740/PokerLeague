@@ -217,6 +217,7 @@ module.exports = function(app) {
         // console.log(req.body.resultsDataArray);
         var resultsArray = req.body.resultsDataArray;
         var updatesPromiseArray = [];
+        console.log(req.body.resultsDataArray.TournamentId);
         // Looping through data array, and pushing the promise of each sequelize update query into an array
         resultsArray.forEach(function(item) {
             // console.log(item);
@@ -234,6 +235,18 @@ module.exports = function(app) {
             ); //end of promise array
         });
 
+        updatesPromiseArray.push(
+                            db.Tournament.update(
+                            {
+                                active_flag: 0
+                            },
+                            {
+                                where: {
+                                    id: req.body.resultsDataArray[0].TournamentId
+                                }
+                            })
+            );
+
         // Waiting for all db updates to complete before deciding success/failure and returning control to client browser
         Promise.all(updatesPromiseArray).then(function(data) {
             // On success
@@ -245,7 +258,7 @@ module.exports = function(app) {
             // On failure
         }, function(err) {
             console.log("Something failed.");
-            res.send(500, err);
+            res.status(500).send(err);
         });
     });
 

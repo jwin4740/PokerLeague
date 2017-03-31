@@ -28,12 +28,7 @@ var handlebarHelpers =
 module.exports = function(app) {
 
 app.get("/", function(req, res) {
-  // Query to populate leaderboard
-// Get usernames and ids where role = user
-// For each of those, get points and add to points
-// For each of those, also get updatedAt, order DESC
 
-//------
    db.User.findAll(
         {
             where: {
@@ -99,9 +94,9 @@ app.get("/", function(req, res) {
               var JSONdataToSend = {
                 "username": username,
                 "points": points,
-                "tournamentName": latestTournamentData.name,
+                // "tournamentName": latestTournamentData.name,
                 "tournamentDate": latestTournamentData.date,
-                "tournamentTime": latestTournamentData.time
+                // "tournamentTime": latestTournamentData.time
               };
 
               // console.log(JSONdataToSend);
@@ -113,13 +108,18 @@ app.get("/", function(req, res) {
 
             });
 
-            console.log(responseArray);
+            // console.log(responseArray);
 
             db.Tournament.findAll({
               where: {
                 active_flag: 1
               }
             }).then(function(tournamentData) {
+                // tournamentData.forEach(function(tournament) {
+                //   if(moment().diff(tournament.dataValues.date) > 0) {
+                //     console.log(tournament.dataValues.date);
+                //   }
+                // });
                 res.render("index", {
                     tournament: tournamentData,
                     responseData: responseArray,
@@ -146,6 +146,7 @@ app.get("/admin", function(req, res) {
   }).then(function(tournamentResults){
     res.render("admin", {
       tournament: tournamentResults,
+      userName: req.session.uniqueID[3],
       helpers: handlebarHelpers
     });
  

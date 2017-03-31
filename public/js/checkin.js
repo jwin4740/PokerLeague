@@ -36,7 +36,7 @@ $(document).ready(function() {
 	    	// Hide checkIn button for checkedIn playerName
 	      	checkinButton.hide();
 	      	// Check mark for checked in players
-	      	checkinArea.html("<i data-userId='"+ userId + "' style='color: #19b739;' class='fa fa-3x fa-check' aria-hidden='true' ></i>");
+	      	checkinArea.html("<i data-userId='"+ userId + "' style='color: #31E28F;' class='fa fa-3x fa-check' aria-hidden='true' ></i>");
 	      	removeMessage();
 
 	      	/////////////// Add data-checkedIn to checkedIn player td ////////////////
