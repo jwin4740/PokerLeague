@@ -84,7 +84,6 @@ $(document).ready(function() {
 		});
 	});
 
-
 	// DELETE BUTTON TO "DELETE" TOURNAMENT FROM DB
 	// On click of Delete button,
 	$("#tournamentsList").on("click", ".tournamentData>.delete", function(event) {
@@ -134,6 +133,25 @@ $(document).ready(function() {
 	$(".non-editable").attr('disabled', true);
 });
 
+
+$("#loginForm").on("submit", function(data){
+	event.preventDefault();
+	$.ajax({
+      url: $('#loginForm').attr('action'),
+      type: "post",
+      data : $('#loginForm').serialize(),
+      success: function(response){
+      	console.log("Success!");
+        window.location = response.redirect;
+      },
+      error: function(error){
+      	console.log("Failure");
+      	console.log(error);
+      }
+    });
+
+});
+
 // Function to change input textbox editable to non-editable and disabled
 function changeBackFromEdit(buttonObject) {
 	var date = buttonObject.parent().find(".tournamentDate").val();
@@ -148,6 +166,5 @@ function changeBackFromEdit(buttonObject) {
 	// Toggle display of Update, Delete and Undo edit buttons
 	buttonObject.parent().children(".editButtons").toggleClass("hidden");
 }
-
 
 

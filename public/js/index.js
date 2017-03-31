@@ -1,4 +1,8 @@
 // Toggling signedIn and notSignedIn class (to display login/SignUp or Logout/LoggedIn:<username> buttons)
+
+$("#loginErrorMessage").hide();
+
+
 if(sessionStorage.length !== 0){
 		$("#userName").text(sessionStorage.username);
 		$(".signedIn").toggleClass("hidden");
@@ -27,3 +31,21 @@ $(".register").on("click", function() {
 	}
 });
 
+
+$("#loginForm").on("submit", function(data){
+	event.preventDefault();
+	$.ajax({
+      url: $('#loginForm').attr('action'),
+      type: "post",
+      data : $('#loginForm').serialize(),
+      success: function(response){
+      	console.log("Success!");
+        window.location = response.redirect;
+      },
+      error: function(error){
+      	console.log(error);
+      	$("#loginErrorMessage").show();
+      }
+    });
+
+});

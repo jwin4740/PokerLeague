@@ -11,12 +11,13 @@ body {
 }*/
 
 .errorMessage {
-    padding-top: 60px;
-    border: 3px solid black;
-    border-radius: 7px;
-    width: 1000px;
-    margin: 0 auto;
-    height: 300px;
+
+	padding-top: 60px;
+	border: 3px solid black;
+	border-radius: 7px;
+	width: 88%;
+	margin: 0 auto;
+	height: 300px;
 }
 
 .btn {

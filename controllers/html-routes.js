@@ -34,84 +34,106 @@ app.get("/", function(req, res) {
 // For each of those, also get updatedAt, order DESC
 
 //------
+   db.User.findAll(
+        {
+            where: {
+                role: "user"
+            },
+            include: [
+                {
+                    model: db.Player,
+                    include: [
+                        {
+                            model: db.Tournament,
+                        }
+                    ],
+                    where: {
+                        player_checkedIn_flag: 1
+                    }
+                }
+            ]
+        })
+        .then(function(results) {
+            // Array to convert to response object
+            var responseArray = [];
+            // console.log(results);
+            results.forEach(function(resultItem) {
+              // console.log("");
+              console.log("-------");
+              // console.log(resultItem.dataValues.username);
+              // console.log(resultItem.dataValues.Players);
+              var playerData = resultItem.dataValues.Players;
+              var points = 0;
+              var tournamentsDataArray = [];
 
-//// Users - id , include players where players id = user id
-// push to array..
-/// For each -> get points, pointsArray.reduce(a + b)
-/// Gor each also get tournament ids ...????
-// Get date from tournaments........ get latest tournament.. order by date.. ?????
-//... To do.
+              playerData.forEach(function(playerItem){
+                // console.log("    ------     ");
+                // console.log(playerItem);
+                // console.log("    ------     ");
+                points = points + playerItem.dataValues.points;
+                var tournamentName = playerItem.dataValues.Tournament.dataValues.name;
+                var tournamentDate = playerItem.dataValues.Tournament.dataValues.date;
+                var tournamentTime = playerItem.dataValues.Tournament.dataValues.time;
+                // tournamentDatesArray.push(tournamentDate);
+                var tournamentDataObject = {
+                  "name": tournamentName,
+                  "date": tournamentDate,
+                  "time": tournamentTime
+                };
+                // Pushing each tournament object to array to get latest based on date
+                tournamentsDataArray.push(tournamentDataObject);
+                // console.log(playerItem.dataValues.Tournament.dataValues.date);
+              });
+              // console.log("******");
+              var username = resultItem.dataValues.username;
+              // console.log(username);
+              // console.log(points);
+   
+              // If more than one tournaments were played
+              var latestTournamentData = tournamentsDataArray.sort(function(a, b) {
+                  return (a.date < b.date);
+              })[0];
 
-  db.User.findAll({
-    attributes: []
-  })
+              // console.log(latestTournamentData);
+             
+              var JSONdataToSend = {
+                "username": username,
+                "points": points,
+                "tournamentName": latestTournamentData.name,
+                "tournamentDate": latestTournamentData.date,
+                "tournamentTime": latestTournamentData.time
+              };
 
-//---------------------------
-   db.User.findAll({
-    include: [{
-      model: db.Player
-    }],
-     order: [ [ 'updatedAt', 'DESC' ]]
-   }).then(function(userResults) {
-    // console.log(userResults);
-      var pointsData = userResults.map(function(userItem) {
-        console.log("");
-        console.log("-------");
-        console.log("");
-        console.log(userItem);
-        console.log("");
-        console.log("-------");
-        console.log("");
+              // console.log(JSONdataToSend);
+              responseArray.push(JSONdataToSend);
+              // Sorting to display users based on descending order of points (done here to get proper index in handlebars as rank)
+              responseArray.sort(function(a, b) {
+                  return (a.points < b.points);
+              });
 
-        var updatedAtParent;
-        var points = 0;
-        var playerData = userItem.dataValues.Players;
-        playerData.forEach(function(playerItem) {
-           console.log("");
-            console.log("-&&&&&&-");
-            console.log(""); 
-            console.log(playerItem);
-        console.log("");
-        console.log("-&&&&&&-");
-        console.log("");
+            });
 
-          var updatedAt = playerItem.dataValues.createdAt;
-          if(userItem.id === playerItem.UserId) {
-              points = playerItem.dataValues.points + points;
-              // console.log("First datetime: " + moment(playerItem.dataValues.updatedAt).fromNow() + " playerItemUpdatedAt " + playerItem.dataValues.updatedAt);
-              // console.log("greater than second datetime: " + moment(updatedAt).fromNow() + " updatedAt " + updatedAt);
-              if(moment(playerItem.dataValues.updatedAt).fromNow() > moment(updatedAt).fromNow()){
-                updatedAt = playerItem.dataValues.updatedAt;
+            console.log(responseArray);
+
+            db.Tournament.findAll({
+              where: {
+                active_flag: 1
               }
-           }
-           updatedAtParent = updatedAt;
-           // console.log("---");
-           // console.log(moment(updatedAtParent).format());
-           // console.log("---");
-         });
-        return {
-          "id": userItem.id,
-          "username": userItem.username,
-          "lastPlayed": updatedAtParent,
-          "points": points
-        };
-      });
-      // console.log(pointsData);
-    db.Tournament.findAll({
-      where: {
-        active_flag: 1
-      }
-    }).then(function(tournamentResults){
-      // console.log(tournamentResults);
-        res.render("index", {
-          playerData: pointsData,
-          tournament: tournamentResults,
-          helpers: handlebarHelpers,
-          newUser: req.session.newRegister
+            }).then(function(tournamentData) {
+                res.render("index", {
+                    tournament: tournamentData,
+                    responseData: responseArray,
+                    helpers: handlebarHelpers,
+                    newUser: req.session.newRegister
+                });
+            });
+        })
+        .catch(function(error) {
+            console.log(error);
         });
-    });
-  });
+
 });
+
 
 // Render tournament data on admin page
 app.get("/admin", function(req, res) {
