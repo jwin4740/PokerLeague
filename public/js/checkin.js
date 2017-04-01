@@ -37,14 +37,14 @@ $(document).ready(function() {
 	      	checkinButton.hide();
 	      	// Check mark for checked in players
 	      	checkinArea.html("<i data-tournamentId='" + tournament_id + "' data-userId='"+ userId + "' style='color: #31E28F;' class='fa fa-3x fa-check' aria-hidden='true' ></i>");
-	      	checkinArea.append("<p>Player successfully checked in.</p>");
+	      	checkinArea.append("<div class='alert alert-success'>Player successfully checked in.</div>");
 	      	removeMessage(checkinArea);
 	      	
 	    }).fail(function(data) {
 	    	console.log(data);
 	    	checkinButton.attr('disabled', false);
 	    	// Add css for error messages similar to form validation during register for uniformity.
-	    	checkinArea.append("<p>Unable to Check In player. Try again.</p>");
+	    	checkinArea.append("<div class='alert alert-danger'>Unable to Check In player. Try again.</div>");
 	    	removeMessage(checkinArea);
 	    });
 	});
@@ -76,14 +76,14 @@ $(document).ready(function() {
 	      	checkedInButton.hide();
 	      	// Check mark for checked in players
 	      	checkinArea.html("<button type='button' class='btn btn-lg btn-info blue checkIn' data-userId='" + userId + "' data-tournamentId='" + tournament_id + "''>Check In</button>");
-	      	checkinArea.append("<p>Player unchecked.</p>");
+	      	checkinArea.append("<div class='alert alert-info'>Player reverted to unchecked.</div>");
 	      	removeMessage(checkinArea);
 	      	
 	    }).fail(function(data) {
 	    	console.log(data);
 	    	checkedInButton.attr('disabled', false);
 	    	// Add css for error messages similar to form validation during register for uniformity.
-	    	checkinArea.append("<p>Unable to uncheck player. Try again.</p>");
+	    	checkinArea.append("<div class='alert alert-danger'>Unable to uncheck player. Try again.</div>");
 	    	removeMessage(checkinArea);
 	    }); 
 	    
@@ -91,7 +91,7 @@ $(document).ready(function() {
 
     // Function to remove success/ fail message after 3 secs
     function removeMessage(checkinArea) {
-    	setTimeout(function(){ checkinArea.children("p").remove(); }, 3000);
+    	setTimeout(function(){ checkinArea.children(".alert").remove(); }, 3000);
     }
 
     var usernameArray = [];
@@ -103,8 +103,10 @@ $(document).ready(function() {
 		usernameArray = $("[data-checkedIn='true']").prev(); //creates a list of all elements NEXT TO the elements that meet this requirement
 		if(usernameArray.length <=1) {
 			$(this).attr('disabled', true);
-			$(this).parent().append("<p>Unable to start tournament with current number of players.</p>");
+			// $(this).css('margin-bottom', '10px');
+			$(this).parent().append("<div class='alert alert-danger'>Unable to start tournament with current number of players.</div>");
 			removeMessage($(this).parent());
+			// $(this).css('margin-bottom', '60px');
 			$(this).attr('disabled', false);
 		}else {
 
@@ -138,7 +140,7 @@ $(document).ready(function() {
 		if(playerCount === 1) {
 			$("#submitResults").attr('disabled', false);
 		}
-		$(this).parent().append("<h1>"+playerCount+"</h1><button class='btn btn-danger undo btn-lg red'><i class='fa fa-undo' aria-hidden='true'></i></button>");
+		$(this).parent().append("<h1 class='col-xs-8 col-xs-offset-2'>"+playerCount+"</h1><button class='col-xs-2 btn btn-danger undo btn-lg red'><i class='fa fa-undo' aria-hidden='true'></i></button>");
 		// console.log($(this).parent().parent());
 		$("#tournamentBody").prepend($(this).parent().parent());
 		$(this).remove();
