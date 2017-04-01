@@ -89,6 +89,7 @@ th {
 
 a, .btn {
 	outline: none !important;
+	border: none;
 }
 
 .tournamentButtons {
@@ -116,7 +117,7 @@ a, .btn {
 .tournamentDataDiv {
 	/*border: 2px solid black;*/
 	/*border-radius: 7px;*/
-	width: 60%;
+	/*width: 60%;*/
 	padding: 30px;
 	margin-top: 20px;
 	margin-bottom: 20px;
@@ -126,12 +127,11 @@ a, .btn {
 	color: #F9F7ED;
 }
 .checkInPlayers {
-	margin-top: -86px;
-	float: right;
+	margin-top: 90px;
 }
 
 .btn.green.checkInPlayers:active {
-	margin-top: -83px;
+	margin-top: 93px;
 }
 
 .form-control {
@@ -163,7 +163,7 @@ small {
 }
 
 /* Sticky footer styles
--------------------------------------------------- */
+-------------------------------------------------- 
 html {
   position: relative;
   min-height: 100%;
