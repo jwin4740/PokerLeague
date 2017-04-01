@@ -1,7 +1,3 @@
-
-
-
-
 body {
 	background-color: #F9F7ED;
 	/*font-family: 'Fugaz One', cursive;*/
@@ -207,8 +203,8 @@ small {
 }
 
 
- Sticky footer styles
--------------------------------------------------- 
+ /*Sticky footer styles*/
+/*-------------------------------------------------- */
 html {
   position: relative;
   min-height: 100%;
