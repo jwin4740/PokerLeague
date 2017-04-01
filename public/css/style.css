@@ -162,6 +162,51 @@ small {
 	margin-top: 20px;
 }
 
+#startTournament {
+	margin-bottom: 30px;
+}
+
+.checkinArea {
+	width: 410px;
+	height: 140px;
+}
+
+.checkIn {
+	margin-bottom: 10px;
+}
+
+.checkinArea .alert {
+	font-size: 18px;
+	/*height: 20px;*/
+	margin-bottom: 10px;
+}
+
+
+/*.checkinArea .alert-success {
+	color: #18B56C;
+}
+
+.checkinArea .alert-info {
+	color: #4F90D9;
+}
+*/
+
+#submitResults {
+	margin-bottom: 60px;
+}
+
+
+
+.undo {
+	margin-top: 20px;
+}
+
+.rankColumn {
+	width: 412px;
+	height: 102px;
+}
+
+
 /* Sticky footer styles
 -------------------------------------------------- 
 html {
@@ -172,6 +217,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
