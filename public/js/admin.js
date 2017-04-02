@@ -116,7 +116,7 @@ $(document).ready(function() {
 		.success(function(data) {
 			console.log(data);
 			console.log("tournament deleted");
-			buttonObject.parent().parent().parent().remove();
+			buttonObject.parent().parent().parent().parent().parent().remove();
 		})/////// Configure error/fail condition, on db crash (display 500 error page from api-routes). This only works if server crashes. /////
 		.fail(function(err) {
 			console.log(err);
